@@ -15,6 +15,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 [User Experience (UX)](#user-experience-ux)
 - [Website Goals](#website-goals)
 - [User Stories](#user-stories)
+- [Design](#design)
 
 <br>
 
@@ -95,5 +96,19 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | [#33](https://github.com/sejungkwak/cogito-books/issues/33) | As a store owner, I want to add new products to my store so that I can ensure there is always something of interest to new and existing shoppers. |
     | [#34](https://github.com/sejungkwak/cogito-books/issues/34) | As a store owner, I want to update product details such as prices, description, images and so on so that I can keep the product details up to date. |
     | [#35](https://github.com/sejungkwak/cogito-books/issues/35) | As a store owner, I want to delete a product so that I can remove items that are no longer for sale. |
+
+## Design
+
+- Colour Scheme
+
+    The main colours are black and white to enhance readability. Blue is added to particular elements such as buttons and notifications where information needs to grab the user’s attention.
+
+- Typography
+
+    [Montserrat](https://fonts.google.com/specimen/Montserrat) is the main font used throughout the whole website with Sans Serif as the fallback font in case the font isn't imported into the browser correctly. Montserrat has a highly readable body typeface and a variety of weights and styles.
+
+- Logo
+
+- Favicon
 
 [Back To **Table of Contents**](#table-of-contents)
