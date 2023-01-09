@@ -12,4 +12,15 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 # Table of Contents
 
+[User Experience (UX)](#user-experience-ux)
+- [Website Goals](#website-goals)
+
+<br>
+
+# User Experience (UX)
+
+## Website Goals
+- To create an online bookstore that inspires users to read books. 
+- To allow users to easily find a book and make a purchase.
+
 [Back To **Table of Contents**](#table-of-contents)
