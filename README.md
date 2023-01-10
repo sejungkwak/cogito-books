@@ -16,6 +16,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Website Goals](#website-goals)
 - [User Stories](#user-stories)
 - [Design](#design)
+- [Wireframes](#wireframes)
 
 <br>
 
@@ -110,5 +111,46 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - Logo
 
 - Favicon
+
+## Wireframes
+
+<details>
+    <summary>Homepage</summary>
+    <img src="documentation/wireframes/home.png">
+</details>
+
+<details>
+    <summary>Book Category and Details</summary>
+    <img src="documentation/wireframes/category.png">
+    <img src="documentation/wireframes/book_details.png">
+</details>
+
+<details>
+    <summary>Basket, Checkout and Order Confirmation</summary>
+    <img src="documentation/wireframes/basket.png">
+    <img src="documentation/wireframes/checkout.png">
+    <img src="documentation/wireframes/order_confirmation.png">
+</details>
+
+<details>
+    <summary>Sign up and Sign in</summary>
+    <img src="documentation/wireframes/signup.png">
+    <img src="documentation/wireframes/signin.png">
+</details>
+
+<details>
+    <summary>User Accounts</summary>
+    <img src="documentation/wireframes/account.png">
+    <img src="documentation/wireframes/account-details.png">
+    <img src="documentation/wireframes/account-password_change.png">
+    <img src="documentation/wireframes/account-order_history.png">
+    <img src="documentation/wireframes/account-wishlist.png">
+</details>
+
+<details>
+    <summary>Help Centre: Contact Us and FAQs</summary>
+    <img src="documentation/wireframes/contact_us.png">
+    <img src="documentation/wireframes/faq.png">
+</details>
 
 [Back To **Table of Contents**](#table-of-contents)
