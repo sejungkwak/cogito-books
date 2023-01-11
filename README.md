@@ -18,6 +18,11 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Design](#design)
 - [Wireframes](#wireframes)
 
+[Technical Design](#technical-design)
+- [Database](#database)
+- [Entity Relationship Diagram](#entity-relationship-diagram)
+- [Models](#models)
+
 <br>
 
 # User Experience (UX)
@@ -153,4 +158,26 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     <img src="documentation/wireframes/faq.png">
 </details>
 
+<br>
+
 [Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Technical Design
+
+## Database
+
+[_ElephantSQL_](https://www.elephantsql.com/) was used for the main database.
+
+## Entity Relationship Diagram
+
+![ER Diagram](documentation/erd.png)
+
+## Models
+
+<br>
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
