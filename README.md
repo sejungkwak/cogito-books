@@ -23,6 +23,9 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Models](#models)
 
+[Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
+- [Keywords](#keywords)
+
 <br>
 
 # User Experience (UX)
@@ -177,6 +180,19 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 ## Models
 
 <br>
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Search Engine Optimisation (SEO)
+
+## Keywords
+
+As part of SEO, keywords were chosen using the following steps: Firstly, write down the site’s general topics. Next, brainstorm possible keywords for each topic. Then, enter each keyword in Google search to find a list of short-tail keywords and long-tail phrases. After that, select the best ones based on their relevance, authority and volume using [Wordtracker](https://www.wordtracker.com/).
+The Final list of keywords/phrases used for the site is shown in the table below in bold.
+
+![Keywords](documentation/keywords.png)
 
 [Back To **Table of Contents**](#table-of-contents)
 
