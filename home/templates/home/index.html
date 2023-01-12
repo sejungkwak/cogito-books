@@ -3,6 +3,20 @@
 {% load i18n %}
 {% block head_title %}{% trans "Home" %}{% endblock %}
 
-{% block content %}
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'home/css/home.css' %}">
+{% endblock %}
 
+{% block content %}
+    <section class="main-banner d-flex flex-column flex-md-row justify-content-around align-items-center p-3 rounded bg-dark text-white">
+        <div class="main-banner_text m-3">
+            <p class="mb-0 fs-5 fw-light">{% trans "Our" %}</p>
+            <p class="mb-0 fs-5 fw-light">{% trans "Recommended" %}</p>
+            <h1 class="fs-2 fw-600">{% trans "Book of the Month" %}</h1>
+            <p class="mb-0 fs-1 fw-bold">
+                <a class="text-decoration-none text-white" href="#"></a>
+            </p>
+        </div>
+        <a href="#"><img class="main-banner_img" src="" alt=""></a>
+    </section>
 {% endblock %}
