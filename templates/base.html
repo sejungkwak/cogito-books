@@ -22,19 +22,29 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400;600;800&display=swap" rel="stylesheet">
 
+    {% comment %} Custom CSS {% endcomment %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+
     {% block extra_css %}{% endblock %}
 
     <title>{% trans "Cogito Books | " %}{% block head_title %}{% endblock %}</title>
 </head>
 <body>
-    <header class="container-fluid"></header>
+    <header class="container-fluid px-0">
+        <div class="header-banner py-2 bg-dark text-center">
+            <p class="header-banner_text mb-0 text-white">Free delivery to ROI or UK on orders over €100</p>
+        </div>
+    </header>
 
     {% if messages %}
         <div class="message-container"></div>
     {% endif %}
 
     {% block page_header %}{% endblock %}
-    {% block content %}{% endblock %}
+
+    <main class="container m-auto my-3 p-0">
+        {% block content %}{% endblock %}
+    </main>
 
     {% comment %} JQuery {% endcomment %}
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"
