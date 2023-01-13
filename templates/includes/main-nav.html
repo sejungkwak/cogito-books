@@ -1,0 +1,33 @@
+{% load i18n %}
+
+    <div class="container navbar-collapse collapse px-lg-0" id="dropdownMainMenu">
+        <ul class="navbar-nav d-flex justify-content-between w-100">
+            <li class="nav-item text-uppercase">
+                <a class="nav-link text-black" href="#">{% trans "Sale" %}</a>
+            </li>
+            <li class="nav-item text-uppercase">
+                <a class="nav-link text-black" href="#">{% trans "Bestsellers" %}</a>
+            </li>
+            <li class="nav-item text-uppercase">
+                <a class="nav-link text-black" href="#">{% trans "New releases" %}</a>
+            </li>
+            <li class="nav-item dropdown text-uppercase">
+                <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Fiction" %}</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"></a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown text-uppercase">
+                <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Nonfiction" %}</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"></a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown text-uppercase">
+                <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Children's" %}</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#"></a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
