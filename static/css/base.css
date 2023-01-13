@@ -13,15 +13,65 @@
     font-weight: 600;
 }
 
+/*----------------------------------- SGV icons -----------------------------------*/
+
+.icon-container {
+    width: 1.5rem;
+}
+
+.icon-path__black {
+    fill: #212529;
+}
+
 /*------------------------------------ Header ------------------------------------*/
 
 .header-banner_text {
     font-size: .75rem;
 }
 
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    width: 25vw;
+    max-width: 8rem;
+}
+
+.logo {
+    width: 100%;
+    height: auto;
+}
+
+.search-input {
+    border: 2px solid #adb5bd;
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.search-button {
+    border: 2px solid #adb5bd;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
 /************************************************************************************
 *********************************** Media queries ***********************************
 *************************************************************************************/
+
+/*======== Smaller than Bootstrap breakpoint for x-small screen size devices ========*/
+
+@media screen and (min-width: 400px) {
+
+    /*----------------------------------- Header -----------------------------------*/
+    .search-form {
+        min-width: 22rem;
+    }
+
+}
 
 /*=============== Bootstrap breakpoint for small screen size devices ===============*/
 
