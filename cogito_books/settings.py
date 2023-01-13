@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
 
+    'crispy_forms',
+
     'home',
 ]
 
@@ -64,6 +66,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'cogito_books.urls'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 TEMPLATES = [
     {
@@ -80,6 +84,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'builtins': [
+                'crispy_forms.templatetags.crispy_forms_tags',
+                'crispy_forms.templatetags.crispy_forms_field',
+            ]
         },
     },
 ]
@@ -118,7 +126,6 @@ else:
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_ID')
 
 WSGI_APPLICATION = 'cogito_books.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
