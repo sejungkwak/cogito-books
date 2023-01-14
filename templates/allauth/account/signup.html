@@ -1,21 +1,24 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
-
 {% block head_title %}{% trans "Signup" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up" %}</h1>
-
-<p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
-
-<form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-  {% csrf_token %}
-  {{ form.as_p }}
-  {% if redirect_field_value %}
-  <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-  {% endif %}
-  <button type="submit">{% trans "Sign Up" %} &raquo;</button>
-</form>
-
+<section class="d-flex flex-column justify-content-center align-items-center my-3 my-lg-5">
+    <div class="allauth-box">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="mb-0 fs-4 fw-600">{% trans "Sign Up" %}</h1>
+            <small><a href="{{ login_url }}">{% trans "I have an account" %}</a></small>
+        </div>
+        <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
+            {% csrf_token %}
+            {{ form | crispy }}
+            {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <hr class="my-4">
+            <small>{% trans "By signing up, you agree to the " %}<a href="{% url 'terms_conditions' %}" target="_blank">{% trans "Terms and Conditions" %}</a>{% trans " and " %}<a href="{% url 'privacy_policy' %}" target="_blank">{% trans "Privacy Policy" %}</a>{% trans "." %}</small>
+            <button class="btn w-100 my-3 btn-outline-primary" type="submit">{% trans "Sign Up" %}</button>
+        </form>
+    </div>
+</section>
 {% endblock %}

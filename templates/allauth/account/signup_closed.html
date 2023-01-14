@@ -1,11 +1,10 @@
-{% extends "account/base.html" %}
-
+{% extends "base.html" %}
 {% load i18n %}
-
 {% block head_title %}{% trans "Sign Up Closed" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Sign Up Closed" %}</h1>
-
-<p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+<section class="m-3 m-lg-5">
+    <h1 class="mb-4 fs-4 fw-600">{% trans "Sign Up Closed" %}</h1>
+    <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+</section>
 {% endblock %}
