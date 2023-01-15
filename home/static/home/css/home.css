@@ -1,4 +1,92 @@
+/*------------------------------ Book of the Month -------------------------------*/
+
+.main-banner {
+    min-height: 20rem;
+}
+
 .main-banner_img {
-    max-width: 12.5rem;
+    max-width: 13.75rem;
     max-height: 20.5rem;
+}
+
+/*-------------------- Carousel for bestsellers and new releases --------------------*/
+
+.carousel-item > div {
+    display: none;
+}
+
+.carousel-item.active > div {
+    display: block;
+}
+
+.carousel-item.active,
+.carousel-item-start,
+.carousel-item-next,
+.carousel-item-prev {
+    display: flex;
+}
+
+.card-img-top {
+    max-width: 10rem;
+    max-height: 15rem;
+}
+
+.carousel-control-prev {
+    justify-content: flex-start;
+}
+
+.carousel-control-next {
+    justify-content: flex-end;
+}
+
+/************************************************************************************
+*********************************** Media queries ***********************************
+*************************************************************************************/
+
+/*=============== Bootstrap breakpoint for medium screen size devices ===============*/
+
+@media screen and (min-width: 768px) {
+
+    /*----------------------- display 2 books in carousel -----------------------*/
+
+    .carousel-item-end.active,
+    .carousel-item-next,
+    .carousel-item-next:not(.carousel-item-start) {
+        transform: translateX(50%);
+    }
+
+    .carousel-item-start.active,
+    .carousel-item-prev:not(.carousel-item-end) {
+        transform: translateX(-50%);
+    }
+
+    .carousel-item-start,
+    .carousel-item-end {
+        transform: translateX(0);
+    }
+
+}
+
+/*=============== Bootstrap breakpoint for large screen size devices ===============*/
+
+@media screen and (min-width: 992px) {
+
+    /*----------------------- display 4 books in carousel -----------------------*/
+
+    .carousel-item-end.active,
+    .carousel-item-next,
+    .carousel-item-next:not(.carousel-item-start) {
+        transform: translateX(25%);
+    }
+
+    .carousel-item-start.active,
+    .carousel-item-prev:not(.carousel-item-end) {
+        transform: translateX(-25%);
+    }
+
+    .carousel-item-start,
+    .carousel-item-end {
+        transform: translateX(0);
+    }
+
 }
