@@ -1,0 +1,213 @@
+[{
+    "pk": 1,
+    "model": "books.author",
+    "fields": { "full_name": "Aaron Blabey" }
+}, {
+    "pk": 2,
+    "model": "books.author",
+    "fields": { "full_name": "Alan Gratz" }
+}, {
+    "pk": 3,
+    "model": "books.author",
+    "fields": { "full_name": "America's Test Kitchen Kids" }
+}, {
+    "pk": 4,
+    "model": "books.author",
+    "fields": { "full_name": "Ana Reyes" }
+}, {
+    "pk": 5,
+    "model": "books.author",
+    "fields": { "full_name": "Ann M. Martin" }
+}, {
+    "pk": 6,
+    "model": "books.author",
+    "fields": { "full_name": "B.B. Alston" }
+}, {
+    "pk": 7,
+    "model": "books.author",
+    "fields": { "full_name": "Barbara Kingsolver" }
+}, {
+    "pk": 8,
+    "model": "books.author",
+    "fields": { "full_name": "Bob Dylan" }
+}, {
+    "pk": 9,
+    "model": "books.author",
+    "fields": { "full_name": "Bonnie Garmus" }
+}, {
+    "pk": 10,
+    "model": "books.author",
+    "fields": { "full_name": "Bono" }
+}, {
+    "pk": 11,
+    "model": "books.author",
+    "fields": { "full_name": "Bruce D. Perry" }
+}, {
+    "pk": 12,
+    "model": "books.author",
+    "fields": { "full_name": "Colleen Hoover" }
+}, {
+    "pk": 13,
+    "model": "books.author",
+    "fields": { "full_name": "Daniel Maté" }
+}, {
+    "pk": 14,
+    "model": "books.author",
+    "fields": { "full_name": "Danielle Steel" }
+}, {
+    "pk": 15,
+    "model": "books.author",
+    "fields": { "full_name": "Dav Pilkey" }
+}, {
+    "pk": 16,
+    "model": "books.author",
+    "fields": { "full_name": "Deepti Kapoor" }
+}, {
+    "pk": 17,
+    "model": "books.author",
+    "fields": { "full_name": "Donna Barba Higuera" }
+}, {
+    "pk": 18,
+    "model": "books.author",
+    "fields": { "full_name": "Ed Yong" }
+}, {
+    "pk": 19,
+    "model": "books.author",
+    "fields": { "full_name": "Erin Hunter" }
+}, {
+    "pk": 20,
+    "model": "books.author",
+    "fields": { "full_name": "Gabor Maté" }
+}, {
+    "pk": 21,
+    "model": "books.author",
+    "fields": { "full_name": "Gabrielle Zevin" }
+}, {
+    "pk": 22,
+    "model": "books.author",
+    "fields": { "full_name": "Gege Akutami" }
+}, {
+    "pk": 23,
+    "model": "books.author",
+    "fields": { "full_name": "Jasmine Warga" }
+}, {
+    "pk": 24,
+    "model": "books.author",
+    "fields": { "full_name": "Jennette McCurdy" }
+}, {
+    "pk": 25,
+    "model": "books.author",
+    "fields": { "full_name": "Jennifer Finney Boylan" }
+}, {
+    "pk": 26,
+    "model": "books.author",
+    "fields": { "full_name": "Jodi Picoult" }
+}, {
+    "pk": 27,
+    "model": "books.author",
+    "fields": { "full_name": "John Grisham" }
+}, {
+    "pk": 28,
+    "model": "books.author",
+    "fields": { "full_name": "Jon Meacham" }
+}, {
+    "pk": 29,
+    "model": "books.author",
+    "fields": { "full_name": "Julian E. Zelizer" }
+}, {
+    "pk": 30,
+    "model": "books.author",
+    "fields": { "full_name": "Katherine Applegate" }
+}, {
+    "pk": 31,
+    "model": "books.author",
+    "fields": { "full_name": "Kevin M. Kruse" }
+}, {
+    "pk": 32,
+    "model": "books.author",
+    "fields": { "full_name": "Kwame Alexander" }
+}, {
+    "pk": 33,
+    "model": "books.author",
+    "fields": { "full_name": "Louise Penny" }
+}, {
+    "pk": 34,
+    "model": "books.author",
+    "fields": { "full_name": "Matt Haig" }
+}, {
+    "pk": 35,
+    "model": "books.author",
+    "fields": { "full_name": "Matthew Perry" }
+}, {
+    "pk": 36,
+    "model": "books.author",
+    "fields": { "full_name": "Michelle Obama" }
+}, {
+    "pk": 37,
+    "model": "books.author",
+    "fields": { "full_name": "Michelle Zauner" }
+}, {
+    "pk": 38,
+    "model": "books.author",
+    "fields": { "full_name": "Neil deGrasse Tyson" }
+}, {
+    "pk": 39,
+    "model": "books.author",
+    "fields": { "full_name": "Nicholas Sparks" }
+}, {
+    "pk": 40,
+    "model": "books.author",
+    "fields": { "full_name": "Oprah Winfrey" }
+}, {
+    "pk": 41,
+    "model": "books.author",
+    "fields": { "full_name": "R.F. Kuang" }
+}, {
+    "pk": 42,
+    "model": "books.author",
+    "fields": { "full_name": "R.J. Palacio" }
+}, {
+    "pk": 43,
+    "model": "books.author",
+    "fields": { "full_name": "Rachel Hawkins" }
+}, {
+    "pk": 44,
+    "model": "books.author",
+    "fields": { "full_name": "Rick Riordan" }
+}, {
+    "pk": 45,
+    "model": "books.author",
+    "fields": { "full_name": "Shel Van Pelt" }
+}, {
+    "pk": 46,
+    "model": "books.author",
+    "fields": { "full_name": "Siddhartha Mukherjee" }
+}, {
+    "pk": 47,
+    "model": "books.author",
+    "fields": { "full_name": "Stacy Schiff" }
+}, {
+    "pk": 48,
+    "model": "books.author",
+    "fields": { "full_name": "Stephen King" }
+}, {
+    "pk": 49,
+    "model": "books.author",
+    "fields": { "full_name": "Steve Martin" }
+}, {
+    "pk": 50,
+    "model": "books.author",
+    "fields": { "full_name": "Tatsuki Fujimoto" }
+}, {
+    "pk": 51,
+    "model": "books.author",
+    "fields": { "full_name": "Tatsuya Endo" }
+}, {
+    "pk": 52,
+    "model": "books.author",
+    "fields": { "full_name": "Tui T. Sutherland" }
+}, {
+    "pk": 53,
+    "model": "books.author",
+    "fields": { "full_name": "Viola Davis" }
+}]
