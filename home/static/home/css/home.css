@@ -31,6 +31,11 @@
     max-height: 15rem;
 }
 
+.carousel-control-prev,
+.carousel-control-next {
+    width: 5%;
+}
+
 .carousel-control-prev {
     justify-content: flex-start;
 }
