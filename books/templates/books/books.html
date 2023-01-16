@@ -48,6 +48,21 @@
                 </div>
             </div>
         </div>
+        {% if forloop.counter|divisibleby:1 %}
+            <div class="col-12 d-md-none mb-4">
+                <hr>
+            </div>
+        {% endif %}
+        {% if forloop.counter|divisibleby:2 %}
+            <div class="col-12 d-none d-md-block d-lg-none mb-4">
+                <hr>
+            </div>
+        {% endif %}
+        {% if forloop.counter|divisibleby:4 %}
+            <div class="col-12 d-none d-lg-block mb-4">
+                <hr>
+            </div>
+        {% endif %}
     {% endfor %}
 </div>
 {% else %}
