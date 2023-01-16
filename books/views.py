@@ -11,7 +11,7 @@ class BookListView(ListView):
     """
     model = Book
     template_name = 'books/books.html'
-    paginated_by = 16
+    paginate_by = 16
 
     def get_queryset(self):
         """
@@ -65,5 +65,9 @@ class BookListView(ListView):
                 context['title'] = 'Bestsellers'
             elif req_list == 'new_releases':
                 context['title'] = 'New Releases'
+
+            context['list'] = req_list
+
+        context['total'] = self.get_queryset().count()
 
         return context

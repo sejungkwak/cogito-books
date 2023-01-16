@@ -8,7 +8,7 @@
 <h1 class="fw-600 mb-3">{{ title }}</h1>
 {% if object_list %}
 <div class="list-info d-flex justify-content-between mb-3">
-    <p>{{ object_list.count }} {% if object_list.count == 1 %}{% trans "Book" %}{% else %}{% trans "Books" %}{% endif %}</p>
+    <p>{{ total }} {% if object_list.count == 1 %}{% trans "Book" %}{% else %}{% trans "Books" %}{% endif %}</p>
     <div class="w-50">
         <select class="form-select form-select-sm" id="sort-selector" aria-label="Sort option">
             <option value="reset">Sort</option>
@@ -61,6 +61,7 @@
 {% else %}
 <h1 class="fs-3">{% trans "There are no books in this category." %}</h1>
 {% endif %}
-<div class="page-number"></div>
+
+{% include 'books/includes/paginator.html' %}
 
 {% endblock %}
