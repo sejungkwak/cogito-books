@@ -9,17 +9,9 @@
 {% if object_list %}
 <div class="list-info d-flex justify-content-between mb-3">
     <p>{{ total }} {% if object_list.count == 1 %}{% trans "Book" %}{% else %}{% trans "Books" %}{% endif %}</p>
-    <div class="w-50">
-        <select class="form-select form-select-sm" id="sort-selector" aria-label="Sort option">
-            <option value="reset">Sort</option>
-            <option value="title_asc">Title (A to Z)</option>
-            <option value="title_desc">Title (Z to A)</option>
-            <option value="price_asc">Price (low to high)</option>
-            <option value="price_desc">Price (high to low)</option>
-            <option value="pub_date_asc">publication date (oldest to newest)</option>
-            <option value="pub_date_desc">publication date (newest to oldest)</option>
-        </select>
-    </div>
+    {% if not title == 'Bestsellers' and not title == 'New Releases' %}
+        {% include 'books/includes/sort_option.html' %}
+    {% endif %}
 </div>
 
 <div class="books row">
@@ -64,4 +56,9 @@
 
 {% include 'books/includes/paginator.html' %}
 
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    <script src="{% static 'books/js/sort_option.js' %}"></script>
 {% endblock %}

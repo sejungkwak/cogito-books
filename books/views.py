@@ -7,67 +7,101 @@ from .models import Category, Genre, Book
 
 class BookListView(ListView):
     """
-    Display a list of books.
+    Display a requested list of books.
     """
     model = Book
     template_name = 'books/books.html'
     paginate_by = 16
+    sort = None
+    direction = None
+
+    def get_sort_option(self):
+        """
+        Get a sort option that a user has selected.
+        """
+        if 'sort' in self.request.GET:
+            self.sort = self.request.GET['sort']
+
+        if 'direction' in self.request.GET:
+            self.direction = self.request.GET['direction']
+            if self.direction == 'desc':
+                self.sort = f'-{self.sort}'
+
+        return self.sort
 
     def get_queryset(self):
         """
         Get queryset as requested by a user.
         """
+        req_list = None
+
         if 'list' in self.request.GET:
             req_list = self.request.GET['list']
+            sort_option = self.get_sort_option()
 
-            if req_list in list(
-                Category.objects.values_list(
-                    'name', flat=True)):
-                return super().get_queryset().filter(category__name=req_list)
-            elif req_list in list(
-                Genre.objects.values_list(
-                    'name', flat=True)):
-                return super().get_queryset().filter(genre__name=req_list)
-            elif req_list == 'sale':
-                return super().get_queryset().filter(discount_rate__gt=0)
-            elif req_list == 'bestsellers':
-                return super().get_queryset().order_by('-amount_sold')[:100]
-            elif req_list == 'new_releases':
-                return super().get_queryset().filter(
-                    pub_date__gt=datetime.date.today() -
-                    datetime.timedelta(
-                        days=30))[
-                    :100]
-        return super().get_queryset().all()
+        if req_list in list(
+            Category.objects.values_list(
+                'name', flat=True)):
+            qs = super().get_queryset().filter(category__name=req_list)
+        elif req_list in list(
+            Genre.objects.values_list(
+                'name', flat=True)):
+            qs = super().get_queryset().filter(genre__name=req_list)
+        elif req_list == 'sale':
+            qs = super().get_queryset().filter(discount_rate__gt=0)
+        elif req_list == 'bestsellers':
+            qs = super().get_queryset().order_by('-amount_sold')[:100]
+        elif req_list == 'new_releases':
+            qs = super().get_queryset().filter(
+                pub_date__gt=datetime.date.today() -
+                datetime.timedelta(
+                    days=30)).order_by('-pub_date')
+        else:
+            qs = super().get_queryset().all()
+
+        if sort_option:
+            qs = qs.order_by(sort_option)
+
+        return qs
 
     def get_context_data(self, **kwargs):
         """
-        Get a title of the request list.
+        Get a context and add extra information to use in the template.
         """
         context = super().get_context_data(**kwargs)
+        req_list = None
 
         if 'list' in self.request.GET:
             req_list = self.request.GET['list']
-
-            if req_list in list(
-                Category.objects.values_list(
-                    'name', flat=True)):
-                context['title'] = Category.objects.values_list(
-                    'friendly_name', flat=True).get(name=req_list)
-            if req_list in list(
-                Genre.objects.values_list(
-                    'name', flat=True)):
-                context['title'] = Genre.objects.values_list(
-                    'friendly_name', flat=True).get(name=req_list)
-            elif req_list == 'sale':
-                context['title'] = 'Sale'
-            elif req_list == 'bestsellers':
-                context['title'] = 'Bestsellers'
-            elif req_list == 'new_releases':
-                context['title'] = 'New Releases'
-
             context['list'] = req_list
 
+        if req_list in list(
+            Category.objects.values_list(
+                'name', flat=True)):
+            context['title'] = Category.objects.values_list(
+                'friendly_name', flat=True).get(name=req_list)
+        elif req_list in list(
+            Genre.objects.values_list(
+                'name', flat=True)):
+            context['title'] = Genre.objects.values_list(
+                'friendly_name', flat=True).get(name=req_list)
+        elif req_list == 'sale':
+            context['title'] = 'Sale'
+        elif req_list == 'bestsellers':
+            context['title'] = 'Bestsellers'
+        elif req_list == 'new_releases':
+            context['title'] = 'New Releases'
+        else:
+            context['title'] = 'All Books'
+
+        if self.sort and self.sort[0] == '-':
+            self.sort = self.sort[1:]
+
+        context['sort'] = self.sort
+        context['direction'] = self.direction
+        context['sort_params'] = (f'&sort={self.sort}&direction='
+                                  f'{self.direction}')
+        context['current_sorting'] = f'{self.sort}_{self.direction}'
         context['total'] = self.get_queryset().count()
 
         return context

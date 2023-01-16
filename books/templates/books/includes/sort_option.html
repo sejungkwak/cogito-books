@@ -1,0 +1,13 @@
+{% load i18n %}
+
+<div class="w-50">
+    <select class="form-select form-select-sm" id="sort-selector" aria-label="Sort option">
+        <option value="reset" {% if current_sorting == 'None_None' %}selected{% endif %}>{% trans "Sort" %}</option>
+        <option value="title-asc" {% if current_sorting == 'title_asc' %}selected{% endif %}>{% trans "Title (A to Z)" %}</option>
+        <option value="title-desc" {% if current_sorting == 'title_desc' %}selected{% endif %}>{% trans "Title (Z to A)" %}</option>
+        <option value="price-asc" {% if current_sorting == 'price_asc' %}selected{% endif %}>{% trans "Price (low to high)" %}</option>
+        <option value="price-desc" {% if current_sorting == 'price_desc' %}selected{% endif %}>{% trans "Price (high to low)" %}</option>
+        <option value="pub_date-asc" {% if current_sorting == 'pub_date_asc' %}selected{% endif %}>{% trans "publication date (oldest to newest)" %}</option>
+        <option value="pub_date-desc" {% if current_sorting == 'pub_date_desc' %}selected{% endif %}>{% trans "publication date (newest to oldest)" %}</option>
+    </select>
+</div>
