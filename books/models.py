@@ -2,6 +2,21 @@ from django.db import models
 from django.core.validators import MinLengthValidator
 
 
+class Category(models.Model):
+    """
+    Category database model
+    """
+    name = models.CharField(max_length=254, unique=True)
+    friendly_name = models.CharField(max_length=254, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = 'Categories'
+        ordering = ['name']
+
+    def __str__(self):
+        return self.name
+
+
 class Genre(models.Model):
     """
     Genre database model
@@ -36,6 +51,12 @@ class Book(models.Model):
     """
     Book database model
     """
+    category = models.ForeignKey(
+        Category,
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name='books')
     genre = models.ForeignKey(
         Genre,
         null=True,

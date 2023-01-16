@@ -1,0 +1,22 @@
+[{
+    "pk": 1,
+    "model": "books.category",
+    "fields": {
+        "name": "fiction",
+        "friendly_name": "Fiction"
+    }
+}, {
+    "pk": 2,
+    "model": "books.category",
+    "fields": {
+        "name": "nonfiction",
+        "friendly_name": "Nonfiction"
+    }
+}, {
+    "pk": 3,
+    "model": "books.category",
+    "fields": {
+        "name": "childrens",
+        "friendly_name": "Children's Books"
+    }
+}]

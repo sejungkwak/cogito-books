@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.list import ListView
 import datetime
 
-from .models import Genre, Book
+from .models import Category, Genre, Book
 
 
 class BookListView(ListView):
@@ -20,7 +20,13 @@ class BookListView(ListView):
         if 'list' in self.request.GET:
             req_list = self.request.GET['list']
 
-            if req_list in list(Genre.objects.values_list('name', flat=True)):
+            if req_list in list(
+                Category.objects.values_list(
+                    'name', flat=True)):
+                return super().get_queryset().filter(category__name=req_list)
+            elif req_list in list(
+                Genre.objects.values_list(
+                    'name', flat=True)):
                 return super().get_queryset().filter(genre__name=req_list)
             elif req_list == 'sale':
                 return super().get_queryset().filter(discount_rate__gt=0)
@@ -42,7 +48,15 @@ class BookListView(ListView):
 
         if 'list' in self.request.GET:
             req_list = self.request.GET['list']
-            if req_list in list(Genre.objects.values_list('name', flat=True)):
+
+            if req_list in list(
+                Category.objects.values_list(
+                    'name', flat=True)):
+                context['title'] = Category.objects.values_list(
+                    'friendly_name', flat=True).get(name=req_list)
+            if req_list in list(
+                Genre.objects.values_list(
+                    'name', flat=True)):
                 context['title'] = Genre.objects.values_list(
                     'friendly_name', flat=True).get(name=req_list)
             elif req_list == 'sale':
