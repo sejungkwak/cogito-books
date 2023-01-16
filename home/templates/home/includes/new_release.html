@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <h2 class="fw-600 mb-3">{% trans "New Releases" %}</h2>
+<a class="text-decoration-none" href="{% url 'book_list' %}?list=new_releases">{% trans "View all" %}</a>
 
 <div class="carousel slide container mt-2" id="newRelaseCarousel" data-bs-ride="carousel">
     <div class="carousel-inner">

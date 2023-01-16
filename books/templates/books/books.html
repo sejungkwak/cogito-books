@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<h1 class="fw-600 mb-3">{{ title }}</h1>
+{% if object_list %}
+<div class="list-info d-flex justify-content-between mb-3">
+    <p>{{ object_list.count }} {% if object_list.count == 1 %}{% trans "Book" %}{% else %}{% trans "Books" %}{% endif %}</p>
+    <div class="w-50">
+        <select class="form-select form-select-sm" id="sort-selector" aria-label="Sort option">
+            <option value="reset">Sort</option>
+            <option value="title_asc">Title (A to Z)</option>
+            <option value="title_desc">Title (Z to A)</option>
+            <option value="price_asc">Price (low to high)</option>
+            <option value="price_desc">Price (high to low)</option>
+            <option value="pub_date_asc">publication date (oldest to newest)</option>
+            <option value="pub_date_desc">publication date (newest to oldest)</option>
+        </select>
+    </div>
+</div>
+
+<div class="books row">
+    {% for book in object_list %}
+        <div class="col-12 col-md-6 col-lg-3">
+            <div class="card border-0 text-center">
+                <a href="">
+                    {% if book.cover %}
+                        <img class="card-img-top" src="{{ book.cover.url }}" alt="{{ book.title }}">
+                    {% else %}
+                        <img class="card-img-top" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.title }}">
+                    {% endif %}
+                </a>
+                <div class="card-body px-0">
+                    <a class="text-decoration-none text-body" href="#">
+                        <h3 class="card-title fs-6 fw-600">{{ book.title }}</h3>
+                        <p class="card-text">
+                            <ul class="list-group">
+                                <li class="list-group-item border-0">
+                                    {% trans "by " %}
+                                    {% for author in book.author.all %}
+                                        {% if not forloop.last %}
+                                            {{ author }} &
+                                        {% else %}
+                                            {{ author }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </li>
+                                <li class="list-group-item border-0">{% trans "€ " %}{{ book.price }}</li>
+                            </ul>
+                        </p>
+                    </a>
+                    <form class="btn btn-primary" action="#" method="POST">{% trans "Add to Basket" %}</form>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% else %}
+<h1 class="fs-3">{% trans "There are no books in this category." %}</h1>
+{% endif %}
+<div class="page-number"></div>
+
+{% endblock %}
