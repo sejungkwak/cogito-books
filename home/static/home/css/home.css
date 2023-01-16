@@ -26,11 +26,6 @@
     display: flex;
 }
 
-.card-img-top {
-    max-width: 10rem;
-    max-height: 15rem;
-}
-
 .carousel-control-prev,
 .carousel-control-next {
     width: 5%;
