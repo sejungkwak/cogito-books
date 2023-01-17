@@ -1,10 +1,16 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 from django.views.generic.list import ListView
+from django.views.generic.edit import CreateView
 from django.db.models import Q
 
 import datetime
 
 from .models import Category, Genre, Book
+from .forms import BookForm
 
 
 class BookListView(ListView):
@@ -71,7 +77,7 @@ class BookListView(ListView):
                 pub_date__gt=datetime.date.today() -
                 datetime.timedelta(
                     days=30)).order_by('-pub_date')
-        elif not 'q' in self.request.GET:
+        elif 'q' not in self.request.GET:
             qs = super().get_queryset().all()
 
         if sort_option:
@@ -122,3 +128,35 @@ class BookListView(ListView):
         context['search_term'] = self.query
 
         return context
+
+
+class BookCreateView(CreateView,
+                     LoginRequiredMixin,
+                     UserPassesTestMixin,
+                     SuccessMessageMixin):
+    """
+    A view to handle the form to add a book to the database.
+    """
+    model = Book
+    form_class = BookForm
+    template_name = 'books/add_book.html'
+    success_message = 'A book has been successfully saved!'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def form_valid(self, form):
+        """
+        Save the form with the value of the logged-in user.
+        """
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        """
+        Redirect to the homepage after adding a book.
+        """
+        return reverse_lazy('home')
