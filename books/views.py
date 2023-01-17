@@ -5,6 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView
+from django.views.generic import UpdateView
 from django.db.models import Q
 
 import datetime
@@ -131,7 +132,6 @@ class BookListView(ListView):
 
 
 class BookCreateView(CreateView,
-                     LoginRequiredMixin,
                      UserPassesTestMixin,
                      SuccessMessageMixin):
     """
@@ -140,13 +140,22 @@ class BookCreateView(CreateView,
     model = Book
     form_class = BookForm
     template_name = 'books/add_book.html'
-    success_message = 'A book has been successfully saved!'
+    success_message = 'This book has been successfully added!'
 
     def test_func(self):
         """
         Check if the logged-in user is the superuser.
         """
         return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        """
+        Get a context and add extra information to use in the template.
+        """
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add a Book'
+        context['button_content'] = 'Add'
+        return context
 
     def form_valid(self, form):
         """
@@ -158,5 +167,37 @@ class BookCreateView(CreateView,
     def get_success_url(self):
         """
         Redirect to the homepage after adding a book.
+        """
+        return reverse_lazy('home')
+
+class BookUpdateView(UpdateView,
+                     UserPassesTestMixin,
+                     SuccessMessageMixin):
+    """
+    A view to allow the superuser to update book data.
+    """
+    model = Book
+    template_name = 'books/add_book.html'
+    form_class = BookForm
+    success_message = 'This book has been successfully updated!'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        """
+        Get a context and add extra information to use in the template.
+        """
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edit a Book'
+        context['button_content'] = 'Update'
+        return context
+
+    def get_success_url(self):
+        """
+        Redirect to the homepage after updating a book.
         """
         return reverse_lazy('home')
