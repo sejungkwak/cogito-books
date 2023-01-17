@@ -64,7 +64,7 @@
                         <ul class="dropdown-menu" aria-labelledby="dropdownAccountButton">
                             {% if request.user.is_authenticated %}
                                 {% if request.user.is_superuser %}
-                                    <li><a class="dropdown-item" href="#">{% trans "Product management" %}</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'add_book' %}">{% trans "Product management" %}</a></li>
                                 {% endif %}
                                 <li><a class="dropdown-item" href="#">{% trans "Your account" %}</a></li>
                                 <li><a class="dropdown-item" href="{% url 'account_logout' %}">{% trans "Sign out" %}</a></li>
