@@ -77,14 +77,14 @@ class Book(models.Model):
     publisher = models.CharField(max_length=254, null=False, blank=False)
     pub_date = models.DateField()
     isbn10 = models.CharField(
-        max_length=10, validators=[
+        max_length=10, unique=True, validators=[
             MinLengthValidator(10)])
     isbn13 = models.CharField(
-        max_length=13, validators=[
+        max_length=13, unique=True, validators=[
             MinLengthValidator(13)])
     discount_rate = models.DecimalField(
         max_digits=3, decimal_places=2, default=0.00)
-    amount_sold = models.IntegerField()
+    amount_sold = models.IntegerField(default=0.00)
 
     class Meta:
         ordering = ['title']
