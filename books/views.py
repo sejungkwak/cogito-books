@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.db.models import Q
+
 import datetime
 
 from .models import Category, Genre, Book
@@ -7,11 +9,13 @@ from .models import Category, Genre, Book
 
 class BookListView(ListView):
     """
-    Display a requested list of books.
+    A view to display a requested list of books, and
+    handle sorting and search queries.
     """
     model = Book
     template_name = 'books/books.html'
     paginate_by = 16
+    query = None
     sort = None
     direction = None
 
@@ -34,10 +38,21 @@ class BookListView(ListView):
         Get queryset as requested by a user.
         """
         req_list = None
+        sort_option = self.get_sort_option()
+
+        if 'q' in self.request.GET:
+            self.query = self.request.GET['q']
+            queries = Q(
+                title__icontains=self.query) | Q(
+                author__full_name__icontains=self.query) | Q(
+                publisher__icontains=self.query) | Q(
+                isbn10__icontains=self.query) | Q(
+                isbn13__icontains=self.query) | Q(
+                desc__icontains=self.query)
+            qs = super().get_queryset().filter(queries).distinct()
 
         if 'list' in self.request.GET:
             req_list = self.request.GET['list']
-            sort_option = self.get_sort_option()
 
         if req_list in list(
             Category.objects.values_list(
@@ -56,7 +71,7 @@ class BookListView(ListView):
                 pub_date__gt=datetime.date.today() -
                 datetime.timedelta(
                     days=30)).order_by('-pub_date')
-        else:
+        elif not 'q' in self.request.GET:
             qs = super().get_queryset().all()
 
         if sort_option:
@@ -97,11 +112,13 @@ class BookListView(ListView):
         if self.sort and self.sort[0] == '-':
             self.sort = self.sort[1:]
 
+        if self.sort is not None:
+            context['sort_params'] = (f'&sort={self.sort}&direction='
+                                      f'{self.direction}')
         context['sort'] = self.sort
         context['direction'] = self.direction
-        context['sort_params'] = (f'&sort={self.sort}&direction='
-                                  f'{self.direction}')
         context['current_sorting'] = f'{self.sort}_{self.direction}'
         context['total'] = self.get_queryset().count()
+        context['search_term'] = self.query
 
         return context
