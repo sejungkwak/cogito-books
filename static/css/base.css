@@ -94,7 +94,11 @@
     margin-bottom: .75rem;
 }
 
-.form-group > label {
+.allauth .form-group > label {
+    display: none;
+}
+
+.asteriskField {
     display: none;
 }
 
