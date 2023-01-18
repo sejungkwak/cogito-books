@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-{% block head_title %}Add a Book{% endblock %}
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'books/css/book.css' %}">
+{% endblock %}
 
 {% block content %}
-<h1 class="mb-4">Product Management</h2>
-<h2 class="fs-5 text-muted">Add a Book</h2>
-<div class="row">
-    <div class="col-12 col-md-6">
-        <form class="form mb-2" enctype="multipart/form-data" action="{% url 'add_book' %}" method="POST">
+
+<h1 class="mb-3 fs-4 text-muted">{% trans "Product Management" %}</h1>
+<h2 class="mb-3 fs-2 fw-600">{{ title }}</h2>
+<div class="add_book_container container">
+        <form class="form mb-2" enctype="multipart/form-data" method="POST">
             {% csrf_token %}
             {% for field in form %}
                 {% if field.name != 'cover' %}
@@ -17,11 +21,9 @@
                     {{ field }}
                 {% endif %}
             {% endfor %}
-            <div class="text-right">
-                <a class="btn btn-outline-primary" href="{% url 'book_list' %}">Cancel</a>
-                <button class="btn btn-primary" type="submit">Add Book</button>
-            </div>
+            <button class="btn btn-primary" type="submit">{{ button_content }}</button>
+            <a class="btn btn-outline-primary" href="{{ request.META.HTTP_REFERER }}">{% trans "Cancel" %}</a>
         </form>
-    </div>
 </div>
+
 {% endblock %}
