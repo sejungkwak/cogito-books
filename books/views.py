@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic.list import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic import UpdateView
 from django.db.models import Q
 
@@ -170,6 +170,7 @@ class BookCreateView(CreateView,
         """
         return reverse_lazy('home')
 
+
 class BookUpdateView(UpdateView,
                      UserPassesTestMixin,
                      SuccessMessageMixin):
@@ -195,6 +196,34 @@ class BookUpdateView(UpdateView,
         context['title'] = 'Edit a Book'
         context['button_content'] = 'Update'
         return context
+
+    def get_success_url(self):
+        """
+        Redirect to the homepage after updating a book.
+        """
+        return reverse_lazy('home')
+
+
+class BookDeleteView(DeleteView, UserPassesTestMixin):
+    """
+    A view to allow the superuser to delete book data.
+    """
+    model = Book
+    template_name = 'books/delete_book.html'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Delete a book from the database as requested by the superuser.
+        """
+        object = self.get_object()
+        messages.success(request, 'The book has been successfully deleted.')
+        return super().delete(request, *args, **kwargs)
 
     def get_success_url(self):
         """
