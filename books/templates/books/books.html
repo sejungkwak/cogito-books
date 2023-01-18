@@ -45,6 +45,14 @@
                         </p>
                     </a>
                     <form class="btn btn-primary" action="#" method="POST">{% trans "Add to Basket" %}</form>
+                    {% if request.user.is_superuser %}
+                    <div class="mt-2">
+                        <li class="btn-group">
+                            <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book' pk=book.pk %}">Edit</a>
+                            <a class="btn btn-sm btn-outline-primary" href="#">Delete</a>
+                        </li>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
