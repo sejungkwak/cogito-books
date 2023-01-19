@@ -5,12 +5,12 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
 from django.views.generic.list import ListView
 from django.views.generic.edit import CreateView, DeleteView
-from django.views.generic import UpdateView
+from django.views.generic import DetailView, UpdateView
 from django.db.models import Q
 
 import datetime
 
-from .models import Category, Genre, Book
+from .models import Category, Genre, Author, Book
 from .forms import BookForm
 
 
@@ -230,3 +230,18 @@ class BookDeleteView(DeleteView, UserPassesTestMixin):
         Redirect to the homepage after updating a book.
         """
         return reverse_lazy('home')
+
+
+class BookDetailView(DetailView):
+    """
+    A view to display the details of a requested book.
+    """
+    model = Book
+    template_name = 'books/book_detail.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Get a context and add extra information to use in the template.
+        """
+        context = super().get_context_data(**kwargs)
+        return context
