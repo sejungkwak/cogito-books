@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{{ book.title }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'books/css/book.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'book_list' %}?list={{book.category}}">{{ book.category.friendly_name }}</a></li>
+      <li class="breadcrumb-item active" aria-current="page">{{ book.genre.friendly_name }}</li>
+    </ol>
+</nav>
+
+<section class="book-details row">
+    <div class="col-12 col-md-6 col-lg-4 text-center text-md-start">
+        {% if book.cover %}
+            <a href="{{ book.cover.url }}" target="_blank"><img class="book-img-lg w-100" src="{{ book.cover.url }}" alt="{{ book.title }}"></a>
+        {% else %}
+            <img class="book-img-lg" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.title }}">
+        {% endif %}
+    </div>
+    <div class="col-12 col-md-6 col-lg-8">
+        <h1 class="mt-3 mt-md-0 fw-600 text-center text-md-start">{{ book.title }}</h1>
+        <p class="text-center text-md-start">
+            {% trans "by " %}
+            {% for author in book.author.all %}
+                {% if not forloop.last %}
+                    {{ author }} &
+                {% else %}
+                    {{ author }}
+                {% endif %}
+            {% endfor %}
+        </p>
+        {% if request.user.is_superuser %}
+            <div class="mb-3 text-center text-md-start">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book' pk=book.pk %}">Edit</a>
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_book' pk=book.pk %}">Delete</a>
+            </div>
+        {% endif %}
+        <p class="fs-4 fw-600 text-center text-md-start">{% trans "€ " %}{{ book.price }}</p>
+        <form class="mb-2" action="#" method="POST">
+            {% csrf_token %}
+            <div class="input-group qty-input-group mb-3 mx-auto ms-md-0 text-center text-md-start">
+                <div class="input-group-text p-0">
+                    <button class="decrement-qty btn btn-sm" id="decrement-qty_{{ book.id }}" data-item_id="{{ book.id }}">
+                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                    </button>
+                </div>
+                <input class="form-control qty_input" id="id_qty_{{ book.id }}" type="number" name="quantity" value="1" min="1" max="99" data-item_id="{{ book.id }}">
+                <div class="input-group-text p-0">
+                    <button class="decrement-qty btn btn-sm" id="increment-qty_{{ book.id }}" data-item_id="{{ book.id }}">
+                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <div class="text-center text-md-start">
+                <button class="btn btn-primary">{% trans "Add to Basket" %}</button>
+                <button class="btn btn-outline-primary">{% trans "Add to Wishlist" %}</button>
+            </div>
+        </form>
+        <small class="mb-0 text-muted">{% trans "Description" %}</small>
+        {% with desc=book.desc %}
+            {% if desc|wordcount > 50 %}
+                <div class="half-desc">
+                    {{ desc | safe | linebreaks | truncatewords:50 }}<br>
+                    <button class="show-hide-btn mt-3 border-0 bg-transparent text-primary text-decoration-underline">{% trans "Read more" %}</button>
+                </div>
+                <div class="full-desc">
+                    {{ desc | safe | linebreaks }}
+                    <button class="show-hide-btn border-0 bg-transparent text-primary text-decoration-underline">{% trans "Read less" %}</button>
+                </div>
+            {% else %}
+                <p>{{ desc | safe | linebreaks }}</p>
+            {% endif %}
+        {% endwith %}
+    </div>
+</section>
+
+<section class="row my-3">
+    <h2 class="fs-4 text-muted">{% trans "Book details" %}</h2>
+    <div class="col-12 col-lg-6">
+        <ul class="list-group">
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "Print length" %}</span>
+                <span class="col-7">{{ book.pages }}</span>
+            </li>
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "Dimensions" %}</span>
+                <span class="col-7">{% with x=book.dimension_x y=book.dimension_y z=book.dimension_z %}{{ x }} x {{ y }} x {{ z }}{% endwith %}</span>
+            </li>
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "Language" %}</span>
+                <span class="col-7">{{ book.lang }}</span>
+            </li>
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "Publisher" %}</span>
+                <span class="col-7">{{ book.publisher }}</span>
+            </li>
+        </ul>
+    </div>
+    <div class="col-12 col-lg-6">
+        <ul class="list-group">
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "Publication date" %}</span>
+                <span class="col-7">{{ book.pub_date | date:'d F Y' }}</span>
+            </li>
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "ISBN10" %}</span>
+                <span class="col-7">{{ book.isbn10 }}</span>
+            </li>
+            <li class="row d-flex list-group-item ps-0 border-0 text-muted">
+                <span class="col-5">{% trans "ISBN13" %}</span>
+                <span class="col-7">{{ book.isbn13 }}</span>
+            </li>
+        </ul>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    <script src="{% static 'books/js/truncate_toggler.js' %}"></script>
+{% endblock %}
