@@ -1,3 +1,21 @@
+/*------------------------------- Book details page --------------------------------*/
+
+.book-img-lg {
+    max-width: 25rem;
+}
+
+.book-details .list-group-item.btn-group {
+    width: 10rem;
+}
+
+.full-desc {
+    display: none;
+}
+
+.qty-input-group {
+    max-width: 20rem;
+}
+
 /*--------------------------- Product management page ----------------------------*/
 
 .add_book_container {
