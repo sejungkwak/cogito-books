@@ -31,13 +31,13 @@
     <title>{% trans "Cogito Books | " %}{% block head_title %}{% endblock %}</title>
 </head>
 
-<body>
+<body class="d-flex flex-column vh-100">
 
-    <header class="container-fluid sticky-top px-0">
+    <header class="flex-shrink-0 container-fluid sticky-top px-0">
 
         {% comment %} Free delivery banner {% endcomment %}
         <div class="header-banner py-2 bg-dark text-center">
-            <p class="header-banner_text mb-0 text-white">{% trans "Free delivery to ROI or UK on orders over €100" %}</p>
+            <p class="header-banner_text mb-0 text-white">{% trans "Free delivery to ROI or UK on orders over €" %}{{ free_delivery_threshold }}</p>
         </div>
 
         {% comment %} Navbar for search, user account and basket {% endcomment %}
@@ -108,7 +108,7 @@
 
     {% block page_header %}{% endblock %}
 
-    <main class="container m-auto my-3">
+    <main class="flex-shrink-0 container m-auto my-3">
         {% block content %}{% endblock %}
     </main>
 
