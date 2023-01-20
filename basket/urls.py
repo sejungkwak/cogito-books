@@ -13,4 +13,7 @@ urlpatterns = [
     path('edit/<int:pk>/',
          views.EditBasketView.as_view(),
          name='edit_basket'),
+    path('remove/<int:pk>/',
+         views.RemoveFromBasketView.as_view(),
+         name='remove_from_basket'),
 ]

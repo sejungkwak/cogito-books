@@ -81,7 +81,10 @@
                                                 </div>
                                             </div>
                                             <button class="btn btn-sm btn-primary me-2" type="submit">{% trans "Update" %}</button>
-                                            <a id="remove_{{ item.item_id }}" href="#"><small>{% trans "Remove" %}</small></a>
+                                        </form>
+                                        <form class="position-relative" action="{% url 'remove_from_basket' pk=item.item_id %}" method="POST">
+                                            {% csrf_token %}
+                                            <button class="border-0 text-primary text-decoration-underline bg-transparent" type="submit">Remove</button>
                                         </form>
                                     </div>
                                     <div class="col-12 col-lg-2">
