@@ -1,8 +1,36 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
+{% load basket_tools %}
 {% block head_title %}{% trans "Basket" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Your basket" %}</h1>
+<h1 class="mt-3 mt-md-5">{% trans "Your basket" %}</h1>
+<div class="row">
+    <div class="col">
+        {% if basket_items %}
+            <p>{% trans "You have " %}{{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}</p>
+
+            {% for item in basket_items %}
+                <p>{{ item.book.title }}</p>
+                <p>
+                    {% trans "by " %}
+                    {% for author in item.book.author.all %}
+                        {% if not forloop.last %}
+                            {{ author }} &
+                        {% else %}
+                            {{ author }}
+                        {% endif %}
+                    {% endfor %}
+                </p>
+                <p>{% trans "€" %}{{ item.book.price }}</p>
+                <p>{{ item.quantity }}</p>
+                <p>{% trans "€" %}{{ item.book.price | calc_subtotal:item.quantity }}</p>
+            {% endfor %}
+
+            {% else %}
+            <div class="mt-3 fs-3">Your basket is empty.</div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
