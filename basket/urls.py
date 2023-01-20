@@ -10,4 +10,7 @@ urlpatterns = [
     path('add/<int:pk>/',
          views.AddToBasketView.as_view(),
          name='add_to_basket'),
+    path('edit/<int:pk>/',
+         views.EditBasketView.as_view(),
+         name='edit_basket'),
 ]

@@ -45,7 +45,7 @@
                                     <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
                                 {% endif %}
                             </div>
-                            <div class="col-6 col-lg-8">
+                            <div class="col-6 col-lg-8 ps-0">
                                 <div class="row">
                                     <div class="col-12 col-lg-6">
                                         <div class="row">
@@ -65,25 +65,23 @@
                                         </div>
                                     </div>
                                     <div class="col-12 col-lg-4">
-                                        <form class="mb-2" action="#" method="POST">
+                                        <form class="mb-2" action="{% url 'edit_basket' pk=item.item_id %}" method="POST">
                                             {% csrf_token %}
                                             <div class="input-group qty-input-group mb-3 mx-auto ms-md-0 text-center text-md-start">
                                                 <div class="input-group-text p-0">
-                                                    <button class="decrement-qty btn btn-sm" id="decrement-qty_{{ item.book.id }}" data-item_id="{{ item.book.id }}">
-                                                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                                    <button class="decrement-qty btn btn-sm" id="decrement-qty_{{ item.item_id }}" data-item_id="{{ item.item_id }}">
+                                                        <svg class="icon-container__sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
                                                     </button>
                                                 </div>
-                                                <input class="form-control qty_input" id="id_qty_{{ item.book.id }}" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.book.id }}">
+                                                <input class="form-control qty_input" id="id_qty_{{ item.item_id }}" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.item_id }}">
                                                 <div class="input-group-text p-0">
-                                                    <button class="decrement-qty btn btn-sm" id="increment-qty_{{ item.book.id }}" data-item_id="{{ item.book.id }}">
-                                                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                                                    <button class="increment-qty btn btn-sm" id="increment-qty_{{ item.item_id }}" data-item_id="{{ item.item_id }}">
+                                                        <svg class="icon-container__sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
                                                     </button>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <button type="submit" class="btn btn-sm btn-primary">{% trans "Update" %}</button>
-                                                <button class="btn btn-sm btn-outline-primary">{% trans "Remove" %}</button>
-                                            </div>
+                                            <button class="btn btn-sm btn-primary me-2" type="submit">{% trans "Update" %}</button>
+                                            <a id="remove_{{ item.item_id }}" href="#"><small>{% trans "Remove" %}</small></a>
                                         </form>
                                     </div>
                                     <div class="col-12 col-lg-2">
@@ -111,4 +109,9 @@
         {% endif %}
     </div>
 </div>
+{% endblock %}
+
+{% block postloadjs %}
+{{ block.super }}
+    <script src="{% static 'books/js/qty_input.js' %}"></script>
 {% endblock %}
