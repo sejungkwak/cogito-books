@@ -19,6 +19,10 @@
     width: 1.5rem;
 }
 
+.icon-container__sm {
+    width: .75rem;
+}
+
 .icon-path__black {
     fill: #212529;
 }
