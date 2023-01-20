@@ -7,4 +7,7 @@ urlpatterns = [
     path('',
          TemplateView.as_view(template_name='basket/basket.html'),
          name='view_basket'),
+    path('add/<int:pk>/',
+         views.AddToBasketView.as_view(),
+         name='add_to_basket'),
 ]

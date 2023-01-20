@@ -44,7 +44,11 @@
                             </ul>
                         </p>
                     </a>
-                    <form class="btn btn-primary" action="#" method="POST">{% trans "Add to Basket" %}</form>
+                    <form action="{% url 'add_to_basket' pk=book.id %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" type="number" name="quantity" value="1">
+                        <button class="btn btn-primary" type="submit">{% trans "Add to Basket" %}</button>
+                    </form>
                     {% if request.user.is_superuser %}
                     <div class="mt-2">
                         <li class="btn-group">

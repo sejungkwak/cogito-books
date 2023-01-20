@@ -43,7 +43,7 @@
             </div>
         {% endif %}
         <p class="fs-4 fw-600 text-center text-md-start">{% trans "€ " %}{{ book.price }}</p>
-        <form class="mb-2" action="#" method="POST">
+        <form class="mb-2" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
             {% csrf_token %}
             <div class="input-group qty-input-group mb-3 mx-auto ms-md-0 text-center text-md-start">
                 <div class="input-group-text p-0">
@@ -59,7 +59,7 @@
                 </div>
             </div>
             <div class="text-center text-md-start">
-                <button class="btn btn-primary">{% trans "Add to Basket" %}</button>
+                <button type="submit" class="btn btn-primary">{% trans "Add to Basket" %}</button>
                 <button class="btn btn-outline-primary">{% trans "Add to Wishlist" %}</button>
             </div>
         </form>
