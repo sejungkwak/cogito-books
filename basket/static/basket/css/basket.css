@@ -1,0 +1,13 @@
+.book-img-xs {
+    max-width: 7rem;
+}
+
+/*=============== Bootstrap breakpoint for large screen size devices ===============*/
+
+@media screen and (min-width: 992px) {
+
+    .book-img-xs {
+        max-width: 10rem;
+    }
+
+}

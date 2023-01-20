@@ -4,6 +4,10 @@
 {% load basket_tools %}
 {% block head_title %}{% trans "Basket" %}{% endblock %}
 
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+{% endblock %}
+
 {% block content %}
 <h1 class="mt-3 mt-md-5">{% trans "Your basket" %}</h1>
 <div class="row">
@@ -11,22 +15,96 @@
         {% if basket_items %}
             <p>{% trans "You have " %}{{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}</p>
 
+            <div class="row d-none d-lg-flex aligh-items-center mb-3 py-2 bg-light">
+                <div class="col-11">
+                    <div class="row">
+                        <div class="col-4">
+                            <p class="col-6 mb-0 fw-600 text-muted">{% trans "Item" %}</p>
+                        </div>
+                        <div class="col-8">
+                            <div class="row">
+                                <p class="col-4 offset-6 mb-0 fw-600 text-muted">{% trans "Quantity" %}</p>
+                                <p class="col-2 mb-0 fw-600 text-muted">{% trans "Price" %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-1">
+                    <p class="col-2 mb-0 fw-600 text-muted">{% trans "Subtotal" %}</p>
+                </div>
+            </div>
+
             {% for item in basket_items %}
-                <p>{{ item.book.title }}</p>
-                <p>
-                    {% trans "by " %}
-                    {% for author in item.book.author.all %}
-                        {% if not forloop.last %}
-                            {{ author }} &
-                        {% else %}
-                            {{ author }}
-                        {% endif %}
-                    {% endfor %}
-                </p>
-                <p>{% trans "€" %}{{ item.book.price }}</p>
-                <p>{{ item.quantity }}</p>
-                <p>{% trans "€" %}{{ item.book.price | calc_subtotal:item.quantity }}</p>
+                <article class="row">
+                    <div class="col-12 col-lg-11">
+                        <div class="row">
+                            <div class="col-6 col-lg-4">
+                                {% if item.book.cover %}
+                                    <img class="book-img-xs" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
+                                {% else %}
+                                    <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
+                                {% endif %}
+                            </div>
+                            <div class="col-6 col-lg-8">
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <div class="row">
+                                            <div class="col">
+                                                <h2 class="fs-6 fw-600">{{ item.book.title }}</h2>
+                                                <p>
+                                                    {% trans "by " %}
+                                                    {% for author in item.book.author.all %}
+                                                        {% if not forloop.last %}
+                                                            {{ author }} &
+                                                        {% else %}
+                                                            {{ author }}
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-lg-4">
+                                        <form class="mb-2" action="#" method="POST">
+                                            {% csrf_token %}
+                                            <div class="input-group qty-input-group mb-3 mx-auto ms-md-0 text-center text-md-start">
+                                                <div class="input-group-text p-0">
+                                                    <button class="decrement-qty btn btn-sm" id="decrement-qty_{{ item.book.id }}" data-item_id="{{ item.book.id }}">
+                                                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
+                                                    </button>
+                                                </div>
+                                                <input class="form-control qty_input" id="id_qty_{{ item.book.id }}" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.book.id }}">
+                                                <div class="input-group-text p-0">
+                                                    <button class="decrement-qty btn btn-sm" id="increment-qty_{{ item.book.id }}" data-item_id="{{ item.book.id }}">
+                                                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <button type="submit" class="btn btn-sm btn-primary">{% trans "Update" %}</button>
+                                                <button class="btn btn-sm btn-outline-primary">{% trans "Remove" %}</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="col-12 col-lg-2">
+                                        <p>{% trans "€" %}{{ item.book.price }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-1">
+                        <p class="mb-0 fw-600"><span class="d-lg-none">{% trans "Subtotal " %}</span>{% trans "€" %}{{ item.book.price | calc_subtotal:item.quantity }}</p>
+                    </div>
+                </article>
+                <hr>
             {% endfor %}
+
+            <p class="py-2 fs-5 fw-600 text-end">{% trans "Total" %}<small class="text-muted">{% trans "(Excluding delivery)" %}</small>{% trans " €" %}{{ total | floatformat:2 }}</p>
+
+            <div class="text-center">
+                <a href="#" class="btn btn-primary btn-lg">{% trans "Proceed to checkout" %}</a>
+            </div>
 
             {% else %}
             <div class="mt-3 fs-3">Your basket is empty.</div>
