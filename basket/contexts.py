@@ -13,10 +13,12 @@ def basket_contents(request):
     basket_items = []
     item_count = 0
     basket = request.session.get('basket', {})
+    total = 0
 
     for item_id, quantity in basket.items():
         book = get_object_or_404(Book, pk=item_id)
         item_count += quantity
+        total += book.price * quantity
         basket_items.append({
             'book': book,
             'item_id': item_id,
@@ -26,6 +28,7 @@ def basket_contents(request):
     context = {
         'basket_items': basket_items,
         'item_count': item_count,
+        'total': total
     }
 
     return context
