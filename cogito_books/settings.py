@@ -198,3 +198,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Delivery cost settings
+
+FREE_DELIVERY_THRESHOLD = 100
+NATIONAL_DELIVERY_COST = 3.8
+INTERNATIONAL_DELIVERY_PERCENTAGE = 10
+BASE_INTERNATIONAL_DELIVERY_COST = 10
