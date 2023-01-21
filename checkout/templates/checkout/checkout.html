@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Checkout" %}{% endblock %}
+
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fw-600">{% trans "Secure Checkout" %}</h1>
+{% if not user.is_authenticated %}
+    <p><a class="text-primary" href="{% url 'account_signup' %}">{% trans "Create an account" %}</a>{% trans " or " %}<a class="text-primary" href="{% url 'account_login' %}">{% trans "sign in" %}</a>{% trans " to save this information" %}</p>
+{% endif %}
+<div class="row">
+    <section class="order-summary col-12 col-lg-5 order-lg-last my-4 my-lg-0 p-2 p-lg-4 bg-light">
+        <h2 class="fs-4 fw-600">{% trans "Order Summary" %}</h2>
+        <div class="d-flex justify-content-between">
+            <p>{{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}</p>
+            <p>{% trans "€" %}{{ total }}</p>
+        </div>
+        {% for item in basket_items %}
+        <div class="row my-4">
+            <div class="col-4">
+                {% if item.book.cover %}
+                    <img class="book-img-xs w-100" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
+                {% else %}
+                    <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
+                {% endif %}
+            </div>
+            <div class="col-8">
+                <p class="mb-0 fw-600">{{ item.book.title }}</p>
+                <small>
+                    {% trans "by " %}
+                    {% for author in item.book.author.all %}
+                        {% if not forloop.last %}
+                            {{ author }} &
+                        {% else %}
+                            {{ author }}
+                        {% endif %}
+                    {% endfor %}
+                </small>
+                <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.price }}</p>
+                <p>{% trans "Quantity: " %}{{ item.quantity }}</p>
+            </div>
+        </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between mt-5">
+            <p>{% trans "Delivery" %}</p>
+            <p id="deliveryCost">{% trans "€" %}</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <p>{% trans "Loyalty points you could earn" %}</p>
+            <p></p>
+        </div>
+        {% if user.is_authenticated %}
+            <div class="d-flex justify-content-between">
+                <p>{% trans "Loyalty points balance" %}</p>
+                <p id="loyaltyBalance"></p>
+            </div>
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between">
+                    <p>{% trans "Loyalty points redemption" %}</p>
+                    <p id="loyaltyRedemption">{{ paid_points }}</p>
+                </div>
+                <div class="col-12">
+                    <form class="input-group" action="#">
+                        <input class="form-control" type="number" placeholder="Enter amount to redeem">
+                        <button class="btn btn-sm btn-primary">{% trans "Redeem points" %}</button>
+                    </form>
+                </div>
+            </div>
+        {% endif %}
+        <hr>
+        <div class="d-flex justify-content-between">
+            <p>{% trans "Total" %}</p>
+            <strong>{% trans "€" %}</strong>
+        </div>
+    </section>
+    <section class="order-form-container col-12 col-lg-7 my-2 pt-2 pt-lg-4">
+        <form class="order-form my-2" action="{% url 'checkout' %}" method="POST">
+            {% csrf_token %}
+            <fieldset>
+                <legend><h2 class="fs-4 fw-600">{% trans "Contact Information" %}</h2></legend>
+                {{ order_form.email | as_crispy_field }}
+            </fieldset>
+            <fieldset class="mt-4">
+                <legend><h2 class="fs-4 fw-600">{% trans "Delivery Address" %}</h2></legend>
+                {{ order_form.full_name | as_crispy_field }}
+                {{ order_form.phone_number | as_crispy_field }}
+                {{ order_form.address_line_1 | as_crispy_field }}
+                {{ order_form.address_line_2 | as_crispy_field }}
+                {{ order_form.town_or_city | as_crispy_field }}
+                {{ order_form.county | as_crispy_field }}
+                {{ order_form.postcode | as_crispy_field }}
+                {{ order_form.country | as_crispy_field }}
+                {% if user.is_authenticated %}
+                    <div class="form-check">
+                        <label class="form-check-label" for="id-save-info">{% trans "Save this delivery information to my profile" %}</label>
+                        <input class="form-check-input" id="id-save-info" type="checkbox" name="save-info" checked>
+                    </div>
+                {% endif %}
+            </fieldset>
+            <fieldset class="mt-4">
+                <legend><h2 class="fs-4 fw-600">{% trans "Payment Information" %}</h2></legend>
+                <input class="form-control" type="text">
+            </fieldset>
+            <div class="mt-4 text-end">
+                <a class="btn btn-outline-primary" href="{% url 'view_basket' %}">
+                    <span class="font-weight-bold">{% trans "Adjust Basket" %}</span>
+                </a>
+                <button class="btn btn-primary">
+                    <span class="font-weight-bold">{% trans "Complete Order" %}</span>
+                </button>
+            </div>
+        </form>
+    </section>
+</div>
+
+{% endblock %}
