@@ -6,6 +6,7 @@
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -79,8 +80,8 @@
             <strong>{% trans "€" %}</strong>
         </div>
     </section>
-    <section class="order-form-container col-12 col-lg-7 my-2 pt-2 pt-lg-4">
-        <form class="order-form my-2" action="{% url 'checkout' %}" method="POST">
+    <section class="payment-form-container col-12 col-lg-7 my-2 pt-2 pt-lg-4">
+        <form class="payment-form my-2" id="payment-form" action="{% url 'checkout' %}" method="POST">
             {% csrf_token %}
             <fieldset>
                 <legend><h2 class="fs-4 fw-600">{% trans "Contact Information" %}</h2></legend>
@@ -98,25 +99,33 @@
                 {{ order_form.country | as_crispy_field }}
                 {% if user.is_authenticated %}
                     <div class="form-check">
-                        <label class="form-check-label" for="id-save-info">{% trans "Save this delivery information to my profile" %}</label>
-                        <input class="form-check-input" id="id-save-info" type="checkbox" name="save-info" checked>
+                        <label class="form-check-label" for="saveInfo">{% trans "Save this delivery information to my profile" %}</label>
+                        <input class="form-check-input" id="saveInfo" type="checkbox" name="save-info" checked>
                     </div>
                 {% endif %}
             </fieldset>
             <fieldset class="mt-4">
                 <legend><h2 class="fs-4 fw-600">{% trans "Payment Information" %}</h2></legend>
-                <input class="form-control" type="text">
+                <div id="card-element">{% comment %}Stripe.js injects the Card Element{% endcomment %}</div>
+                <div class="mt-2 text-danger" id="card-error" role="alert"></div>
             </fieldset>
             <div class="mt-4 text-end">
-                <a class="btn btn-outline-primary" href="{% url 'view_basket' %}">
-                    <span class="font-weight-bold">{% trans "Adjust Basket" %}</span>
-                </a>
-                <button class="btn btn-primary">
-                    <span class="font-weight-bold">{% trans "Complete Order" %}</span>
-                </button>
+                <a class="btn btn-outline-primary" href="{% url 'view_basket' %}">{% trans "Adjust Basket" %}</a>
+                <button class="btn btn-primary" id="paymentBtn">{% trans "Complete Order" %}</button>
             </div>
         </form>
     </section>
 </div>
 
+<div class="loading-overlay justify-content-center align-items-center" id="loadingOverlay">
+    <p class="spinner"></p>
+</div>
+
+{% endblock %}
+
+{% block postloadjs %}
+    {{ block.super }}
+    {{ stripe_public_key|json_script:"id_stripe_public_key" }}
+    {{ client_secret|json_script:"id_client_secret" }}
+    <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
