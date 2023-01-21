@@ -27,14 +27,18 @@ class OrderForm(forms.ModelForm):
             'email': 'Email address',
             'phone_number': 'Phone number',
             'address_line_1': 'Address line 1',
-            'address_line_2': 'Address line 2(Optional)',
+            'address_line_2': 'Address line 2',
             'town_or_city': 'Town/City',
-            'county': 'County/State(Optional)',
-            'postcode': 'postcode/ZIP(Optional)',
+            'county': 'County/State',
+            'postcode': 'postcode/ZIP',
         }
 
         self.fields['full_name'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country':
+                if not self.fields[field].required:
+                    placeholder = f'{placeholders[field]} (Optional)'
+                else:
+                    placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
             self.fields[field].label = False

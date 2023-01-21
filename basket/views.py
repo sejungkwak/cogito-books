@@ -35,7 +35,8 @@ class AddToBasketView(View):
 
 class EditBasketView(View):
     """
-    A view to adjust the quantity of the specified book to the specified amount.
+    A view to adjust the quantity of the specified book
+    to the specified amount.
     """
 
     def post(self, request, pk, *args, **kwargs):
