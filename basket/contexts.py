@@ -26,6 +26,7 @@ def basket_contents(request):
         })
 
     context = {
+        'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
         'basket_items': basket_items,
         'item_count': item_count,
         'total': total
