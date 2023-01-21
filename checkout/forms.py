@@ -41,4 +41,7 @@ class OrderForm(forms.ModelForm):
                 else:
                     placeholder = placeholders[field]
                 self.fields[field].widget.attrs['placeholder'] = placeholder
+            else:
+                self.fields[field].widget.attrs.update({'class': 'form-select'
+                                                        })
             self.fields[field].label = False
