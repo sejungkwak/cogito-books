@@ -27,6 +27,9 @@ def basket_contents(request):
 
     context = {
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
+        'national_delivery_cost': settings.NATIONAL_DELIVERY_COST,
+        'international_delivery_percentage': settings.INTERNATIONAL_DELIVERY_PERCENTAGE,
+        'base_international_delivery_cost': settings.BASE_INTERNATIONAL_DELIVERY_COST,
         'basket_items': basket_items,
         'item_count': item_count,
         'total': total

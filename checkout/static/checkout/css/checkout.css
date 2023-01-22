@@ -1,7 +1,6 @@
 /*-------------------------------- Stripe input ---------------------------------*/
 
-.StripeElement,
-.stripe-style-input {
+.StripeElement {
     box-sizing: border-box;
     padding: .375rem .75rem;
     border: 1px solid #ced4da;
