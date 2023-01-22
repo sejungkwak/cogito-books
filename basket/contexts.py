@@ -12,8 +12,8 @@ def basket_contents(request):
     """
     basket_items = []
     item_count = 0
-    basket = request.session.get('basket', {})
     total = 0
+    basket = request.session.get('basket', {})
 
     for item_id, quantity in basket.items():
         book = get_object_or_404(Book, pk=item_id)
@@ -25,14 +25,20 @@ def basket_contents(request):
             'quantity': quantity,
         })
 
+    if total < settings.FREE_DELIVERY_THRESHOLD:
+        delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
+    else:
+        delivery = 0
+
+    grand_total = delivery + total
+
     context = {
-        'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD,
-        'national_delivery_cost': settings.NATIONAL_DELIVERY_COST,
-        'international_delivery_percentage': settings.INTERNATIONAL_DELIVERY_PERCENTAGE,
-        'base_international_delivery_cost': settings.BASE_INTERNATIONAL_DELIVERY_COST,
         'basket_items': basket_items,
         'item_count': item_count,
-        'total': total
+        'delivery': delivery,
+        'lineitem_total': total,
+        'grand_total': grand_total,
+        'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD
     }
 
     return context

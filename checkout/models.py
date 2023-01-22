@@ -13,12 +13,12 @@ class Order(models.Model):
     """
 
     ORDER_STATUS = (
-        (1, 'Payment accepted'),
-        (2, 'Processing in progress'),
-        (3, 'Dispatched'),
-        (4, 'Shipped'),
-        (5, 'Delivered'),
-        (6, 'Cancelled'),
+        ('payment accepted', 'Payment accepted'),
+        ('processing', 'Processing in progress'),
+        ('dispatched', 'Dispatched'),
+        ('shipped', 'Shipped'),
+        ('delivered', 'Delivered'),
+        ('cancelled', 'Cancelled'),
     )
 
     order_number = models.CharField(max_length=32, null=False, editable=False)
@@ -50,7 +50,7 @@ class Order(models.Model):
         null=False,
         blank=False,
         choices=ORDER_STATUS,
-        default=1)
+        default='payment accepted')
 
     class Meta:
         ordering = ['-date']
@@ -66,19 +66,14 @@ class Order(models.Model):
         Update grand total each time a line item is added,
         accounting for delivery costs.
         """
-
         self.subtotal = self.lineitems.aggregate(Sum('lineitem_total'))[
             'lineitem_total__sum'] or 0
-        if self.country in ['IE', 'GB']:
-            if self.subtotal < settings.FREE_DELIVERY_THRESHOLD:
-                self.delivery_cost = settings.NATIONAL_DELIVERY_COST
-            else:
-                self.delivery_cost = 0
-        else:
+
+        if self.subtotal < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = self.subtotal * \
-                    settings.INTERNATIONAL_DELIVERY_PERCENTAGE / 100
-            if self.delivery_cost < settings.BASE_INTERNATIONAL_DELIVERY_COST:
-                self.delivery_cost = settings.BASE_INTERNATIONAL_DELIVERY_COST
+                settings.STANDARD_DELIVERY_PERCENTAGE / 100
+        else:
+            self.delivery_cost = 0
 
         if self.paid_points:
             self.grand_total = self.subtotal + self.delivery_cost - self.paid_points

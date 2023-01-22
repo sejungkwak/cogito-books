@@ -101,7 +101,7 @@
                 <hr>
             {% endfor %}
 
-            <p class="py-2 fs-5 fw-600 text-end">{% trans "Total" %}<small class="text-muted">{% trans "(Excluding delivery)" %}</small>{% trans " €" %}{{ total | floatformat:2 }}</p>
+            <p class="py-2 fs-4 fw-600 text-end">{% trans "Est. Total" %}{% trans " €" %}{{ lineitem_total | floatformat:2 }}</p>
 
             <div class="text-center">
                 <a href="{% url 'checkout' %}" class="btn btn-primary btn-lg">{% trans "Proceed to checkout" %}</a>

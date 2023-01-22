@@ -22,7 +22,7 @@
             <div class="accordion-item">
                 <p class="accordion-header fw-600">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#orderItems" aria-expanded="false" aria-controls="orderItems">
-                        {{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}<span class="ms-5">{% trans "€" %}{{ total }}</span>
+                        {{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}<span class="ms-5">{% trans "€" %}{{ lineitem_total }}</span>
                     </button>
                 </p>
                 <div id="orderItems" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#orderSummary">
@@ -59,7 +59,7 @@
         </div>
         <div class="d-flex justify-content-between mt-5">
             <p>{% trans "Delivery" %}</p>
-            <p id="deliveryFee"></p>
+            <p id="deliveryFee">{{ delivery | floatformat:2 }}</p>
         </div>
         <div class="d-flex justify-content-between">
             <p>{% trans "Loyalty points you could earn" %}</p>
@@ -73,7 +73,7 @@
             <div class="row">
                 <div class="col-12 d-flex justify-content-between">
                     <p>{% trans "Loyalty points redemption" %}</p>
-                    <p id="loyaltyRedemption">{{ paid_points }}</p>
+                    <p id="loyaltyRedemption"></p>
                 </div>
                 <div class="col-12">
                     <form class="input-group" action="#">
@@ -86,7 +86,7 @@
         <hr>
         <div class="d-flex justify-content-between">
             <p>{% trans "Total" %}</p>
-            <strong id="grandTotal"></strong>
+            <strong id="grandTotal">{{ grand_total | floatformat:2 }}</strong>
         </div>
     </section>
     <section class="payment-form-container col-12 col-lg-7 my-2 pt-2 pt-lg-4">
@@ -137,49 +137,5 @@
     {{ block.super }}
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
-    <script type="text/javascript">
-
-        // Calculate the delivery fee based on the destination country.
-        function calculateDeliveryFee() {
-            let delivery;
-            let ship_to = $('#id_country').val();
-            let total = parseFloat('{{ total }}');
-            let free_delivery_threshold = parseFloat('{{ free_delivery_threshold }}');
-            let national_delivery_cost = parseFloat('{{ national_delivery_cost }}');
-            let international_delivery_percentage = parseFloat('{{ international_delivery_percentage }}');
-            let base_international_delivery_cost = parseFloat('{{ base_international_delivery_cost }}');
-
-            if ( ship_to == 'IE' | ship_to == 'GB' ) {
-                delivery = national_delivery_cost;
-                if ( total > free_delivery_threshold ) {
-                    delivery = 0;
-                }
-            } else {
-                delivery = Number(parseFloat(total * (international_delivery_percentage / 100)).toFixed(2));
-                if (delivery < base_international_delivery_cost) {
-                    delivery = base_international_delivery_cost;
-                }
-            }
-            return delivery;
-        }
-
-        // Calculate the delivery fee
-        // and inject it and grand total into the DOM.
-        function displayDeliveryFee() {
-            let total = parseFloat('{{ total }}');
-            let delivery = calculateDeliveryFee();
-            let grandTotal = parseFloat(total + delivery).toFixed(2);
-            $('#deliveryFee').html(`€${parseFloat(delivery).toFixed(2)}`);
-            $('#grandTotal').html(`€${grandTotal}`);
-        }
-
-        // Run the displayDeliveryFee function when the page loaded
-        // and user changes the destination country.
-        displayDeliveryFee()
-        $('#id_country').on('change', function() {
-            displayDeliveryFee()
-        });
-
-    </script>
     <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
 {% endblock %}
