@@ -8,7 +8,6 @@ $(document).ready(function() {
     const clientSecret = $('#id_client_secret').text().slice(1, -1);
     const stripe = Stripe(stripePublicKey);
     const elements = stripe.elements();
-    const form = $('#payment-form');
     const style = {
         base: {
             iconColor: '#8f96a3',
@@ -26,6 +25,7 @@ $(document).ready(function() {
         },
     };
     const card = elements.create('card', {style: style});
+    const form = document.getElementById('payment-form');
 
     card.mount('#card-element');
 
@@ -43,7 +43,7 @@ $(document).ready(function() {
     /**
      * Handle the form submission.
      */
-    form.submit(function(e) {
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
         payWithCard(stripe, card, clientSecret);
     });
@@ -98,7 +98,7 @@ $(document).ready(function() {
                 if (result.error) {
                     showError(result.error.message);
                     loading(false);
-                    card.update('disabled', false);
+                    card.update({'disabled': false});
                 } else {
                     if (result.paymentIntent.status === 'succeeded') {
                         form.submit();
