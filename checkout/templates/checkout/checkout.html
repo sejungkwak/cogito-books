@@ -18,36 +18,45 @@
 <div class="row">
     <section class="order-summary col-12 col-lg-5 order-lg-last my-4 my-lg-0 p-2 p-lg-4 bg-light">
         <h2 class="fs-4 fw-600">{% trans "Order Summary" %}</h2>
-        <div class="d-flex justify-content-between">
-            <p>{{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}</p>
-            <p>{% trans "€" %}{{ total }}</p>
-        </div>
-        {% for item in basket_items %}
-        <div class="row my-4">
-            <div class="col-4">
-                {% if item.book.cover %}
-                    <img class="book-img-xs w-100" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
-                {% else %}
-                    <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
-                {% endif %}
+        <div class="accordion accordion-flush" id="orderSummary">
+            <div class="accordion-item">
+                <p class="accordion-header fw-600">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#orderItems" aria-expanded="false" aria-controls="orderItems">
+                        {{ item_count }}{% if item_count == 1 %}{% trans " item" %}{% else %}{% trans " items" %}{% endif %}<span class="ms-5">{% trans "€" %}{{ total }}</span>
+                    </button>
+                </p>
+                <div id="orderItems" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#orderSummary">
+                    <div class="accordion-body">
+                        {% for item in basket_items %}
+                            <div class="row my-4">
+                                <div class="col-4">
+                                    {% if item.book.cover %}
+                                        <img class="book-img-xs w-100" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
+                                    {% else %}
+                                        <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
+                                    {% endif %}
+                                </div>
+                                <div class="col-8">
+                                    <p class="mb-0 fw-600">{{ item.book.title }}</p>
+                                    <small>
+                                        {% trans "by " %}
+                                        {% for author in item.book.author.all %}
+                                            {% if not forloop.last %}
+                                                {{ author }} &
+                                            {% else %}
+                                                {{ author }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </small>
+                                    <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.price }}</p>
+                                    <p>{% trans "Quantity: " %}{{ item.quantity }}</p>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-            <div class="col-8">
-                <p class="mb-0 fw-600">{{ item.book.title }}</p>
-                <small>
-                    {% trans "by " %}
-                    {% for author in item.book.author.all %}
-                        {% if not forloop.last %}
-                            {{ author }} &
-                        {% else %}
-                            {{ author }}
-                        {% endif %}
-                    {% endfor %}
-                </small>
-                <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.price }}</p>
-                <p>{% trans "Quantity: " %}{{ item.quantity }}</p>
-            </div>
         </div>
-        {% endfor %}
         <div class="d-flex justify-content-between mt-5">
             <p>{% trans "Delivery" %}</p>
             <p id="deliveryFee"></p>
@@ -129,7 +138,7 @@
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script type="text/javascript">
-        
+
         // Calculate the delivery fee based on the destination country.
         function calculateDeliveryFee() {
             let delivery;
@@ -160,7 +169,7 @@
             let total = parseFloat('{{ total }}');
             let delivery = calculateDeliveryFee();
             let grandTotal = parseFloat(total + delivery).toFixed(2);
-            $('#deliveryFee').html(`€${delivery}`);
+            $('#deliveryFee').html(`€${parseFloat(delivery).toFixed(2)}`);
             $('#grandTotal').html(`€${grandTotal}`);
         }
 
