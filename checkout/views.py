@@ -99,3 +99,27 @@ class CheckoutView(View):
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
             return redirect(reverse('view_basket'))
+
+
+class CheckoutSuccessView(View):
+    """
+    Handle successful checkouts.
+    """
+    template = 'checkout/checkout_success.html'
+
+    def get(self, request, order_number, *args, **kwargs):
+        save_info = request.session.get('save_info')
+        order = get_object_or_404(Order, order_number=order_number)
+
+        messages.success(request, f'Order successfully processed! \
+            Your order number is {order_number}. A confirmation \
+            email will be sent to {order.email}.')
+
+        if 'basket' in request.session:
+            del request.session['basket']
+
+        context = {
+            'order': order,
+        }
+
+        return render(request, self.template, context)

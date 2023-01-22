@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Order Complete" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
+    <link rel="stylesheet" href="{% static 'checkout/css/checkout.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<h1 class="fw-600">{% trans "Thank you!" %}</h1>
+<p>{% trans "Your order information is below. A confirmation email will be sent to " %}<strong>{{ order.email }}</strong>{% trans "." %}</p>
+<section>
+    <h2 class="fs-6"><strong>{% trans "Order Number " %}{{ order.order_number }}</strong></h2>
+    <div class="d-flex justify-content-between">
+        <p>{% trans "Order Date" %}</p>
+        <p>{{ order.date }}</p>
+    </div>
+    <hr>
+    <h3>{% trans "Items" %}</h3>
+    {% for item in order.lineitems.all %}
+    <div class="row">
+        <div class="col-3">
+            {% if item.book.cover %}
+                <img class="book-img-xs w-100" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
+            {% else %}
+                <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
+            {% endif %}
+        </div>
+        <div class="col-6">
+            <p class="mb-0 fw-600">{{ item.book.title }}</p>
+            <small>
+                {% trans "by " %}
+                {% for author in item.book.author.all %}
+                    {% if not forloop.last %}
+                        {{ author }} &
+                    {% else %}
+                        {{ author }}
+                    {% endif %}
+                {% endfor %}
+            </small>
+            <p>{% trans "Quantity: " %}{{ item.quantity }}</p>
+        </div>
+        <div class="col-3">
+            <p class="mt-2 mb-0"><strong>{% trans "€" %}{{ item.book.price }}</strong></p>
+        </div>
+    </div>
+    {% endfor %}
+    <hr>
+    <div class="d-flex justify-content-between">
+        <p>{% trans "Subtotal" %}</p>
+        <p>{% trans "€ " %}{{ order.subtotal }}</p>
+    </div>
+    <div class="d-flex justify-content-between">
+        <p>{% trans "Delivery" %}</p>
+        <p>{% trans "€ " %}{{ order.delivery_cost }}</p>
+    </div>
+    <div class="d-flex justify-content-between">
+        <p>{% trans "Loyalty points redemption" %}</p>
+        <p>{{ order.paid_points }}</p>
+    </div>
+    <div class="d-flex justify-content-between">
+        <p>{% trans "Total" %}</p>
+        <p>{% trans "€ " %}{{ order.grand_total }}</p>
+    </div>
+    <hr>
+    <p>{% trans "Delivering To " %}{{ order.full_name }}</p>
+    <p>{{ order.address_line_1 }}{% trans ", " %}{% if order.address_line_2 %}{{ address_line_2 }}{% trans ", " %}{% endif %}{{ order.town_or_city }}{% trans ", " %}{{ order.town_or_city }}</p>
+</section>
+
+{% endblock %}
