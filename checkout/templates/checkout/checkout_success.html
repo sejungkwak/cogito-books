@@ -10,18 +10,18 @@
 
 {% block content %}
 
-<h1 class="fw-600">{% trans "Thank you!" %}</h1>
+<h1 class="fw-600 mb-3 mb-lg-5">{% trans "Thank you!" %}</h1>
 <p>{% trans "Your order information is below. A confirmation email will be sent to " %}<strong>{{ order.email }}</strong>{% trans "." %}</p>
 <section>
-    <h2 class="fs-6"><strong>{% trans "Order Number " %}{{ order.order_number }}</strong></h2>
+    <h2 class="fs-6 mb-3"><strong>{% trans "Order Number " %}{{ order.order_number }}</strong></h2>
     <div class="d-flex justify-content-between">
-        <p>{% trans "Order Date" %}</p>
-        <p>{{ order.date }}</p>
+        <p class="mb-0">{% trans "Order Date" %}</p>
+        <p class="mb-0">{{ order.date }}</p>
     </div>
     <hr>
     <h3>{% trans "Items" %}</h3>
     {% for item in order.lineitems.all %}
-    <div class="row">
+    <div class="row mb-3">
         <div class="col-3">
             {% if item.book.cover %}
                 <img class="book-img-xs w-100" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
@@ -44,7 +44,7 @@
             <p>{% trans "Quantity: " %}{{ item.quantity }}</p>
         </div>
         <div class="col-3">
-            <p class="mt-2 mb-0"><strong>{% trans "€" %}{{ item.book.price }}</strong></p>
+            <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.price }}</p>
         </div>
     </div>
     {% endfor %}
@@ -62,12 +62,12 @@
         <p>{{ order.paid_points }}</p>
     </div>
     <div class="d-flex justify-content-between">
-        <p>{% trans "Total" %}</p>
-        <p>{% trans "€ " %}{{ order.grand_total }}</p>
+        <p class="mb-0">{% trans "Total" %}</p>
+        <p class="mb-0">{% trans "€ " %}{{ order.grand_total }}</p>
     </div>
     <hr>
-    <p>{% trans "Delivering To " %}{{ order.full_name }}</p>
-    <p>{{ order.address_line_1 }}{% trans ", " %}{% if order.address_line_2 %}{{ address_line_2 }}{% trans ", " %}{% endif %}{{ order.town_or_city }}{% trans ", " %}{{ order.town_or_city }}</p>
+    <p>{% trans "Delivering To " %}<strong>{{ order.full_name }}</strong></p>
+    <p>{{ order.address_line_1 }}{% trans ", " %}{% if order.address_line_2 %}{{ address_line_2 }}{% trans ", " %}{% endif %}{{ order.town_or_city }}{% trans ", " %}{{ order.country.name }}</p>
 </section>
 
 {% endblock %}
