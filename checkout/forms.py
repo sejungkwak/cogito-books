@@ -33,7 +33,7 @@ class OrderForm(forms.ModelForm):
             'postcode': 'postcode/ZIP',
         }
 
-        self.fields['full_name'].widget.attrs['autofocus'] = True
+        self.fields['email'].widget.attrs['autofocus'] = True
         for field in self.fields:
             if field != 'country':
                 if not self.fields[field].required:
