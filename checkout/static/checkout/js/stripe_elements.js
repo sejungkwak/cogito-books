@@ -53,7 +53,7 @@ $(document).ready(function() {
      * If not, reload the page and the error message will be in django messages.
      */
     function payWithCard(stripe, card, clientSecret) {
-        let saveInfo = Boolean($('#saveInfo').attr('checked'));
+        let saveInfo = Boolean($('#saveInfo').is(':checked'));
         let csrfToken = $('input[name="csrfmiddlewaretoken"]').val();
         let postData = {
             'csrfmiddlewaretoken': csrfToken,
