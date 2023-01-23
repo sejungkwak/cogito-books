@@ -157,6 +157,26 @@ class CheckoutSuccessView(View):
         save_info = request.session.get('save_info')
         order = get_object_or_404(Order, order_number=order_number)
 
+        if request.user.is_authenticated:
+            profile = Profile.objects.get(user=request.user)
+            order.profile = profile
+            order.save()
+
+        if save_info:
+            profile_data = {
+                'default_full_name': order.full_name,
+                'default_phone_number': order.phone_number,
+                'default_address_line_1': order.address_line_1,
+                'default_address_line_2': order.address_line_2,
+                'default_town_or_city': order.town_or_city,
+                'default_county': order.county,
+                'default_postcode': order.postcode,
+                'default_country': order.country,
+            }
+            profile_form = ProfileForm(profile_data, instance=profile)
+            if profile_form.is_valid():
+                profile_form.save()
+
         messages.success(request, f'Order successfully processed! \
             Your order number is {order_number}. A confirmation \
             email will be sent to {order.email}.')
