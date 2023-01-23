@@ -1,0 +1,9 @@
+main {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+}
+
+.profile-menu-link {
+    min-height: 20vh;
+    border-radius: .75rem;
+}
