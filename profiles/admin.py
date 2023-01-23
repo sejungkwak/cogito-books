@@ -18,10 +18,13 @@ class ProfileAdmin(admin.ModelAdmin):
     """
     model = Profile
     form = ProfileForm
-    list_display = ('id', 'username', 'dob', 'joined', 'loyalty_points')
+    list_display = ('id', 'username', 'full_name', 'dob', 'joined', 'loyalty_points')
 
     def id(self, obj):
         return obj.id
 
     def username(self, obj):
         return obj.user.username
+
+    def full_name(self, obj):
+        return f'{obj.user.first_name} {obj.user.last_name}'

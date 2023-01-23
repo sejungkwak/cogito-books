@@ -14,7 +14,6 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     default_full_name = models.CharField(max_length=254, null=True, blank=True)
-    default_email = models.EmailField(max_length=254, null=True, blank=True)
     default_phone_number = PhoneNumberField(
         null=True, blank=True, default='IE')
     default_address_line_1 = models.CharField(
