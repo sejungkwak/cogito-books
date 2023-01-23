@@ -6,6 +6,7 @@ from django.views.decorators.http import require_POST
 
 from .models import Order, OrderLineItem
 from .forms import OrderForm
+from profiles.models import Profile
 from books.models import Book
 from basket.contexts import basket_contents
 
@@ -53,8 +54,6 @@ class CheckoutView(View):
         if not self.stripe_public_key:
             messages.warning(request, 'Stripe public key is missing.')
 
-        order_form = OrderForm()
-
         current_basket = basket_contents(request)
         total = current_basket['grand_total']
         stripe_total = round(total * 100)
@@ -63,6 +62,25 @@ class CheckoutView(View):
             amount=stripe_total,
             currency=settings.STRIPE_CURRENCY
         )
+
+        if request.user.is_authenticated:
+            try:
+                profile = Profile.objects.get(user=request.user)
+                order_form = OrderForm(initial={
+                    'email': profile.user.email,
+                    'full_name': profile.default_full_name,
+                    'phone_number': profile.default_phone_number,
+                    'address_line_1': profile.default_address_line_1,
+                    'address_line_2': profile.default_address_line_2,
+                    'town_or_city': profile.default_town_or_city,
+                    'county': profile.default_county,
+                    'postcode': profile.default_postcode,
+                    'country': profile.default_country
+                })
+            except Profile.DoesNotExist:
+                order_form = OrderForm()
+        else:
+            order_form = OrderForm()
 
         context = {
             'order_form': order_form,
