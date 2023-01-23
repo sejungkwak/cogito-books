@@ -131,9 +131,9 @@ class BookListView(ListView):
         return context
 
 
-class BookCreateView(CreateView,
-                     UserPassesTestMixin,
-                     SuccessMessageMixin):
+class BookCreateView(UserPassesTestMixin,
+                     SuccessMessageMixin,
+                     CreateView):
     """
     A view to handle the form to add a book to the database.
     """
@@ -171,9 +171,9 @@ class BookCreateView(CreateView,
         return reverse_lazy('home')
 
 
-class BookUpdateView(UpdateView,
-                     UserPassesTestMixin,
-                     SuccessMessageMixin):
+class BookUpdateView(UserPassesTestMixin,
+                     SuccessMessageMixin,
+                     UpdateView):
     """
     A view to allow the superuser to update book data.
     """
@@ -204,7 +204,8 @@ class BookUpdateView(UpdateView,
         return reverse_lazy('home')
 
 
-class BookDeleteView(DeleteView, UserPassesTestMixin):
+class BookDeleteView(UserPassesTestMixin,
+                     DeleteView):
     """
     A view to allow the superuser to delete book data.
     """
