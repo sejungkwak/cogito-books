@@ -50,13 +50,14 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
     'crispy_forms',
+    'phonenumber_field',
 
     'home',
     'books',
     'basket',
     'checkout',
+    'profiles',
 ]
 
 MIDDLEWARE = [
@@ -209,3 +210,6 @@ STANDARD_DELIVERY_PERCENTAGE = 10
 STRIPE_CURRENCY = 'eur'
 STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+
+# Phone number field
+PHONENUMBER_DEFAULT_REGION = 'IE'
