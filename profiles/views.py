@@ -3,11 +3,14 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.views import View
 from django.views.generic import TemplateView
 from django.views.generic import UpdateView
+from django.views.generic.detail import DetailView
 
 from .models import Profile
 from .forms import UserUpdateForm, ProfileForm
+from checkout.models import Order
 
 
 class ProfileView(LoginRequiredMixin, TemplateView):
@@ -27,7 +30,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 class ProfileUpdateView(UserPassesTestMixin, UpdateView):
     """
-    Edit a user's own details and default delivery address.
+    A view to edit a user's own details and default delivery address.
     """
     model = Profile
     user_form_class = UserUpdateForm
@@ -110,3 +113,21 @@ class ProfileUpdateView(UserPassesTestMixin, UpdateView):
         return reverse_lazy(
             'profile_detail', kwargs={
                 'pk': self.request.user.pk})
+
+
+class OrderHistoryView(View):
+    """
+    A view to display the specified user's order history.
+    """
+    template_name = 'profiles/order_history.html'
+
+    def get(self, request, *args, **kwargs):
+        """
+        Retrieve all the orders from the specified user.
+        """
+        profile = get_object_or_404(Profile, user=request.user)
+        orders = Order.objects.filter(profile=profile)
+        context = {
+            'orders': orders
+        }
+        return render(request, self.template_name, context)

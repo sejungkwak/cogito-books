@@ -9,4 +9,7 @@ urlpatterns = [
     path('<int:pk>/account_detail/',
          views.ProfileUpdateView.as_view(),
          name='profile_detail'),
+    path('<int:pk>/order_history/',
+         views.OrderHistoryView.as_view(),
+         name='order_history'),
 ]
