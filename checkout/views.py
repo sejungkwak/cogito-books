@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect, reverse, get_object_or_404, HttpResponse
+from django.shortcuts import (render, redirect, reverse,
+                              get_object_or_404, HttpResponse)
 from django.contrib import messages
 from django.conf import settings
 from django.views import View
@@ -111,7 +112,11 @@ class CheckoutView(View):
         order_form = OrderForm(form_data)
 
         if order_form.is_valid():
-            order = order_form.save()
+            order = order_form.save(commit=False)
+            pid = request.POST.get('client_secret').split('_secret')[0]
+            order.stripe_pid = pid
+            order.original_basket = json.dumps(basket)
+            order.save()
 
             # Create each line item from the order.
             for item_id, quantity in basket.items():
