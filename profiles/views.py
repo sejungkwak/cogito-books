@@ -131,3 +131,20 @@ class OrderHistoryView(View):
             'orders': orders
         }
         return render(request, self.template_name, context)
+
+
+class SingleOrderView(DetailView):
+    """
+    A view to display a single order summary.
+    """
+    model = Order
+    template_name = 'checkout/checkout_success.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Retrieve the specified order.
+        """
+        context = super().get_context_data(**kwargs)
+        context['order'] = Order.objects.get(order_number=self.kwargs['order_number'])
+        context['past_order'] = True
+        return context

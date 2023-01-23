@@ -1,5 +1,4 @@
 from django.urls import path
-from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
@@ -12,4 +11,7 @@ urlpatterns = [
     path('<int:pk>/order_history/',
          views.OrderHistoryView.as_view(),
          name='order_history'),
+    path('<int:pk>/order_history/<order_number>',
+         views.SingleOrderView.as_view(),
+         name='single_order_history'),
 ]
