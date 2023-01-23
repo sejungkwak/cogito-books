@@ -1,0 +1,21 @@
+Dear {{ order.full_name }},
+
+Thank you for shopping with Cogito Books!
+
+Your order is being prepared and will be dispatched from our warehouses soon.
+
+You can find the details of your purchase below. Please review them closely and don’t hesitate to email us at {{ contact_email }} if you have any problems or queries.
+
+Order Number: {{ order.order_number }}
+Order Date: {{ order.date }}
+
+Subtotal: €{{ order.subtotal }}
+Delivery: €{{ order.delivery_cost }}
+Loyalty points redemption: {{ order.paid_points }}
+Total: €{{ order.grand_total }}
+
+Shipping address: {{ order.address_line_1 }} in {{ order.town_or_city }}, {{ order.country }}.
+Phone number: {{ order.phone_number }}.
+
+Many Thanks,
+Cogito Books
