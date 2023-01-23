@@ -67,7 +67,7 @@
     </div>
     <hr>
     <p>{% trans "Delivering To " %}<strong>{{ order.full_name }}</strong></p>
-    <p>{{ order.address_line_1 }}{% trans ", " %}{% if order.address_line_2 %}{{ address_line_2 }}{% trans ", " %}{% endif %}{{ order.town_or_city }}{% trans ", " %}{{ order.country.name }}</p>
+    <p>{{ order.address_line_1 }}{% trans ", " %}{% if order.address_line_2 %}{{ order.address_line_2 }}{% trans ", " %}{% endif %}{{ order.town_or_city }}{% trans ", " %}{{ order.country.name }}</p>
 </section>
 
 {% endblock %}
