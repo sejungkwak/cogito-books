@@ -63,6 +63,12 @@ class Order(models.Model):
         blank=False,
         choices=ORDER_STATUS,
         default='payment accepted')
+    original_basket = models.TextField(null=False, blank=False, default='')
+    stripe_pid = models.CharField(
+        max_length=254,
+        null=False,
+        blank=False,
+        default='')
 
     class Meta:
         ordering = ['-date']
