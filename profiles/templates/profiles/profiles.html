@@ -8,30 +8,30 @@
 {% endblock %}
 
 {% block content %}
-<h1 class="mt-lg-3 mb-3 mb-lg-5 fw-bold text-center">{% trans "Your Account" %}</h1>
+<h1 class="mt-lg-3 mb-3 mb-md-5 fw-bold text-center">{% trans "Your Account" %}</h1>
 <section class="row justify-content-between">
-    <div class="col-12 col-lg-6 mb-3 pe-lg-3">
+    <div class="col-12 col-md-6 mb-3 pe-md-3">
         <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="{% url 'profile_detail' pk=request.user.pk %}">
             <h2 class="mb-3 fs-5">{% trans "Account Details" %}</h2>
-            <small class="d-none d-lg-block">{% trans "Review your personal details, loyalty points and update delivery information." %}</small>
+            <small class="d-none d-md-block">{% trans "Review your personal details, loyalty points and update delivery information." %}</small>
         </a>
     </div>
-    <div class=" col-12 col-lg-6 mb-3 ps-lg-3">
+    <div class=" col-12 col-md-6 mb-3 ps-md-3">
         <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="{% url 'account_change_password' %}">
             <h2 class="fs-5">{% trans "Change Password" %}</h2>
-            <small class="d-none d-lg-block">{% trans "Change your password." %}</small>
+            <small class="d-none d-md-block">{% trans "Change your password." %}</small>
         </a>
     </div>
-    <div class="col-12 col-lg-6 mb-3 pe-lg-3">
-        <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="#">
+    <div class="col-12 col-md-6 mb-3 pe-md-3">
+        <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="{% url 'order_history' pk=request.user.pk %}">
             <h2 class="fs-5">{% trans "Order History" %}</h2>
-            <small class="d-none d-lg-block">{% trans "View your previous order history." %}</small>
+            <small class="d-none d-md-block">{% trans "View your previous order history." %}</small>
         </a>
     </div>
-    <div class=" col-12 col-lg-6 mb-3 ps-lg-3">
+    <div class=" col-12 col-md-6 mb-3 ps-md-3">
         <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="#">
             <h2 class="fs-5">{% trans "Wishlist" %}</h2>
-            <small class="d-none d-lg-block">{% trans "View and update your wishlist." %}</small>
+            <small class="d-none d-md-block">{% trans "View and update your wishlist." %}</small>
         </a>
     </div>
 </section>

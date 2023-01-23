@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Order History" %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold">{% trans "Order History" %}</h1>
+<div class="mt-5">
+    {% if orders %}
+        <div class="row justify-content-between">
+            {% for order in orders %}
+                <div class="order-history-card col-12 col-lg-6 mb-3 p{% if forloop.counter|divisibleby:2 %}s{% else %}e{% endif %}-lg-4">
+                    <div class="row p-2 p-lg-3 bg-light">
+                        <div class="col-5 col-lg-3 mb-2 mb-lg-0">
+                            {% for lineitem in order.lineitems.all %}
+                                {% if forloop.first %}
+                                    {% if lineitem.book.cover %}
+                                        <img class="book-img" src="{{ lineitem.book.cover.url }}" alt="{{ lineitem.book.title }}">
+                                    {% else %}
+                                        <img class="book-img" src="{{ MEDIA_URL }}noimage.png" alt="{{ lineitem.book.title }}">
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                        <div class="col d-lg-none text-end">
+                            <p class="badge fs-6 fw-light bg-primary">{{ order.order_status }}</p>
+                        </div>
+                        <div class="col-12 col-lg-9 d-flex flex-column justify-content-between">
+                            <div class="d-none d-lg-block text-end">
+                                <p class="badge fs-6 fw-light bg-primary">{{ order.order_status }}</p>
+                            </div>
+                            <div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="mb-1">{% trans "Order number" %}</p>
+                                    <a href="#">{{ order.order_number | truncatechars:10 }}</a>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="mb-1">{% trans "Date" %}</p>
+                                    <p class="mb-1">{{ order.date | date:'d/m/Y H:i' }}</p>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <p class="mb-1">{% trans "Total" %}</p>
+                                    <p class="mb-1">{% trans "€" %}{{ order.grand_total }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>{% trans "Unable to find your order history." %}</p>
+        <p>{% trans "Please contact us for assistance." %}</p>
+    {% endif %}
+</div>
+{% endblock %}
