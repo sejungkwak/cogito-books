@@ -1,3 +1,5 @@
+/*----------------------------------- Profile menu page -----------------------------------*/
+
 main {
     padding-right: 0 !important;
     padding-left: 0 !important;
@@ -6,4 +8,16 @@ main {
 .profile-menu-link {
     min-height: 20vh;
     border-radius: .75rem;
+}
+
+/*----------------------------------- Account details -----------------------------------*/
+
+#div_id_default_phone_number>div {
+    display: flex;
+}
+
+select.phonenumber {
+    padding-left: .25rem;
+    max-width: fit-content;
+    font-size: .8rem;
 }

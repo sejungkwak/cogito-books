@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Account Details" %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="fw-bold">{% trans "Account Details" %}</h1>
+<section>
+    <form class="row" action="#" method="POST">
+        {% csrf_token %}
+        <fieldset class="col-12 col-lg-6 mt-3">
+            <legend><h2 class="fs-5">{% trans "Account Information" %}</h2></legend>
+            {{ user_form | crispy }}
+            {{ profile_form.dob | as_crispy_field }}
+            <div class="d-flex justify-content-between">
+                <p>Loyalty points</p>
+                <p>{{ profile.loyalty_points }}</p>
+            </div>
+        </fieldset>
+        <fieldset class="col-12 col-lg-6 mt-3">
+            <legend><h2 class="fs-5">{% trans "Default Delivery Information" %}</h2></legend>
+            {{ profile_form.default_full_name | as_crispy_field }}
+            {{ profile_form.default_phone_number | as_crispy_field }}
+            {{ profile_form.default_address_line_1 | as_crispy_field }}
+            {{ profile_form.default_address_line_2 | as_crispy_field }}
+            {{ profile_form.default_town_or_city | as_crispy_field }}
+            {{ profile_form.default_county | as_crispy_field }}
+            {{ profile_form.default_postcode | as_crispy_field }}
+            {{ profile_form.default_country | as_crispy_field }}
+        </fieldset>
+        <div class="mt-4 text-center">
+            <button class="btn btn-primary">{% trans "Update" %}</button>
+        </div>
+    </form>
+</section>
+
+{% endblock %}

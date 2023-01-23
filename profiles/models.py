@@ -25,7 +25,7 @@ class Profile(models.Model):
     default_county = models.CharField(max_length=80, null=True, blank=True)
     default_postcode = models.CharField(max_length=20, null=True, blank=True)
     default_country = CountryField(
-        blank_label='Country', null=True, blank=True)
+        blank_label='Country', null=True, blank=True, default='IE')
     dob = models.DateField(null=True, blank=True)
     joined = models.DateTimeField(auto_now_add=True)
     loyalty_points = models.IntegerField(null=False, blank=False, default=0)

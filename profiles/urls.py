@@ -6,4 +6,7 @@ urlpatterns = [
     path('',
          views.ProfileView.as_view(),
          name='profile'),
+    path('<int:pk>/account_detail/',
+         views.ProfileUpdateView.as_view(),
+         name='profile_detail'),
 ]

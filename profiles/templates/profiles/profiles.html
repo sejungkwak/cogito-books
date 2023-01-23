@@ -11,8 +11,8 @@
 <h1 class="mt-lg-3 mb-3 mb-lg-5 fw-bold text-center">{% trans "Your Account" %}</h1>
 <section class="row justify-content-between">
     <div class="col-12 col-lg-6 mb-3 pe-lg-3">
-        <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="#">
-            <h2 class="fs-5">{% trans "Account Details" %}</h2>
+        <a class="profile-menu-link d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="{% url 'profile_detail' pk=request.user.pk %}">
+            <h2 class="mb-3 fs-5">{% trans "Account Details" %}</h2>
             <small class="d-none d-lg-block">{% trans "Review your personal details, loyalty points and update delivery information." %}</small>
         </a>
     </div>
