@@ -10,7 +10,7 @@
 {% block content %}
 <h1 class="fw-bold">{% trans "Account Details" %}</h1>
 <section>
-    <form class="row" action="#" method="POST">
+    <form class="row" action="{% url 'profile_detail' pk=request.user.pk %}" method="POST">
         {% csrf_token %}
         <fieldset class="col-12 col-lg-6 mt-3">
             <legend><h2 class="fs-5">{% trans "Account Information" %}</h2></legend>

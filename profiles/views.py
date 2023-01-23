@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import TemplateView
@@ -70,14 +72,41 @@ class ProfileUpdateView(UserPassesTestMixin, UpdateView):
                     'email': email}),
             'profile_form': profile_form(
                 initial={
-                    'full_name': full_name,
-                    'phone_number': phone_number,
-                    'address_line_1': address_line_1,
-                    'address_line_2': address_line_2,
-                    'town_or_city': town_or_city,
-                    'county': county,
-                    'postcode': postcode,
-                    'country': country,
+                    'default_full_name': full_name,
+                    'default_phone_number': phone_number,
+                    'default_address_line_1': address_line_1,
+                    'default_address_line_2': address_line_2,
+                    'default_town_or_city': town_or_city,
+                    'default_county': county,
+                    'default_postcode': postcode,
+                    'default_country': country,
                     'dob': dob})
         }
         return render(request, self.template_name, context)
+
+    def post(self, request, *args, **kwargs):
+        """
+        Update the user's profile data.
+        """
+        user_form = self.user_form_class(
+            data=request.POST, instance=request.user)
+        profile_form = self.profile_form_class(
+            data=request.POST, instance=request.user.profile)
+
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            messages.success(
+                request, 'Your details has been successfully updated.')
+        else:
+            get_error_text = user_form.errors.as_text().split('*')[-1]
+            messages.error(request, get_error_text)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        """
+        Redirect back to the same page and display the updated data.
+        """
+        return reverse_lazy(
+            'profile_detail', kwargs={
+                'pk': self.request.user.pk})
