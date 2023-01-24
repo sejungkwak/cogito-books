@@ -8,8 +8,9 @@ from django.views.generic import TemplateView
 from django.views.generic import UpdateView
 from django.views.generic.detail import DetailView
 
-from .models import Profile
+from .models import Profile, Wishlist
 from .forms import UserUpdateForm, ProfileForm
+from books.models import Book
 from checkout.models import Order
 
 
@@ -145,6 +146,36 @@ class SingleOrderView(DetailView):
         Retrieve the specified order.
         """
         context = super().get_context_data(**kwargs)
-        context['order'] = Order.objects.get(order_number=self.kwargs['order_number'])
+        context['order'] = Order.objects.get(
+            order_number=self.kwargs['order_number'])
         context['past_order'] = True
         return context
+
+
+class AddToWishlistView(LoginRequiredMixin, View):
+    """
+    A view to add a book to the user's wishlist.
+    """
+
+    def get(self, request, pk, *args, **kwargs):
+        """
+        Add the specified book to the user's wishlist.
+        If already exists, just give them feedback.
+        """
+        book = get_object_or_404(Book, id=pk)
+
+        if Wishlist.objects.filter(user=request.user).exists():
+            if Wishlist.objects.filter(user=request.user, books__id=pk):
+                messages.info(request, f'{book} is already in your wishlist.')
+            else:
+                wishlist_obj = Wishlist.objects.get(user=request.user)
+                wishlist_obj.books.add(book)
+                messages.success(
+                    request, f'{book} has been added to your wishlist.')
+        else:
+            object, created = Wishlist.objects.get_or_create(user=request.user)
+            object.books.add(book)
+            messages.success(
+                request, f'{book} has been added to your wishlist.')
+
+        return HttpResponseRedirect(request.META["HTTP_REFERER"])

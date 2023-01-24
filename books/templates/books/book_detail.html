@@ -64,7 +64,7 @@
             </div>
             <div class="text-center text-md-start">
                 <button type="submit" class="btn btn-primary">{% trans "Add to Basket" %}</button>
-                <button class="btn btn-outline-primary">{% trans "Add to Wishlist" %}</button>
+                <a class="btn btn-outline-primary" href="{% url 'add_to_wishlist' pk=book.id %}">{% trans "Add to Wishlist" %}</a>
             </div>
         </form>
         <small class="mb-0 text-muted">{% trans "Description" %}</small>

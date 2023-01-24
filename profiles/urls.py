@@ -14,4 +14,7 @@ urlpatterns = [
     path('<int:pk>/order_history/<order_number>',
          views.SingleOrderView.as_view(),
          name='single_order_history'),
+    path('add_to_wishlist/<int:pk>/',
+         views.AddToWishlistView.as_view(),
+         name='add_to_wishlist'),
 ]
