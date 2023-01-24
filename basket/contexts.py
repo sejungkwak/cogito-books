@@ -21,8 +21,8 @@ def basket_contents(request):
         price = book.price
         if book.discount_rate > 0:
             price = book.get_discount_price()
-
         total += price * quantity
+        collecting_points = int(total * 5)
         basket_items.append({
             'book': book,
             'item_id': item_id,
@@ -41,6 +41,7 @@ def basket_contents(request):
         'item_count': item_count,
         'delivery': delivery,
         'lineitem_total': total,
+        'collecting_points': collecting_points,
         'grand_total': grand_total,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD
     }

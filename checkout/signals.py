@@ -9,6 +9,7 @@ def update_on_save(sender, instance, created, **kwargs):
     Update order total on lineitem update/create.
     """
     instance.order.update_total()
+    instance.order.update_collecting_points()
 
 
 @receiver(post_delete, sender=OrderLineItem)
@@ -17,3 +18,4 @@ def update_on_delete(sender, instance, **kwargs):
     Update order total on lineitem delete.
     """
     instance.order.update_total()
+    instance.order.update_collecting_points()

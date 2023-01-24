@@ -67,12 +67,12 @@
         </div>
         <div class="d-flex justify-content-between">
             <p>{% trans "Loyalty points you could earn" %}</p>
-            <p></p>
+            <p>{{ collecting_points }}</p>
         </div>
         {% if user.is_authenticated %}
             <div class="d-flex justify-content-between">
                 <p>{% trans "Loyalty points balance" %}</p>
-                <p id="loyaltyBalance"></p>
+                <p id="loyaltyBalance">{{ point_balance }}</p>
             </div>
             <div class="row">
                 <div class="col-12 d-flex justify-content-between">

@@ -51,6 +51,7 @@ class Order(models.Model):
         decimal_places=2,
         null=False,
         default=0)
+    collecting_points = models.IntegerField(null=False, blank=False, default=0)
     paid_points = models.IntegerField(null=False, blank=False, default=0)
     grand_total = models.DecimalField(
         max_digits=10,
@@ -98,6 +99,15 @@ class Order(models.Model):
         else:
             self.grand_total = self.subtotal + self.delivery_cost
 
+        self.save()
+
+    def update_collecting_points(self):
+        """
+        Update loyalty points a user could earn for the purchase.
+        """
+        self.subtotal = self.lineitems.aggregate(Sum('lineitem_total'))[
+            'lineitem_total__sum'] or 0
+        self.collecting_points = self.subtotal * 5
         self.save()
 
     def save(self, *args, **kwargs):

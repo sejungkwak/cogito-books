@@ -67,6 +67,7 @@ class CheckoutView(View):
         if request.user.is_authenticated:
             try:
                 profile = Profile.objects.get(user=request.user)
+                point_balance = profile.loyalty_points
                 order_form = OrderForm(initial={
                     'email': profile.user.email,
                     'full_name': profile.default_full_name,
@@ -84,6 +85,7 @@ class CheckoutView(View):
             order_form = OrderForm()
 
         context = {
+            'point_balance': point_balance,
             'order_form': order_form,
             'stripe_public_key': self.stripe_public_key,
             'client_secret': intent.client_secret,
