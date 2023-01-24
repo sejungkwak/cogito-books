@@ -80,11 +80,9 @@
                                                     </button>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-sm btn-primary me-2" type="submit">{% trans "Update" %}</button>
-                                        </form>
-                                        <form class="position-relative" action="{% url 'remove_from_basket' pk=item.item_id %}" method="POST">
-                                            {% csrf_token %}
-                                            <button class="border-0 text-primary text-decoration-underline bg-transparent" type="submit">Remove</button>
+                                            <div class="text-end">
+                                                <button class="btn btn-sm btn-primary" type="submit">{% trans "Update" %}</button>
+                                            </div>
                                         </form>
                                     </div>
                                     <div class="col-12 col-lg-2">
@@ -98,8 +96,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-1">
+                    <div class="col-12 col-lg-1 d-flex flex-lg-column justify-content-between">
                         <p class="mb-0 fw-600"><span class="d-lg-none">{% trans "Subtotal " %}</span>{% if item.book.discount_rate > 0 %}{% trans "€" %}{{ item.book.get_discount_price | calc_subtotal:item.quantity }}{% else %}{% trans "€" %}{{ item.book.price | calc_subtotal:item.quantity }}{% endif %}</p>
+                        <form class="position-relative" action="{% url 'remove_from_basket' pk=item.item_id %}" method="POST">
+                            {% csrf_token %}
+                            <button class="border-0 text-primary text-decoration-underline bg-transparent" type="submit">{% trans "Remove" %}</button>
+                        </form>
                     </div>
                 </article>
                 <hr>
