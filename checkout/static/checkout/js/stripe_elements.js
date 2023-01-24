@@ -123,12 +123,10 @@ $(document).ready(function() {
      */
     function loading(isLoading) {
         if ( isLoading ) {
-            $('#payment-form').fadeOut(100);
             $('#loadingOverlay').addClass('loading-overlay-show');
             $('#loadingOverlay').fadeIn(100);
             $('#payment-button').prop('disabled', true);
         } else {
-            $('#payment-form').fadeIn(100);
             $('#loadingOverlay').removeClass('loading-overlay-show');
             $('#loadingOverlay').fadeOut(100);
             $('#payment-button').prop('disabled', false);

@@ -13,6 +13,8 @@ def basket_contents(request):
     basket_items = []
     item_count = 0
     total = 0
+    collecting_points = 0
+    redeem_points_in_eur = 0
     basket = request.session.get('basket', {})
 
     for item_id, quantity in basket.items():
@@ -29,12 +31,15 @@ def basket_contents(request):
             'quantity': quantity,
         })
 
+    if 'points' in request.session:
+        redeem_points_in_eur = round(Decimal(request.session['points'] / 100), 2)
+
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
     else:
         delivery = 0
 
-    grand_total = delivery + total
+    grand_total = delivery + total - redeem_points_in_eur
 
     context = {
         'basket_items': basket_items,
@@ -42,6 +47,7 @@ def basket_contents(request):
         'delivery': delivery,
         'lineitem_total': total,
         'collecting_points': collecting_points,
+        'redeem_points_in_eur': redeem_points_in_eur,
         'grand_total': grand_total,
         'free_delivery_threshold': settings.FREE_DELIVERY_THRESHOLD
     }

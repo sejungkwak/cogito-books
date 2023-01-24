@@ -24,15 +24,4 @@ $(document).ready(function() {
         redemmInfo.text('A loyalty point is equivalent to €0.01');
     });
 
-    // Change the redemption text to the user's input value.
-    redeemBtn.click(function(e) {
-        e.preventDefault();
-
-        let loyaltyRedemption = $('#loyaltyRedemption');
-        let redeemInputAmount = redeemInput.val();
-
-        loyaltyRedemption.text(redeemInputAmount);
-        redeemInput.val('');
-        redeemBtn.attr('disabled', true);
-    });
 });

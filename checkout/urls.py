@@ -15,5 +15,9 @@ urlpatterns = [
         'cache_checkout_data/',
         views.cache_checkout_data,
         name='cache_checkout_data'),
+    path(
+        'point_redemption/',
+        views.redeem_points,
+        name='point_redemption'),
     path('wh/', webhook, name='webhook')
 ]

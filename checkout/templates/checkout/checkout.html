@@ -77,12 +77,13 @@
             <div class="row">
                 <div class="col-12 d-flex justify-content-between">
                     <p class="mb-2">{% trans "Loyalty points redemption" %}</p>
-                    <p class="mb-2" id="loyaltyRedemption">0</p>
+                    <p class="mb-2" id="loyaltyRedemption">{% if redeem_points_in_eur %}{% trans "€" %}{{ redeem_points_in_eur }}{% else %}{% trans "0" %}{% endif %}</p>
                 </div>
                 <div class="col-12">
-                    <form class="input-group mb-2" action="#">
-                        <input class="form-control" id="redeemInput" type="number" min="0" max="{{ point_balance }}" placeholder="Enter amount to redeem">
-                        <button class="btn btn-sm btn-primary" id="redeemBtn">{% trans "Redeem points" %}</button>
+                    <form class="input-group mb-2" action="{% url 'point_redemption' %}" method="POST">
+                        {% csrf_token %}
+                        <input class="form-control" id="redeemInput" type="number" min="0" max="{{ point_balance }}" placeholder="Enter amount to redeem" name="point-redemption">
+                        <button class="btn btn-sm btn-primary" id="redeemBtn" type="submit">{% trans "Redeem points" %}</button>
                     </form>
                     <p><small id="redemmInfo">{% trans "A loyalty point is equivalent to €0.01" %}</small></p>
                 </div>
@@ -127,6 +128,7 @@
             <div class="mt-4 text-end">
                 <a class="btn btn-outline-primary" href="{% url 'view_basket' %}">{% trans "Adjust Basket" %}</a>
                 <button class="btn btn-primary" id="paymentBtn">{% trans "Complete Order" %}</button>
+                <p class="small text-danger">{% trans "Your card will be charged €" %}{{ grand_total|floatformat:2 }}</p>
             </div>
         </form>
     </section>

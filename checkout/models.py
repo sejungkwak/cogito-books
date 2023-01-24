@@ -1,4 +1,5 @@
 import uuid
+from decimal import Decimal
 from django.db import models
 from django.db.models import Sum
 from django.conf import settings
@@ -87,17 +88,16 @@ class Order(models.Model):
         """
         self.subtotal = self.lineitems.aggregate(Sum('lineitem_total'))[
             'lineitem_total__sum'] or 0
-
         if self.subtotal < settings.FREE_DELIVERY_THRESHOLD:
             self.delivery_cost = self.subtotal * \
                 settings.STANDARD_DELIVERY_PERCENTAGE / 100
         else:
             self.delivery_cost = 0
 
+        self.grand_total = self.subtotal + self.delivery_cost
         if self.paid_points:
-            self.grand_total = self.subtotal + self.delivery_cost - self.paid_points
-        else:
-            self.grand_total = self.subtotal + self.delivery_cost
+            paid_points_in_eur = round(Decimal(self.paid_points / 100), 2)
+            self.grand_total = self.subtotal + self.delivery_cost - paid_points_in_eur
 
         self.save()
 

@@ -1,5 +1,6 @@
 from django.shortcuts import (render, redirect, reverse,
                               get_object_or_404, HttpResponse)
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.conf import settings
 from django.views import View
@@ -8,6 +9,7 @@ from django.views.decorators.http import require_POST
 from .models import Order, OrderLineItem
 from .forms import OrderForm
 from profiles.models import Profile
+from profiles.forms import ProfileForm
 from books.models import Book
 from basket.contexts import basket_contents
 
@@ -57,6 +59,7 @@ class CheckoutView(View):
 
         current_basket = basket_contents(request)
         total = current_basket['grand_total']
+        point_balance = 0
         stripe_total = round(total * 100)
         stripe.api_key = self.stripe_secret_key
         intent = stripe.PaymentIntent.create(
@@ -118,6 +121,8 @@ class CheckoutView(View):
             pid = request.POST.get('client_secret').split('_secret')[0]
             order.stripe_pid = pid
             order.original_basket = json.dumps(basket)
+            if 'points' in request.session:
+                order.paid_points = request.session['points']
             order.save()
 
             # Create each line item from the order.
@@ -164,6 +169,10 @@ class CheckoutSuccessView(View):
             order.profile = profile
             order.save()
 
+            profile.loyalty_points = profile.loyalty_points \
+                - order.paid_points + order.collecting_points
+            profile.save()
+
         if save_info:
             profile_data = {
                 'default_full_name': order.full_name,
@@ -185,9 +194,21 @@ class CheckoutSuccessView(View):
 
         if 'basket' in request.session:
             del request.session['basket']
+        if 'points' in request.session:
+            del request.session['points']
 
         context = {
             'order': order,
         }
 
         return render(request, self.template, context)
+
+
+def redeem_points(request):
+    """
+    A view to allow the user to save the total points to spend
+    to the browser session storage.
+    """
+    if request.method == 'POST':
+        request.session['points'] = int(request.POST.get('point-redemption'))
+        return HttpResponseRedirect(reverse('checkout'))
