@@ -31,7 +31,15 @@
                                                 {% endif %}
                                             {% endfor %}
                                         </li>
-                                        <li class="list-group-item border-0">{% trans "€ " %}{{ bestseller.price }}</li>
+                                        {% if bestseller.discount_rate > 0 %}
+                                            <li class="list-group-item border-0">
+                                                <p class="mb-0">{% trans "€" %}{{ bestseller.get_discount_price }} <small><s class="text-muted">{% trans "Was €" %}{{ bestseller.price }}</s></small></p>
+                                            </li>
+                                        {% else %}
+                                            <li class="list-group-item border-0">
+                                                <p class="mb-0">{% trans "€" %}{{ bestseller.price }}</p>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </p>
                             </a>

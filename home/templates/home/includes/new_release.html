@@ -31,7 +31,15 @@
                                                 {% endif %}
                                             {% endfor %}
                                         </li>
-                                        <li class="list-group-item border-0">{% trans "€ " %}{{ book.price }}</li>
+                                        {% if book.discount_rate > 0 %}
+                                            <li class="list-group-item border-0">
+                                                <p class="mb-0">{% trans "€" %}{{ book.get_discount_price }} <small><s class="text-muted">{% trans "Was €" %}{{ book.price }}</s></small></p>
+                                            </li>
+                                        {% else %}
+                                            <li class="list-group-item border-0">
+                                                <p class="mb-0">{% trans "€" %}{{ book.price }}</p>
+                                            </li>
+                                        {% endif %}
                                     </ul>
                                 </p>
                             </a>
