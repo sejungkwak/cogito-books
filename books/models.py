@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Avg
 from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from decimal import Decimal
@@ -101,6 +102,12 @@ class Book(models.Model):
 
     def number_of_reviews(self):
         return self.reviews.count()
+
+    def get_average_rating(self):
+        avg_rating = self.reviews.aggregate(Avg('rating'))['rating__avg']
+        if not self.number_of_reviews:
+            avg_rating = 0
+        return avg_rating
 
 
 class Review(models.Model):
