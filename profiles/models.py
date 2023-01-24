@@ -5,6 +5,7 @@ from django.dispatch import receiver
 
 from django_countries.fields import CountryField
 from phonenumber_field.modelfields import PhoneNumberField
+from books.models import Book
 
 
 class Profile(models.Model):
@@ -32,6 +33,24 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Wishlist(models.Model):
+    """
+    A wishlist model for users to save books.
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    books = models.ManyToManyField(Book, blank=True, related_name='wishlist')
+    added_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-added_at']
+
+    def __str__(self):
+        return f'{self.user.username}\'s wishlist'
+
+    def number_of_books(self):
+        return self.books.count()
 
 
 @receiver(post_save, sender=User)
