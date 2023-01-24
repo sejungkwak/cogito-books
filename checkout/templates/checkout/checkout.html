@@ -66,24 +66,25 @@
             <p id="deliveryFee">{{ delivery | floatformat:2 }}</p>
         </div>
         <div class="d-flex justify-content-between">
-            <p>{% trans "Loyalty points you could earn" %}</p>
-            <p>{{ collecting_points }}</p>
+            <p class="mb-2">{% trans "Loyalty points you could earn" %}</p>
+            <p class="mb-2">{{ collecting_points }}</p>
         </div>
         {% if user.is_authenticated %}
             <div class="d-flex justify-content-between">
-                <p>{% trans "Loyalty points balance" %}</p>
-                <p id="loyaltyBalance">{{ point_balance }}</p>
+                <p class="mb-2">{% trans "Loyalty points balance" %}</p>
+                <p class="mb-2" id="loyaltyBalance">{{ point_balance }}</p>
             </div>
             <div class="row">
                 <div class="col-12 d-flex justify-content-between">
-                    <p>{% trans "Loyalty points redemption" %}</p>
-                    <p id="loyaltyRedemption"></p>
+                    <p class="mb-2">{% trans "Loyalty points redemption" %}</p>
+                    <p class="mb-2" id="loyaltyRedemption">0</p>
                 </div>
                 <div class="col-12">
-                    <form class="input-group" action="#">
-                        <input class="form-control" type="number" placeholder="Enter amount to redeem">
-                        <button class="btn btn-sm btn-primary">{% trans "Redeem points" %}</button>
+                    <form class="input-group mb-2" action="#">
+                        <input class="form-control" id="redeemInput" type="number" min="0" max="{{ point_balance }}" placeholder="Enter amount to redeem">
+                        <button class="btn btn-sm btn-primary" id="redeemBtn">{% trans "Redeem points" %}</button>
                     </form>
+                    <p><small id="redemmInfo">{% trans "A loyalty point is equivalent to €0.01" %}</small></p>
                 </div>
             </div>
         {% endif %}
@@ -142,4 +143,5 @@
     {{ stripe_public_key|json_script:"id_stripe_public_key" }}
     {{ client_secret|json_script:"id_client_secret" }}
     <script src="{% static 'checkout/js/stripe_elements.js' %}"></script>
+    <script src="{% static 'checkout/js/point_redemption.js' %}"></script>
 {% endblock %}
