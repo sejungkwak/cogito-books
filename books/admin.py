@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre, Author, Book
+from .models import Genre, Author, Book, Review
 
 
 @admin.register(Genre)
@@ -37,3 +37,16 @@ class BookAdmin(admin.ModelAdmin):
 
     def all_authors(self, obj):
         return ' & '.join([a.full_name for a in obj.author.all()])
+
+
+@admin.register(Review)
+class ReviewAdmin(admin.ModelAdmin):
+    """
+    Review panel for the admin site
+    """
+    list_display = (
+        'book',
+        'reviewer',
+        'rating',
+        'created_at'
+    )

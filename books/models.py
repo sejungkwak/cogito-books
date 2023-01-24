@@ -1,5 +1,6 @@
 from django.db import models
-from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User
+from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from decimal import Decimal
 
 
@@ -97,3 +98,32 @@ class Book(models.Model):
         discount = self.price * self.discount_rate
         new_price = round(Decimal(self.price - discount), 2)
         return new_price
+
+    def number_of_reviews(self):
+        return self.reviews.count()
+
+
+class Review(models.Model):
+    """
+    Review database model
+    """
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        related_name='reviews')
+    reviewer = models.ForeignKey(
+        User,
+        on_delete=models.CASCADE,
+        related_name='reviews')
+    rating = models.PositiveIntegerField(
+        null=False, blank=False, default=1, validators=[
+            MinValueValidator(1), MaxValueValidator(5)])
+    content = models.TextField(null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f'{self.reviewer}\'s review for {self.book}'
