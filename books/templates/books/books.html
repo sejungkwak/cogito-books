@@ -53,10 +53,11 @@
                             </ul>
                         </div>
                     </a>
-                    <form class="mt-auto" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
+                    <form class="d-flex flex-column mt-auto" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
                         {% csrf_token %}
-                        <input type="hidden" type="number" name="quantity" value="1">
-                        <button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button>
+                        <input type="hidden" name="quantity" value="1">
+                        <button class="btn btn-sm btn-primary w-75 mx-auto" type="submit">{% trans "Add to Basket" %}</button>
+                        <a class="btn btn-sm btn-outline-primary w-75 mx-auto mt-2" href="{% url 'add_to_wishlist' pk=book.id %}">{% trans "Add to Wishlist" %}</a>
                     </form>
                     {% if title == 'Wishlist' %}
                     <form class="mt-2" action="{% url 'remove_from_wishlist' pk=book.id %}" method="POST">
