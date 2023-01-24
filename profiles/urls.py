@@ -17,4 +17,7 @@ urlpatterns = [
     path('add_to_wishlist/<int:pk>/',
          views.AddToWishlistView.as_view(),
          name='add_to_wishlist'),
+    path('wishlist/',
+         views.WishlistDisplayView.as_view(),
+         name='view_wishlist'),
 ]

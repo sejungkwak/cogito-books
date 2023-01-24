@@ -87,7 +87,15 @@
     {% endfor %}
 </div>
 {% else %}
-<h1 class="fs-3">{% trans "There are no books in this category." %}</h1>
+    <h1 class="fs-3">
+        {% if search_term %}
+            {% trans "Your keyword did not match any books." %}
+        {% elif title == 'Wishlist' %}
+            {% trans "You have no books in your wishlist." %}
+        {% else %}
+            {% trans "There are no books in this category." %}
+        {% endif %}
+    </h1>
 {% endif %}
 
 {% include 'books/includes/paginator.html' %}
