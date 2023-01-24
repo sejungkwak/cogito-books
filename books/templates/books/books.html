@@ -58,7 +58,13 @@
                         <input type="hidden" type="number" name="quantity" value="1">
                         <button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button>
                     </form>
-                    {% if request.user.is_superuser %}
+                    {% if title == 'Wishlist' %}
+                    <form class="mt-2" action="{% url 'remove_from_wishlist' pk=book.id %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-sm btn-outline-primary" type="submit">{% trans "Remove from Wishlist" %}</button>
+                    </form>
+                    {% endif %}
+                    {% if request.user.is_superuser and title != 'Wishlist' %}
                     <div class="mt-2">
                         <li class="btn-group">
                             <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book' pk=book.pk %}">Edit</a>

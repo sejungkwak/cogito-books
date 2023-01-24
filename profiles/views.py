@@ -236,3 +236,19 @@ class WishlistDisplayView(LoginRequiredMixin, ListView):
         context['title'] = 'Wishlist'
 
         return context
+
+
+class RemoveFromWishList(View):
+    """
+    A view to remove the specified book from the user's wishlist.
+    """
+    def post(self, request, pk, *args, **kwargs):
+        """
+        Remove the specified book from the user's wishlist.
+        """
+        book = get_object_or_404(Book, id=pk)
+        wishlist = get_object_or_404(Wishlist, user=request.user)
+        wishlist.books.remove(book)
+        wishlist.save()
+
+        return HttpResponseRedirect(request.META["HTTP_REFERER"])
