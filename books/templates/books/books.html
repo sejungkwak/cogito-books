@@ -27,22 +27,31 @@
                 </a>
                 <div class="card-body px-0">
                     <a class="text-decoration-none text-body" href="#">
-                        <h3 class="card-title fs-6 fw-600">{{ book.title }}</h3>
-                        <p class="card-text">
+                        <h3 class="card-title mb-0 fs-6 fw-600">{{ book.title }}</h3>
+                        <div class="card-text">
                             <ul class="list-group">
                                 <li class="list-group-item border-0">
-                                    {% trans "by " %}
-                                    {% for author in book.author.all %}
-                                        {% if not forloop.last %}
-                                            {{ author }} &
-                                        {% else %}
-                                            {{ author }}
-                                        {% endif %}
-                                    {% endfor %}
+                                    <p class="mb-0">{% trans "by " %}
+                                        {% for author in book.author.all %}
+                                            {% if not forloop.last %}
+                                                {{ author }}{% trans " & " %}
+                                            {% else %}
+                                                {{ author }}
+                                            {% endif %}
+                                        {% endfor %}
+                                    </p>
                                 </li>
-                                <li class="list-group-item border-0">{% trans "€ " %}{{ book.price }}</li>
+                                {% if book.discount_rate > 0 %}
+                                <li class="list-group-item border-0">
+                                    <p class="mb-0">{% trans "€" %}{{ book.get_discount_price }} <small><s class="text-muted">{% trans "Was €" %}{{ book.price }}</s></small></p>
+                                </li>
+                                {% else %}
+                                <li class="list-group-item border-0">
+                                    <p class="mb-0">{% trans "€" %}{{ book.price }}</p>
+                                </li>
+                                {% endif %}
                             </ul>
-                        </p>
+                        </div>
                     </a>
                     <form action="{% url 'add_to_basket' pk=book.id %}" method="POST">
                         {% csrf_token %}

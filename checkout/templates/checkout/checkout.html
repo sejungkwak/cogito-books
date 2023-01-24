@@ -48,7 +48,11 @@
                                             {% endif %}
                                         {% endfor %}
                                     </small>
-                                    <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.price }}</p>
+                                    {% if item.book.discount_rate > 0 %}
+                                        <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.get_discount_price }} <small><s class="text-muted">{% trans "Was €" %}{{ item.book.price }}</s></small></p>
+                                    {% else %}
+                                        <p class="mt-2 mb-0">{% trans "€" %}{{ item.book.price }}</p>
+                                    {% endif %}
                                     <p>{% trans "Quantity: " %}{{ item.quantity }}</p>
                                 </div>
                             </div>

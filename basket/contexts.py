@@ -18,7 +18,11 @@ def basket_contents(request):
     for item_id, quantity in basket.items():
         book = get_object_or_404(Book, pk=item_id)
         item_count += quantity
-        total += book.price * quantity
+        price = book.price
+        if book.discount_rate > 0:
+            price = book.get_discount_price()
+
+        total += price * quantity
         basket_items.append({
             'book': book,
             'item_id': item_id,

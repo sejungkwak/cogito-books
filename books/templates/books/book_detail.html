@@ -42,7 +42,11 @@
                 <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_book' pk=book.pk %}">Delete</a>
             </div>
         {% endif %}
-        <p class="fs-4 fw-600 text-center text-md-start">{% trans "€ " %}{{ book.price }}</p>
+        {% if book.discount_rate > 0 %}
+            <p class="fs-4 fw-600 text-center text-md-start">{% trans "€" %}{{ book.get_discount_price }}<small class="fs-6"><s class="text-muted">{% trans "Was €" %}{{ book.price }}</s></small></p>
+        {% else %}
+            <p class="fs-4 fw-600 text-center text-md-start">{% trans "€" %}{{ book.price }}</p>
+        {% endif %}
         <form class="mb-2" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
             {% csrf_token %}
             <div class="input-group qty-input-group mb-3 mx-auto ms-md-0 text-center text-md-start">

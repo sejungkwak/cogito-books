@@ -88,14 +88,18 @@
                                         </form>
                                     </div>
                                     <div class="col-12 col-lg-2">
-                                        <p>{% trans "€" %}{{ item.book.price }}</p>
+                                        {% if item.book.discount_rate > 0 %}
+                                            <p>{% trans "€" %}{{ item.book.get_discount_price }} <small class="d-block"><s class="text-muted">{% trans "€" %}{{ item.book.price }}</s></small></p>
+                                        {% else %}
+                                            <p>{% trans "€" %}{{ item.book.price }}</p>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-12 col-lg-1">
-                        <p class="mb-0 fw-600"><span class="d-lg-none">{% trans "Subtotal " %}</span>{% trans "€" %}{{ item.book.price | calc_subtotal:item.quantity }}</p>
+                        <p class="mb-0 fw-600"><span class="d-lg-none">{% trans "Subtotal " %}</span>{% if item.book.discount_rate > 0 %}{% trans "€" %}{{ item.book.get_discount_price | calc_subtotal:item.quantity }}{% else %}{% trans "€" %}{{ item.book.price | calc_subtotal:item.quantity }}{% endif %}</p>
                     </div>
                 </article>
                 <hr>

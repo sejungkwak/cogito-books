@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinLengthValidator
+from decimal import Decimal
 
 
 class Category(models.Model):
@@ -91,3 +92,8 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_discount_price(self):
+        discount = self.price * self.discount_rate
+        new_price = round(Decimal(self.price - discount), 2)
+        return new_price
