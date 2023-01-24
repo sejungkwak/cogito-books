@@ -8,7 +8,7 @@
         {% for book in new_releases %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card border-0 text-center">
+                    <div class="card h-100 border-0 text-center">
                         <a href="{% url 'book_detail' pk=book.id %}">
                             {% if book.cover %}
                                 <img class="card-img-top" src="{{ book.cover.url }}" alt="{{ book.title }}">
@@ -16,7 +16,7 @@
                                 <img class="card-img-top" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.title }}">
                             {% endif %}
                         </a>
-                        <div class="card-body px-0">
+                        <div class="card-body d-flex flex-column px-0">
                             <a class="text-decoration-none text-body" href="{% url 'book_detail' pk=book.id %}">
                                 <h3 class="card-title fs-6 fw-600">{{ book.title }}</h3>
                                 <p class="card-text">
@@ -43,10 +43,10 @@
                                     </ul>
                                 </p>
                             </a>
-                            <form class="btn btn-primary" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
+                            <form class="mt-auto" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
                                 {% csrf_token %}
                                 <input type="hidden" type="number" name="quantity" value="1">
-                                <button class="btn btn-primary" type="submit">{% trans "Add to Basket" %}</button>
+                                <button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button>
                             </form>
                         </div>
                     </div>
