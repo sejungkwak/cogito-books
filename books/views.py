@@ -246,7 +246,8 @@ class BookDeleteView(UserPassesTestMixin,
 
 class BookDetailView(DetailView):
     """
-    A view to display the details of a requested book.
+    A view to display the details of a requested book
+    and it's reviews. Handle the review's post request.
     """
     model = Book
     template_name = 'books/book_detail.html'
@@ -275,7 +276,7 @@ class BookDetailView(DetailView):
             has_content = True
         # If the number of reviews is more than 5,
         # display a link to a separate review page.
-        if reviews.count() > 5:
+        if all_reviews.count() > 5:
             new_page_needed = True
 
         return render(
