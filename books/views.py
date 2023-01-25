@@ -83,7 +83,14 @@ class BookListView(ListView):
             qs = super().get_queryset().all()
 
         if sort_option:
-            qs = qs.order_by(sort_option)
+            if sort_option == 'rating':
+                qs = sorted(
+                    list(qs), key=lambda a: a.get_average_rating())
+            elif sort_option == '-rating':
+                qs = sorted(
+                    list(qs), key=lambda a: a.get_average_rating(), reverse=True)
+            else:
+                qs = qs.order_by(sort_option)
 
         return qs
 
@@ -126,7 +133,10 @@ class BookListView(ListView):
         context['sort'] = self.sort
         context['direction'] = self.direction
         context['current_sorting'] = f'{self.sort}_{self.direction}'
-        context['total'] = self.get_queryset().count()
+        if self.sort and 'rating' in self.sort:
+            context['total'] = len(self.get_queryset())
+        else:
+            context['total'] = self.get_queryset().count()
         context['search_term'] = self.query
 
         return context
