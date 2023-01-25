@@ -38,6 +38,7 @@
 
 /*----------------------------------- Reviews -------------------------------------*/
 
+.list-group-item .icon-container,
 .rating_info .icon-container,
 .reviews .icon-container {
     width: .85rem;

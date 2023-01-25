@@ -6,60 +6,8 @@
 <div class="carousel slide container mt-2" id="newRelaseCarousel" data-bs-ride="carousel">
     <div class="carousel-inner">
         {% for book in new_releases %}
-            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <div class="col-12 col-md-6 col-lg-3">
-                    <div class="card h-100 border-0 text-center">
-                        <a href="{% url 'book_detail' pk=book.id %}">
-                            {% if book.cover %}
-                                <img class="card-img-top" src="{{ book.cover.url }}" alt="{{ book.title }}">
-                            {% else %}
-                                <img class="card-img-top" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.title }}">
-                            {% endif %}
-                        </a>
-                        <div class="card-body d-flex flex-column px-0">
-                            <a class="text-decoration-none text-body" href="{% url 'book_detail' pk=book.id %}">
-                                <h3 class="card-title fs-6 fw-600">{{ book.title }}</h3>
-                                <p class="card-text">
-                                    <ul class="list-group">
-                                        <li class="list-group-item border-0">
-                                            {% trans "by " %}
-                                            {% for author in book.author.all %}
-                                                {% if not forloop.last %}
-                                                    {{ author }} &
-                                                {% else %}
-                                                    {{ author }}
-                                                {% endif %}
-                                            {% endfor %}
-                                        </li>
-                                        {% if book.discount_rate > 0 %}
-                                            <li class="list-group-item border-0">
-                                                <p class="mb-0">{% trans "€" %}{{ book.get_discount_price }} <small><s class="text-muted">{% trans "Was €" %}{{ book.price }}</s></small></p>
-                                            </li>
-                                        {% else %}
-                                            <li class="list-group-item border-0">
-                                                <p class="mb-0">{% trans "€" %}{{ book.price }}</p>
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                </p>
-                            </a>
-                            <form class="mt-auto" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
-                                {% csrf_token %}
-                                <input type="hidden" type="number" name="quantity" value="1">
-                                <button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% include "home/includes/carousel_book.html" %}
         {% endfor %}
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#newRelaseCarousel" data-bs-slide="prev">
-        <svg class="icon-container" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="icon-path__black" d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 278.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
-        <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#newRelaseCarousel" data-bs-slide="next">
-        <svg class="icon-container" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path class="icon-path__black" d="M342.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L274.7 256 105.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"/></svg>
-        <span class="visually-hidden">Next</span>
-    </button>
+    {% include "home/includes/carousel_buttons.html" %}
 </div>
