@@ -36,6 +36,29 @@
                 {% endif %}
             {% endfor %}
         </p>
+        {% if num_of_reviewers %}
+            <div class="row">
+                <p class="col-12 col-md-auto text-center text-md-start">
+                    {% include "books/includes/stars.html" %}
+                </p>
+                <p class="col-12 col-md-auto text-center text-md-start">
+                    {{ average_ratings|floatformat:1 }}{% trans " out of 5 (" %}{{ num_of_reviewers }}{% if num_of_reviewers == 1 %}{% trans " rating)" %}{% else %}{% trans " ratings)" %}{% endif %}
+                </p>
+            </div>
+        {% else %}
+            <div class="row">
+                <p class="col-12 col-md-auto text-center text-md-start">
+                    {% include "books/includes/stars.html" %}
+                </p><p class="col-12 col-md-auto text-center text-md-start">
+                    {% trans "No ratings yet. " %}
+                    {% if request.user.is_authenticated %}
+                        {% trans "Click " %}<a href="#reviewForm">{% trans "here" %}</a>{% trans " to be the first." %}
+                    {% else %}
+                        <a href="{% url 'account_login' %}">{% trans "Sign in" %}</a>{% trans " to give " %}{{ book.title }}{% trans "a rating."%}
+                    {% endif %}
+                </p>
+            </div>
+            {% endif %}
         {% if request.user.is_superuser %}
             <div class="mb-3 text-center text-md-start">
                 <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book' pk=book.pk %}">Edit</a>
@@ -124,6 +147,8 @@
         </ul>
     </div>
 </section>
+
+{% include 'books/includes/review.html' %}
 
 {% endblock %}
 

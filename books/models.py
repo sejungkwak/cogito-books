@@ -104,7 +104,7 @@ class Book(models.Model):
         return self.reviews.count()
 
     def get_average_rating(self):
-        avg_rating = self.reviews.aggregate(Avg('rating'))['rating__avg']
+        avg_rating = self.reviews.aggregate(Avg('rating'))['rating__avg'] or 0
         if not self.number_of_reviews:
             avg_rating = 0
         return avg_rating

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
@@ -10,8 +10,8 @@ from django.db.models import Q
 
 import datetime
 
-from .models import Category, Genre, Author, Book
-from .forms import BookForm
+from .models import Category, Genre, Author, Book, Review
+from .forms import BookForm, ReviewForm
 
 
 class BookListView(ListView):
@@ -159,7 +159,7 @@ class BookCreateView(UserPassesTestMixin,
 
     def form_valid(self, form):
         """
-        Save the form with the value of the logged-in user.
+        Save the form if it's valid.
         """
         form.save()
         return super().form_valid(form)
@@ -240,9 +240,24 @@ class BookDetailView(DetailView):
     model = Book
     template_name = 'books/book_detail.html'
 
-    def get_context_data(self, **kwargs):
+    def get(self, request, *arg, **kwargs):
         """
-        Get a context and add extra information to use in the template.
+        Retrieve an individual book, details and it's reviews.
         """
-        context = super().get_context_data(**kwargs)
-        return context
+        pk = self.kwargs.get('pk')
+        book = get_object_or_404(Book, pk=pk)
+        reviews = book.reviews.order_by('-created_at')
+        num_of_reviewers = book.number_of_reviews()
+        average_ratings = book.get_average_rating()
+
+        return render(
+            request,
+            self.template_name,
+            {
+                'book': book,
+                'reviews': reviews,
+                'num_of_reviewers': num_of_reviewers,
+                'average_ratings': average_ratings,
+                'review_form': ReviewForm()
+            }
+        )

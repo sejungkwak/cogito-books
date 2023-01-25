@@ -16,6 +16,26 @@
     max-width: 20rem;
 }
 
+/*-------------------------------- Review form ----------------------------------*/
+
+.review-form {
+    border-radius: .85rem;
+}
+
+#div_id_rating {
+    display: flex;
+    align-items: center;
+}
+
+#id_rating {
+    margin-left: 1rem;
+}
+
+#id_rating::-webkit-inner-spin-button, 
+#id_rating::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
 /*--------------------------- Product management page ----------------------------*/
 
 .add_book_container {

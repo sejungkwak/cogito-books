@@ -1,0 +1,19 @@
+{% load i18n %}
+
+<section class="row my-3">
+
+    {% comment %}Input field{% endcomment %}
+    <h2>{% trans "Reviews" %}</h2>
+    {% if user.is_authenticated %}
+        <form class="review-form col-12 py-3 bg-light" id="reviewForm" action="POST">
+            {% csrf_token %}
+            {{ review_form | crispy }}
+            <div class="text-end">
+                <button class="btn btn-primary">{% trans "Submit" %}</button>
+            </div>
+        </form>
+    {% endif %}
+
+    {% comment %}Reviews{% endcomment %}
+
+</section>
