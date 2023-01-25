@@ -36,6 +36,17 @@
    opacity: 1;
 }
 
+/*----------------------------------- Reviews -------------------------------------*/
+
+.rating_info .icon-container,
+.reviews .icon-container {
+    width: .85rem;
+}
+
+.rating_info .icon-container .icon-path__blue {
+    fill: var(--bs-blue);
+}
+
 /*--------------------------- Product management page ----------------------------*/
 
 .add_book_container {

@@ -4,9 +4,14 @@
 
     {% comment %}Input field{% endcomment %}
     <h2>{% trans "Reviews" %}</h2>
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and not has_content %}
         <form class="review-form col-12 py-3 bg-light" id="reviewForm" action="{% url 'book_detail' pk=book.id %}" method="POST">
             {% csrf_token %}
+            {% if has_rating %}
+                {% with stars=has_rating %}
+                    <p class="rating_info text-primary">{% trans "You have given " %}{% include "books/includes/stars.html" %}{% trans "Submitting the form again will overwrite your existing rating." %}</p>
+                {% endwith %}
+            {% endif %}
             {{ review_form | crispy }}
             <div class="text-end">
                 <button class="btn btn-primary">{% trans "Submit" %}</button>
@@ -15,5 +20,20 @@
     {% endif %}
 
     {% comment %}Reviews{% endcomment %}
-
+    <div class="reviews" id="reviews">
+        {% if reviews %}
+            {% for review in reviews%}
+                {% with stars=review.rating %}
+                    <p class="mb-1">{% include "books/includes/stars.html" %}</p>
+                {% endwith %}
+                <div>
+                    <p class="mb-1 small">{{ review.reviewer }}{% trans " | " %}{{ review.updated_at | date:'d/m/Y H:i' }}</p>
+                </div>
+                <p>{{ review.content }}</p>
+            {% endfor %}
+        {% endif %}
+        {% if new_page_needed %}
+        <a href="">{% trans "See all reviews" %}</a>
+        {% endif %}
+    </div>
 </section>

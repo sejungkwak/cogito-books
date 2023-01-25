@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, reverse, get_object_or_404
 from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -247,18 +247,38 @@ class BookDetailView(DetailView):
         """
         pk = self.kwargs.get('pk')
         book = get_object_or_404(Book, pk=pk)
-        reviews = book.reviews.order_by('-created_at')
-        num_of_reviewers = book.number_of_reviews()
         average_ratings = book.get_average_rating()
+        num_of_reviewers = book.number_of_reviews()
+        all_ratings = book.reviews.exclude(content=True)
+        all_reviews = book.reviews.exclude(content='')
+        reviews = all_reviews.order_by('-created_at')[:5]
+        has_rating = None
+        has_content = False
+        new_page_needed = False
+        # Check if the user has already given a rating without a review.
+        if all_ratings.filter(reviewer=request.user):
+            for field in all_ratings.filter(reviewer=request.user):
+                has_rating = field.rating
+        # If the user has already written a review for the book,
+        # the text input box does not display.
+        if all_reviews.filter(reviewer=request.user):
+            has_content = True
+        # If the number of reviews is more than 5,
+        # display a link to a separate review page.
+        if reviews.count() > 5:
+            new_page_needed = True
 
         return render(
             request,
             self.template_name,
             {
                 'book': book,
-                'reviews': reviews,
-                'num_of_reviewers': num_of_reviewers,
                 'average_ratings': average_ratings,
+                'num_of_reviewers': num_of_reviewers,
+                'reviews': reviews,
+                'new_page_needed': new_page_needed,
+                'has_rating': has_rating,
+                'has_content': has_content,
                 'review_form': ReviewForm()
             }
         )
@@ -270,13 +290,37 @@ class BookDetailView(DetailView):
         pk = self.kwargs.get('pk')
         book = get_object_or_404(Book, pk=pk)
         review_form = ReviewForm(data=request.POST)
+        all_ratings = book.reviews.all()
+        has_rating = False
+        if all_ratings.filter(reviewer=request.user):
+            has_rating = True
 
         if review_form.is_valid():
-            review_form.instance.reviewer = request.user
-            review = review_form.save(commit=False)
-            review.book = book
-            review.save()
+            form_data = {
+                'new_rating': request.POST['rating'],
+                'new_content': request.POST['content']
+            }
+            # If the user has already given a rating, override the values.
+            if has_rating:
+                all_ratings.filter(
+                    reviewer=request.user).update(
+                    rating=form_data['new_rating'],
+                    content=form_data['new_content'],
+                    updated_at=datetime.datetime.now())
+                messages.success(
+                    request, 'Your rating has been successfully updated.')
+            else:
+                review_form.instance.reviewer = request.user
+                review = review_form.save(commit=False)
+                review.book = book
+                review.save()
+                messages.success(
+                    request, 'Your review/rating has been successfully added.')
         else:
+            messages.error(request, 'Your form is invalid.')
             review_form = ReviewForm()
 
-        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
+        return HttpResponseRedirect(
+            reverse_lazy(
+                'book_detail', kwargs={
+                    'pk': pk}))
