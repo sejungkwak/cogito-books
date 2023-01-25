@@ -47,6 +47,10 @@
     fill: var(--bs-blue);
 }
 
+.book-img-sm {
+    max-width: 5rem;
+}
+
 /*--------------------------- Product management page ----------------------------*/
 
 .add_book_container {

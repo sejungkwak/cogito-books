@@ -5,7 +5,7 @@
 
 {% block content %}
 
-<h1 class="fw-600 mb-3">{% if search_term %}{% trans "Search results for " %}<span class="fw-bold">{{ search_term }}</span>{% else %}{{ title }}{% endif %}</h1>
+<h1 class="fw-bold mb-3">{% if search_term %}{% trans "Search results for " %}<span class="fw-bold">{{ search_term }}</span>{% else %}{{ title }}{% endif %}</h1>
 {% if object_list %}
 <div class="list-info d-flex justify-content-between mb-3">
     <p>{{ total }} {% if object_list.count == 1 %}{% trans "Book" %}{% else %}{% trans "Books" %}{% endif %}</p>

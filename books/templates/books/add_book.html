@@ -9,8 +9,7 @@
 
 {% block content %}
 
-<h1 class="mb-3 fs-4 text-muted">{% trans "Product Management" %}</h1>
-<h2 class="mb-3 fs-2 fw-600">{{ title }}</h2>
+<h2 class="mb-3 fs-2 fw-bold">{{ title }}</h2>
 <div class="add_book_container container">
         <form class="form mb-2" enctype="multipart/form-data" method="POST">
             {% csrf_token %}

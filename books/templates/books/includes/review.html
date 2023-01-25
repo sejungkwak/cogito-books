@@ -39,7 +39,7 @@
                     {% if review.reviewer == request.user %}
                         <div class="btn-group text-end">
                             <a class="btn btn-sm btn-primary" href="{% url 'edit_review' book_id=book.id pk=review.id %}">{% trans "Edit" %}</a>
-                            <a class="btn btn-sm btn-outline-primary" href="#">{% trans "Delete" %}</a>
+                            <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_review' book_id=book.id pk=review.id %}">{% trans "Delete" %}</a>
                         </div>
                     {% endif %}
                 </div>

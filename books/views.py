@@ -398,7 +398,39 @@ class ReviewUpdateView(UserPassesTestMixin,
 
     def get_success_url(self):
         """
-        Render the post detail page after saving the edited review.
+        Render the book detail page after saving the edited review.
+        """
+        return reverse_lazy(
+            'book_detail', kwargs={
+                'pk': self.kwargs['book_id']})
+
+
+class ReviewDeleteView(UserPassesTestMixin, DeleteView):
+    """
+    Delete an individual review.
+    """
+    model = Review
+    template_name = 'books/delete_review.html'
+
+    def test_func(self):
+        """
+        Check if the user is the owner of the review.
+        """
+        if self.get_object().reviewer == self.request.user:
+            return True
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Delete a review from the database.
+        """
+        object = self.get_object()
+        messages.success(
+            request, 'Your review has been successfully deleted.')
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        """
+        Render the book detail page after deleting the review.
         """
         return reverse_lazy(
             'book_detail', kwargs={
