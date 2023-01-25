@@ -5,7 +5,7 @@
     {% comment %}Input field{% endcomment %}
     <h2>{% trans "Reviews" %}</h2>
     {% if user.is_authenticated %}
-        <form class="review-form col-12 py-3 bg-light" id="reviewForm" action="POST">
+        <form class="review-form col-12 py-3 bg-light" id="reviewForm" action="{% url 'book_detail' pk=book.id %}" method="POST">
             {% csrf_token %}
             {{ review_form | crispy }}
             <div class="text-end">

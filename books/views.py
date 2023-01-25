@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib import messages
@@ -261,3 +262,21 @@ class BookDetailView(DetailView):
                 'review_form': ReviewForm()
             }
         )
+
+    def post(self, request, *arg, **kwargs):
+        """
+        Save the review and redirect back to the same page.
+        """
+        pk = self.kwargs.get('pk')
+        book = get_object_or_404(Book, pk=pk)
+        review_form = ReviewForm(data=request.POST)
+
+        if review_form.is_valid():
+            review_form.instance.reviewer = request.user
+            review = review_form.save(commit=False)
+            review.book = book
+            review.save()
+        else:
+            review_form = ReviewForm()
+
+        return HttpResponseRedirect(self.request.META.get('HTTP_REFERER'))
