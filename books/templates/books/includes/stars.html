@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% comment %}No ratings{% endcomment %}
-{% if stars < 1 %}
+{% if stars < 1 or not stars %}
     <span role="img" aria-label="No ratings yet. Image: 5 white stars.">
         {% for i in '12345'|make_list %}
             <span aria-hidden="true">
