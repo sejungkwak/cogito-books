@@ -88,7 +88,9 @@ class BookListView(ListView):
                     list(qs), key=lambda a: a.get_average_rating())
             elif sort_option == '-rating':
                 qs = sorted(
-                    list(qs), key=lambda a: a.get_average_rating(), reverse=True)
+                    list(qs),
+                    key=lambda a: a.get_average_rating(),
+                    reverse=True)
             else:
                 qs = qs.order_by(sort_option)
 
@@ -262,9 +264,10 @@ class BookDetailView(DetailView):
         num_of_reviewers = book.number_of_reviews()
         all_ratings = book.reviews.exclude(content=True)
         all_reviews = book.reviews.exclude(content='')
-        reviews = all_reviews.order_by('-created_at')[:5]
+        reviews_excl_user = all_reviews.exclude(reviewer=request.user)
+        reviews = reviews_excl_user.order_by('-created_at')[:4]
         has_rating = None
-        has_content = False
+        user_review = None
         new_page_needed = False
         # Check if the user has already given a rating without a review.
         if all_ratings.filter(reviewer=request.user):
@@ -273,10 +276,10 @@ class BookDetailView(DetailView):
         # If the user has already written a review for the book,
         # the text input box does not display.
         if all_reviews.filter(reviewer=request.user):
-            has_content = True
-        # If the number of reviews is more than 5,
+            user_review = all_reviews.filter(reviewer=request.user).values()[0]
+        # If the number of reviews is more than 4(excluding current user's review),
         # display a link to a separate review page.
-        if all_reviews.count() > 5:
+        if all_reviews.count() > 4:
             new_page_needed = True
 
         return render(
@@ -289,7 +292,7 @@ class BookDetailView(DetailView):
                 'reviews': reviews,
                 'new_page_needed': new_page_needed,
                 'has_rating': has_rating,
-                'has_content': has_content,
+                'user_review': user_review,
                 'new_review': True,
                 'review_form': ReviewForm()
             }

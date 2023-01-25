@@ -4,7 +4,7 @@
 
     {% comment %}Input field{% endcomment %}
     <h2>{% trans "Reviews" %}</h2>
-    {% if user.is_authenticated and not has_content %}
+    {% if user.is_authenticated and not user_review %}
         <form class="review-form col-12 py-3 bg-light" id="reviewForm" method="POST">
             {% csrf_token %}
             {% if has_rating %}
@@ -27,6 +27,24 @@
     {% comment %}Reviews{% endcomment %}
     <div class="reviews mt-3" id="reviews">
         {% if reviews %}
+            {% if user_review %}
+                <div class="bg-light p-3">
+                    <div class="single-review">
+                        {% with stars=user_review.rating %}
+                            <p class="mb-1">{% include "books/includes/stars.html" %}</p>
+                        {% endwith %}
+                        <div>
+                            <p class="mb-1 small">{{ request.user }}{% trans " | " %}{{ user_review.updated_at | date:'d/m/Y H:i' }}</p>
+                        </div>
+                        <p>{{ user_review.content }}</p>
+                    </div>
+                    <div class="btn-group text-end">
+                        <a class="btn btn-sm btn-primary" href="{% url 'edit_review' book_id=book.id pk=user_review.id %}">{% trans "Edit" %}</a>
+                        <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_review' book_id=book.id pk=user_review.id %}">{% trans "Delete" %}</a>
+                    </div>
+                </div>
+                <hr>
+            {% endif %}
             {% for review in reviews%}
                 <div class="single-review">
                     {% with stars=review.rating %}
@@ -36,12 +54,7 @@
                         <p class="mb-1 small">{{ review.reviewer }}{% trans " | " %}{{ review.updated_at | date:'d/m/Y H:i' }}</p>
                     </div>
                     <p>{{ review.content }}</p>
-                    {% if review.reviewer == request.user %}
-                        <div class="btn-group text-end">
-                            <a class="btn btn-sm btn-primary" href="{% url 'edit_review' book_id=book.id pk=review.id %}">{% trans "Edit" %}</a>
-                            <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_review' book_id=book.id pk=review.id %}">{% trans "Delete" %}</a>
-                        </div>
-                    {% endif %}
+                    
                 </div>
                 {% if not forloop.last %}
                 <hr>
