@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Reviews for " %}{{ book.title }}{% endblock %}
+
+{% block content %}
+
+<h1 class="fw-600 mb-3">{% trans "Reviews for " %}<a href="{% url 'book_detail' pk=book.id %}">{{ book.title }}</a></h1>
+<p>{{ num_of_reviews }}{% trans " Reviews" %}</p>
+<div class="mb-3">
+    {% for review in object_list %}
+        {% with stars=review.rating %}
+            <p class="mb-1">{% include "books/includes/stars.html" %}</p>
+        {% endwith %}
+        <div>
+            <p class="mb-1 small">{{ review.reviewer }}{% trans " | " %}{{ review.updated_at | date:'d/m/Y H:i' }}</p>
+        </div>
+        <p>{{ review.content }}</p>
+    {% endfor %}
+</div>
+
+{% include 'books/includes/paginator.html' %}
+
+{% endblock %}

@@ -33,7 +33,7 @@
             {% endfor %}
         {% endif %}
         {% if new_page_needed %}
-        <a href="">{% trans "See all reviews" %}</a>
+        <a href="{% url 'review_list' pk=book.id %}">{% trans "See all reviews" %}</a>
         {% endif %}
     </div>
 </section>

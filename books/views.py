@@ -324,3 +324,27 @@ class BookDetailView(DetailView):
             reverse_lazy(
                 'book_detail', kwargs={
                     'pk': pk}))
+
+
+class ReviewListView(ListView):
+    """
+    A view to display a list of reviews for a book.
+    """
+    model = Review
+    template_name = 'books/reviews.html'
+    paginate_by = 10
+    ordering = ['-created_at']
+
+    def get_queryset(self):
+        return super().get_queryset().filter(
+            book__id=self.kwargs['pk']).exclude(
+            content='')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        reviews = self.get_queryset()
+        book = reviews[0].book
+        num_of_reviews = reviews.count()
+        context['book'] = book
+        context['num_of_reviews'] = num_of_reviews
+        return context
