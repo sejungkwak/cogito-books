@@ -279,6 +279,7 @@ class BookDetailView(DetailView):
                 'new_page_needed': new_page_needed,
                 'has_rating': has_rating,
                 'has_content': has_content,
+                'new_review': True,
                 'review_form': ReviewForm()
             }
         )
@@ -348,3 +349,57 @@ class ReviewListView(ListView):
         context['book'] = book
         context['num_of_reviews'] = num_of_reviews
         return context
+
+
+class ReviewUpdateView(UserPassesTestMixin,
+                       SuccessMessageMixin,
+                       UpdateView):
+    """
+    A view to allow the users to update their reviews.
+    """
+    model = Review
+    template_name = 'books/book_detail.html'
+    form_class = ReviewForm
+    success_message = 'Your review has been successfully updated!'
+
+    def test_func(self):
+        """
+        Check if the user is the owner of the review.
+        """
+        if self.get_object().reviewer == self.request.user:
+            return True
+
+    def get(self, request, *args, **kwargs):
+        """
+        Retrieve the book that the review belongs.
+        """
+        book = get_object_or_404(Book, pk=self.kwargs['book_id'])
+        average_ratings = book.get_average_rating()
+        num_of_reviewers = book.number_of_reviews()
+        reviews = book.reviews.all().exclude(
+            pk=self.kwargs.get('pk')).order_by('-created_at')
+        review = book.reviews.filter(pk=self.kwargs.get('pk')).first()
+        reviews_with_content = book.reviews.exclude(content='')
+        reviews_with_content = reviews_with_content.order_by('-created_at')[:5]
+
+        return render(
+            request,
+            self.template_name,
+            {
+                'book': book,
+                'average_ratings': average_ratings,
+                'num_of_reviewers': num_of_reviewers,
+                'reviews': reviews_with_content,
+                'review': review,
+                'new_review': False,
+                'review_form': ReviewForm(instance=review)
+            }
+        )
+
+    def get_success_url(self):
+        """
+        Render the post detail page after saving the edited review.
+        """
+        return reverse_lazy(
+            'book_detail', kwargs={
+                'pk': self.kwargs['book_id']})
