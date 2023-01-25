@@ -3,28 +3,28 @@
     <div class="container navbar-collapse collapse px-lg-0" id="dropdownMainMenu">
         <ul class="navbar-nav d-flex justify-content-between w-100">
             <li class="nav-item text-uppercase">
-                <a class="nav-link text-black" href="{% url 'book_list' %}?list=sale">{% trans "Sale" %}</a>
+                <a class="nav-link fw-600 text-black" href="{% url 'book_list' %}?list=sale">{% trans "Sale" %}</a>
             </li>
             <li class="nav-item text-uppercase">
-                <a class="nav-link text-black" href="{% url 'book_list' %}?list=bestsellers">{% trans "Bestsellers" %}</a>
+                <a class="nav-link fw-600 text-black" href="{% url 'book_list' %}?list=bestsellers">{% trans "Bestsellers" %}</a>
             </li>
             <li class="nav-item text-uppercase">
-                <a class="nav-link text-black" href="{% url 'book_list' %}?list=new_releases">{% trans "New releases" %}</a>
+                <a class="nav-link fw-600 text-black" href="{% url 'book_list' %}?list=new_releases">{% trans "New releases" %}</a>
             </li>
             <li class="nav-item dropdown text-uppercase">
-                <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Fiction" %}</a>
+                <a class="nav-link fw-600 text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Fiction" %}</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'book_list' %}?list=fiction">All Fiction</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown text-uppercase">
-                <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Nonfiction" %}</a>
+                <a class="nav-link fw-600 text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Nonfiction" %}</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'book_list' %}?list=nonfiction">All Nonfiction</a></li>
                 </ul>
             </li>
             <li class="nav-item dropdown text-uppercase">
-                <a class="nav-link text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Children's" %}</a>
+                <a class="nav-link fw-600 text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Children's" %}</a>
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="{% url 'book_list' %}?list=childrens">All Children's Books</a></li>
                 </ul>

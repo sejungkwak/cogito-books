@@ -15,4 +15,8 @@ urlpatterns = [
          TemplateView.as_view(
              template_name='home/terms_conditions.html'),
          name='terms_conditions'),
+    path('about_us/',
+         TemplateView.as_view(
+             template_name='home/about.html'),
+         name='about_us')
 ]
