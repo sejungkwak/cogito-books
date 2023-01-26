@@ -20,6 +20,31 @@ class BookForm(forms.ModelForm):
                     'class': 'form-select'}),
             'pub_date': forms.DateInput(attrs={'type': 'date'})
         }
+        help_texts = {
+            'genre': 'Please fill in the Add a New Genre field below if the genre has not been listed.'}
+
+    new_genre = forms.CharField(max_length=254, label='Add a New Genre')
+    field_order = [
+        'category',
+        'genre',
+        'new_genre',
+        'title',
+        'author',
+        'desc',
+        'cover_url',
+        'cover',
+        'price',
+        'pages',
+        'dimension_x',
+        'dimension_y',
+        'dimension_z',
+        'lang',
+        'publisher',
+        'pub_date',
+        'isbn10',
+        'isbn13',
+        'discount_rate',
+        'amount_sold']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -37,6 +62,17 @@ class BookForm(forms.ModelForm):
         self.fields['desc'].label = 'Description'
         self.fields['lang'].label = 'Language'
         self.fields['pub_date'].label = 'Publication Date'
+
+    def clean(self):
+        genre = self.cleaned_data.get('genre')
+        new_genre = self.cleaned_data.get('new_genre')
+        if not genre and not new_genre:
+            raise forms.ValidationError(
+                'Please specify the genre in either Genre or New Genre field.')
+        elif not genre:
+            genre, created = Genre.objects.get_or_create(name=new_genre)
+            self.cleaned_data['genre'] = genre
+        return super().clean()
 
 
 class ReviewForm(forms.ModelForm):

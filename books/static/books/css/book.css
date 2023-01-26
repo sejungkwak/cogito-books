@@ -51,11 +51,3 @@
 .book-img-sm {
     max-width: 5rem;
 }
-
-/*--------------------------- Product management page ----------------------------*/
-
-.add_book_container {
-    max-width: 30rem;
-    margin-left: unset;
-    padding: 0;
-}

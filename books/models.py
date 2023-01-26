@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Avg
+from django.db.models import Avg, PositiveIntegerField
 from django.contrib.auth.models import User
 from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
 from decimal import Decimal
@@ -35,6 +35,11 @@ class Genre(models.Model):
 
     def get_friendly_name(self):
         return self.friendly_name
+
+    def save(self, *args, **kwargs):
+        if not self.friendly_name:
+            self.friendly_name = self.name.title()
+        super().save(*args, **kwargs)
 
 
 class Author(models.Model):
@@ -72,7 +77,7 @@ class Book(models.Model):
     cover_url = models.URLField(max_length=1024, null=True, blank=True)
     cover = models.ImageField(null=True, blank=True)
     price = models.DecimalField(max_digits=6, decimal_places=2)
-    pages = models.IntegerField()
+    pages = models.PositiveIntegerField()
     dimension_x = models.FloatField()
     dimension_y = models.FloatField()
     dimension_z = models.FloatField()
@@ -87,7 +92,7 @@ class Book(models.Model):
             MinLengthValidator(13)])
     discount_rate = models.DecimalField(
         max_digits=3, decimal_places=2, default=0.00)
-    amount_sold = models.IntegerField(default=0.00)
+    amount_sold = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['title']

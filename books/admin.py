@@ -34,6 +34,7 @@ class BookAdmin(admin.ModelAdmin):
         'price',
         'amount_sold'
     )
+    search_fields = ['title']
 
     def all_authors(self, obj):
         return ' & '.join([a.full_name for a in obj.author.all()])

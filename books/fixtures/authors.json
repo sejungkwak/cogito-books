@@ -161,7 +161,7 @@
 }, {
     "pk": 41,
     "model": "books.author",
-    "fields": { "full_name": "R.F. Kuang" }
+    "fields": { "full_name": "Rebecca F. Kuang" }
 }, {
     "pk": 42,
     "model": "books.author",
