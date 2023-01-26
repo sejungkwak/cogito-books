@@ -1,4 +1,4 @@
-// Close the alert automatically after 3 seconds.
+// Close the alert automatically after 5 seconds.
 $(document).ready(function() {
     setTimeout(function() {
         $('#msg').alert('close');

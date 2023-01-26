@@ -44,7 +44,8 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqContact" aria-expanded="false" aria-controls="faqContact">{% trans "How do I contact the customer support team?" %}</button>
         </h2>
         <div id="faqContact" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqs">
-            <div class="accordion-body">{% trans "For queries about your online order, or any other online query, you can contact us via the contact us form here." %}</div>
+            <div class="accordion-body">{% trans "For queries about your online order, or any other online query, you can contact us via the contact us form" %}
+                <a href="{% url 'contact_us' %}">{% trans "here" %}</a>{% trans "." %}</div>
         </div>
     </div>
 </div>

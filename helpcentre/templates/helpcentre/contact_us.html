@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Contact Us" %}{% endblock %}
+
+{% block content %}
+
+<h2 class="mb-3 fs-2 fw-bold">{% trans "Contact Us" %}</h2>
+<div>
+    <p>{% trans "Not able to find the answer in our " %}<a href="{% url 'faq' %}">{% trans "FAQs" %}</a>{% trans "? Please fill in this form. We will get back to you as soon as possible." %}</p>
+    <p class="small">{% trans "All fields are required." %}</p>
+    <form class="form mb-2" method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-primary float-end" type="submit">{% trans "Submit" %}</button>
+    </form>
+
+</div>
+
+
+{% endblock %}
