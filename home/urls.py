@@ -18,5 +18,9 @@ urlpatterns = [
     path('about_us/',
          TemplateView.as_view(
              template_name='home/about.html'),
-         name='about_us')
+         name='about_us'),
+    path('faq/',
+         TemplateView.as_view(
+            template_name='home/faq.html'),
+         name='faq'),
 ]

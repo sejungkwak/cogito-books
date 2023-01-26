@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "FAQ" %}{% endblock %}
+
+{% block content %}
+
+<h1 class="fw-bold my-3 mb-md-5 my-lg-5">{% trans "Frequently Asked Questions" %}</h1>
+
+<div class="accordion" id="faqs">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq1">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqPayment" aria-expanded="true" aria-controls="faqPayment">{% trans "How can I pay for my order?" %}</button>
+        </h2>
+        <div id="faqPayment" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "To make an order via our online store you will need a VISA, VISA Debit, MasterCard or Maestro card. All payments are made in Euro." %}</div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqDelivery" aria-expanded="false" aria-controls="faqDelivery">{% trans "When will my order be delivered?" %}</button>
+        </h2>
+        <div id="faqDelivery" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "Most orders will be delivered in 5 working days. We use An Post to deliver all our packages and they deliver Monday to Friday between 9am - 6pm. Saturday and Sunday are not working days therefore are not included within the delivery timeframe." %}</div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTrack" aria-expanded="false" aria-controls="faqTrack">{% trans "How do I track my order?" %}</button>
+        </h2>
+        <div id="faqTrack" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "All orders will be delivered by An Post. To track your order please go to: " %}<a href="https://www.anpost.com/" target="_blank" rel="noopener" aria-label=" An Post page opens in a new tab">{% trans "www.anpost.com" %}</a>{% trans " and enter in your order reference number. An Post track and trace system allows you to track your item from dispatch to delivery." %}</div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq4">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqWrap" aria-expanded="false" aria-controls="faqWrap">{% trans "Can you gift wrap my order?" %}</button>
+        </h2>
+        <div id="faqWrap" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "Unfortunately, gift wrapping is not available for any orders at this time. We apologise for any inconvenience caused." %}</div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq5">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqContact" aria-expanded="false" aria-controls="faqContact">{% trans "How do I contact the customer support team?" %}</button>
+        </h2>
+        <div id="faqContact" class="accordion-collapse collapse" aria-labelledby="faq5" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "For queries about your online order, or any other online query, you can contact us via the contact us form here." %}</div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
