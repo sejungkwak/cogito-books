@@ -2,20 +2,32 @@
 
 <footer class="container mt-auto pb-3">
     <hr>
-    <div class="row text-lg-center">
+    <div class="row">
 
-        {% comment %} Newsletter sign up form {% endcomment %}
-        <div class="col-12 col-lg-3 d-flex flex-lg-column">
-            <div class="newsletter-text">
-                <p class="mb-0 fw-600 text-uppercase">{% trans "Newsletter sign up" %}</p>
-                <small>{% trans "Join now and get exclusive offers!" %}</small>
+        {% comment %} Newsletter sign up {% endcomment %}
+        <div class="col-12 col-lg-5 col-xl-4">
+            <div class="row">
+
+                <div class="newsletter-text col-12 col-md-4 col-lg-12 text-start text-lg-center">
+                    <p class="mb-0 fw-600 text-uppercase">{% trans "Newsletter sign up" %}</p>
+                    <p class="small">{% trans "Join now and get exclusive offers!" %}</p>
+                </div>
+
+                {% comment %} Sign up Form {% endcomment %}
+                <div class="col-12 col-md-8 col-lg-12">
+                    <form class="d-flex flex-column" action="{% url 'subscribe_to_newsletter' %}" method="post">
+                        {% csrf_token %}
+                        <div class="d-flex">
+                            <input class="form-control form-control-sm p-2" type="email" name="email" placeholder="Email Address" required>
+                            <button class="btn btn-sm btn-primary ms-auto" type="submit">{% trans "Subscribe" %}</button>
+                            <input type="hidden" name="redirect_url" value="{{ request.path }}">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form class="newsletter-form">
-            </form>
         </div>
-
         {% comment %} About us {% endcomment %}
-        <div class="col-6 col-md-4 col-lg-3 mt-3">
+        <div class="col-6 col-md-4 col-lg-3 col-xl-3 mt-3 mt-lg-0 px-lg-0 text-lg-center">
             <p class="mb-0 fw-600 text-uppercase">{% trans "About us" %}</p>
             <ul class="nav flex-column">
                 <li class="footer-item nav-item">
@@ -31,7 +43,7 @@
         </div>
 
         {% comment %} Help centre {% endcomment %}
-        <div class="col-6 col-md-4 col-lg-3 mt-3">
+        <div class="col-6 col-md-4 col-lg-2 col-xl-3 mt-3 mt-lg-0 px-lg-0 text-lg-center">
             <p class="mb-0 fw-600 text-uppercase">{% trans "Help centre" %}</p>
             <ul class="nav flex-column">
                 <li class="footer-item nav-item">
@@ -44,7 +56,7 @@
         </div>
 
         {% comment %} Facebook page link {% endcomment %}
-        <div class="col-12 col-md-4 col-lg-3 mt-3 d-flex flex-lg-column">
+        <div class="col-12 col-md-4 col-lg-2 col-xl-2 mt-3 mt-lg-0 px-lg-0 d-flex flex-lg-column text-lg-center">
             <p class="fw-600 me-3 me-lg-0">{% trans "Find us on" %}</p>
             <a class="col" href="https://www.facebook.com/profile.php?id=100089165571037" target="_blank" rel="noopener" aria-label="Facebook page opens in a new tab">
                 <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path class="icon-path__black" d="M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z"/></svg>

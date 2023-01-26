@@ -2,7 +2,7 @@
 $(document).ready(function() {
     setTimeout(function() {
         $('#msg').alert('close');
-    }, 3000);
+    }, 5000);
 });
 
 // Allauth alert styling

@@ -214,3 +214,7 @@ STRIPE_WH_SECRET = os.environ.get('STRIPE_WH_SECRET')
 
 # Phone number field
 PHONENUMBER_DEFAULT_REGION = 'IE'
+
+# Mailchimp
+MC_API_KEY = os.environ.get('MC_API_KEY')
+MC_AUDIENCE_ID = os.environ.get('MC_AUDIENCE_ID')
