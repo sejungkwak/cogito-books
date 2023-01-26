@@ -27,6 +27,7 @@ urlpatterns = [
     path('basket/', include('basket.urls')),
     path('checkout/', include('checkout.urls')),
     path('profile/', include('profiles.urls')),
+    path('helpcentre/', include('helpcentre.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 handler404 = 'cogito_books.views.handler404'
 handler500 = 'cogito_books.views.handler500'
