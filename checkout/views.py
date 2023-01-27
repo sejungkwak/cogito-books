@@ -3,6 +3,8 @@ from django.shortcuts import (render, redirect, reverse,
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.conf import settings
+from django.core.mail import send_mail
+from django.template.loader import render_to_string
 from django.views import View
 from django.views.decorators.http import require_POST
 
@@ -191,6 +193,7 @@ class CheckoutSuccessView(View):
         messages.success(request, f'Order successfully processed! \
             Your order number is {order_number}. A confirmation \
             email will be sent to {order.email}.')
+        self._send_confirmation_email(order)
 
         if 'basket' in request.session:
             del request.session['basket']
@@ -202,6 +205,33 @@ class CheckoutSuccessView(View):
         }
 
         return render(request, self.template, context)
+
+    def _send_confirmation_email(self, order):
+        """
+        Send the user a confirmation email.
+        """
+        try:
+            cust_email = order.email
+            subject = render_to_string(
+                'checkout/confirmation_emails/confirmation_email_subject.txt',
+                {'order': order}
+            )
+            body = render_to_string(
+                'checkout/confirmation_emails/confirmation_email_body.txt',
+                {'order': order,
+                 'contact_email': settings.DEFAULT_FROM_EMAIL}
+            )
+            send_mail(
+                subject,
+                body,
+                settings.DEFAULT_FROM_EMAIL,
+                [cust_email]
+            )
+        except Exception as e:
+            messages.error(
+                request,
+                'There were errors on the form. Please double check \
+                and try again.')
 
 
 def redeem_points(request):
