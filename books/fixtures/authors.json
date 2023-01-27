@@ -210,4 +210,32 @@
     "pk": 53,
     "model": "books.author",
     "fields": { "full_name": "Viola Davis" }
+}, {
+    "pk": 54,
+    "model": "books.author",
+    "fields": { "full_name": "James S. A. Corey" }
+}, {
+    "pk": 55,
+    "model": "books.author",
+    "fields": { "full_name": "Dean Koontz" }
+}, {
+    "pk": 56,
+    "model": "books.author",
+    "fields": { "full_name": "Anne McCaffrey" }
+}, {
+    "pk": 57,
+    "model": "books.author",
+    "fields": { "full_name": "John Marrs" }
+}, {
+    "pk": 58,
+    "model": "books.author",
+    "fields": { "full_name": "KAZUO ISHIGURO" }
+}, {
+    "pk": 59,
+    "model": "books.author",
+    "fields": { "full_name": "Gillian McAllister" }
+}, {
+    "pk": 60,
+    "model": "books.author",
+    "fields": { "full_name": "Alain de Botton" }
 }]
