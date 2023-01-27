@@ -1,4 +1,5 @@
 from django import forms
+from django.utils.text import slugify
 
 from django_summernote.widgets import SummernoteWidget
 
@@ -93,6 +94,7 @@ class BookForm(forms.ModelForm):
         elif not genre:
             genre, created = Genre.objects.get_or_create(name=new_genre)
             self.cleaned_data['genre'] = genre
+            genre.name = slugify(genre)
             genre.category = category
             genre.save()
         return super().clean()
