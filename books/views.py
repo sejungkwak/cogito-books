@@ -273,21 +273,27 @@ class BookDetailView(DetailView):
         num_of_reviewers = book.number_of_reviews()
         all_ratings = book.reviews.exclude(content=True)
         all_reviews = book.reviews.exclude(content='')
-        reviews_excl_user = all_reviews.exclude(reviewer=request.user)
-        reviews = reviews_excl_user.order_by('-created_at')[:4]
         has_rating = None
         user_review = None
         new_page_needed = False
-        # Check if the user has already given a rating without a review.
-        if all_ratings.filter(reviewer=request.user):
-            for field in all_ratings.filter(reviewer=request.user):
-                has_rating = field.rating
-        # If the user has already written a review for the book,
-        # the text input box does not display.
-        if all_reviews.filter(reviewer=request.user):
-            user_review = all_reviews.filter(reviewer=request.user).values()[0]
-        # If the number of reviews is more than 4(excluding current user's review),
-        # display a link to a separate review page.
+
+        if request.user.is_anonymous:
+            reviews = all_reviews.order_by('-created_at')[:4]
+        else:
+            reviews_excl_user = all_reviews.exclude(reviewer=request.user)
+            reviews = reviews_excl_user.order_by('-created_at')[:4]
+            # Check if the user has already given a rating without a review.
+            if all_ratings.filter(reviewer=request.user):
+                for field in all_ratings.filter(reviewer=request.user):
+                    has_rating = field.rating
+            # If the user has already written a review for the book,
+            # the text input box does not display.
+            if all_reviews.filter(reviewer=request.user):
+                user_review = all_reviews.filter(
+                    reviewer=request.user).values()[0]
+
+        # If the number of reviews is more than 4 (excluding current
+        # user's review), display a link to a separate review page.
         if all_reviews.count() > 4:
             new_page_needed = True
 
