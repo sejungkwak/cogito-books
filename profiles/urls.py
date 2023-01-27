@@ -22,5 +22,8 @@ urlpatterns = [
          name='view_wishlist'),
     path('remove_from_wishlist/<int:pk>/',
          views.RemoveFromWishList.as_view(),
-         name='remove_from_wishlist')
+         name='remove_from_wishlist'),
+    path('management/',
+         views.ManagementView.as_view(),
+         name='management_menu')
 ]

@@ -252,3 +252,16 @@ class RemoveFromWishList(View):
         wishlist.save()
 
         return HttpResponseRedirect(request.META["HTTP_REFERER"])
+
+
+class ManagementView(UserPassesTestMixin, TemplateView):
+    """
+    A view displays account menu options.
+    """
+    template_name = 'profiles/management_menu.html'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser

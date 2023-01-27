@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Product Management" %}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'profiles/css/profiles.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="mt-lg-3 mb-3 mb-md-5 fw-bold text-center">{% trans "Product Management" %}</h1>
+<section class="row">
+    <div class="profile-menu-link col-12 col-lg-6 mb-3 pe-md-3">
+        <a class="d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="{% url 'add_book' %}">
+            <h2 class="mb-3 fs-5">{% trans "Add a book" %}</h2>
+        </a>
+    </div>
+    <div class="profile-menu-link col-12 col-lg-6 mb-3 pe-md-3">
+        <a class="d-flex flex-column justify-content-center align-items-center p-2 p-lg-5 w-100 h-100 text-center text-decoration-none text-black bg-light" href="{% url 'add_book_of_the_month' %}">
+            <h2 class="mb-3 fs-5">{% trans "Add a book of the month" %}</h2>
+        </a>
+    </div>
+</section>
+{% endblock %}
