@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django_summernote.admin import SummernoteModelAdmin
 from .models import Genre, Author, Book, Review, Recommendation
 
 
@@ -52,8 +53,9 @@ class ReviewAdmin(admin.ModelAdmin):
         'created_at'
     )
 
+
 @admin.register(Recommendation)
-class RecommendationAdmin(admin.ModelAdmin):
+class RecommendationAdmin(SummernoteModelAdmin):
     """
     Recommendation(book of the month) panel for the amdin site
     """
@@ -66,3 +68,4 @@ class RecommendationAdmin(admin.ModelAdmin):
         'archived'
     )
     search_fields = ['title']
+    summernote_fields = ('content',)
