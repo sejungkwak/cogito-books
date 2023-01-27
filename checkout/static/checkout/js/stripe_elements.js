@@ -72,7 +72,7 @@ $(document).ready(function() {
                     billing_details: {
                         name: $.trim(form.full_name.value),
                         email: $.trim(form.email.value),
-                        phone: $.trim(form.phone_number.value),
+                        phone: $.trim(form.phone_number_0.value) + $.trim(form.phone_number_1.value),
                         address: {
                             line1: $.trim(form.address_line_1.value),
                             line2: $.trim(form.address_line_2.value),
@@ -84,7 +84,7 @@ $(document).ready(function() {
                 },
                 shipping: {
                     name: $.trim(form.full_name.value),
-                    phone: $.trim(form.phone_number.value),
+                    phone: $.trim(form.phone_number_0.value) + $.trim(form.phone_number_1.value),
                     address: {
                         line1: $.trim(form.address_line_1.value),
                         line2: $.trim(form.address_line_2.value),

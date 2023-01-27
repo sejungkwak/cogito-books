@@ -108,7 +108,8 @@ class CheckoutView(View):
         form_data = {
             'full_name': request.POST['full_name'],
             'email': request.POST['email'],
-            'phone_number': request.POST['phone_number'],
+            'phone_number_0': request.POST['phone_number_0'],
+            'phone_number_1': request.POST['phone_number_1'],
             'address_line_1': request.POST['address_line_1'],
             'address_line_2': request.POST['address_line_2'],
             'town_or_city': request.POST['town_or_city'],
@@ -155,7 +156,10 @@ class CheckoutView(View):
                 Please double check your information.')
             return render(
                 request, self.template, {
-                    'order_form': OrderForm(form_data)})
+                    'order_form': OrderForm(form_data),
+                    'stripe_public_key': self.stripe_public_key,
+                    'client_secret': self.stripe_secret_key
+                    })
 
 
 class CheckoutSuccessView(View):
