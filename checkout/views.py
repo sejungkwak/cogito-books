@@ -153,7 +153,9 @@ class CheckoutView(View):
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
-            return redirect(reverse('view_basket'))
+            return render(
+                request, self.template, {
+                    'order_form': OrderForm(form_data)})
 
 
 class CheckoutSuccessView(View):
