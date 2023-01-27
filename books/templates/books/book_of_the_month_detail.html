@@ -16,7 +16,7 @@
         {% if request.user.is_superuser %}
             <div class="btn-group mb-3">
                 <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book_of_the_month' pk=book_of_the_month.pk %}">Edit</a>
-                <a class="btn btn-sm btn-outline-primary" href="#">Delete</a>
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_book_of_the_month' pk=book_of_the_month.pk %}">Delete</a>
             </div>
         {% endif %}
         <div>{{ book_of_the_month.content | safe }}</div>

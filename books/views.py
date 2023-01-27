@@ -540,7 +540,8 @@ class RecommendationCreateView(UserPassesTestMixin,
         """
         books = Recommendation.objects.all()
         try:
-            current_book_of_the_month = books.exclude(book=self.object).get(published=True)
+            current_book_of_the_month = books.exclude(
+                book=self.object).get(published=True)
             if form.instance.published and current_book_of_the_month:
                 current_book_of_the_month.archive()
         except Recommendation.DoesNotExist:
@@ -574,7 +575,10 @@ class RecommendationDetailView(DetailView):
         return context
 
 
-class RecommendationUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+class RecommendationUpdateView(
+        UserPassesTestMixin,
+        SuccessMessageMixin,
+        UpdateView):
     """
     A view to allow the superuser to update a book of the month data.
     """
@@ -607,7 +611,8 @@ class RecommendationUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateV
         """
         books = Recommendation.objects.all()
         try:
-            current_book_of_the_month = books.exclude(book=self.object.pk).get(published=True)
+            current_book_of_the_month = books.exclude(
+                book=self.object.pk).get(published=True)
             if form.instance.published and current_book_of_the_month:
                 current_book_of_the_month.archive()
             if not form.instance.published:
@@ -622,3 +627,34 @@ class RecommendationUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateV
         Redirect to the book detail page after updating a book.
         """
         return reverse_lazy('book_of_the_month', kwargs={'pk': self.object.pk})
+
+
+class RecommendationDeleteView(
+        UserPassesTestMixin,
+        SuccessMessageMixin,
+        DeleteView):
+    """
+    A view to allow the superuser to delete a book of the month data.
+    """
+    model = Recommendation
+    template_name = 'books/delete_book_of_the_month.html'
+    success_message = 'The content has been successfully deleted.'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def delete(self, request, *args, **kwargs):
+        """
+        Delete the content from the database as requested by the superuser.
+        """
+        object = self.get_object()
+        return super().delete(request, *args, **kwargs)
+
+    def get_success_url(self):
+        """
+        Redirect to the homepage after deleting the content.
+        """
+        return reverse_lazy('home')

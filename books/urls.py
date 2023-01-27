@@ -39,4 +39,7 @@ urlpatterns = [
     path('book_of_the_month/<int:pk>/edit/',
          views.RecommendationUpdateView.as_view(),
          name='edit_book_of_the_month'),
+    path('book_of_the_month/<int:pk>/delete/',
+         views.RecommendationDeleteView.as_view(),
+         name='delete_book_of_the_month')
 ]
