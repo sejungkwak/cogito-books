@@ -220,3 +220,26 @@ PHONENUMBER_DEFAULT_REGION = 'IE'
 # Mailchimp
 MC_API_KEY = os.environ.get('MC_API_KEY')
 MC_AUDIENCE_ID = os.environ.get('MC_AUDIENCE_ID')
+
+# Summernote config
+X_FRAME_OPTIONS = 'SAMEORIGIN'
+SUMMERNOTE_THEME = 'bs4'
+SUMMERNOTE_CONFIG = {
+    'iframe': True,
+    'summernote': {
+        # Change editor size
+        'width': '100%',
+        'height': '480',
+        # Toolbar customization
+        # https://summernote.org/deep-dive/#custom-toolbar-popover
+        'toolbar': [
+            ['style', ['style']],
+            ['font', ['bold', 'underline', 'clear']],
+            ['fontname', ['fontname']],
+            ['color', ['color']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['insert', ['link', 'picture']],
+            ['view', ['fullscreen']],
+        ],
+    },
+}
