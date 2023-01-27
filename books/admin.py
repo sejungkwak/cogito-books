@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Genre, Author, Book, Review
+from .models import Genre, Author, Book, Review, Recommendation
 
 
 @admin.register(Genre)
@@ -51,3 +51,18 @@ class ReviewAdmin(admin.ModelAdmin):
         'rating',
         'created_at'
     )
+
+@admin.register(Recommendation)
+class RecommendationAdmin(admin.ModelAdmin):
+    """
+    Recommendation(book of the month) panel for the amdin site
+    """
+    list_display = (
+        'book',
+        'title',
+        'created_at',
+        'featured_year',
+        'featured_month',
+        'archived'
+    )
+    search_fields = ['title']

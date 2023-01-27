@@ -1,8 +1,11 @@
 from django.db import models
 from django.db.models import Avg, PositiveIntegerField
 from django.contrib.auth.models import User
-from django.core.validators import MinLengthValidator, MinValueValidator, MaxValueValidator
+from django.core.validators import (MinLengthValidator,
+                                    MinValueValidator, MaxValueValidator)
+
 from decimal import Decimal
+import datetime
 
 
 class Category(models.Model):
@@ -139,3 +142,30 @@ class Review(models.Model):
 
     def __str__(self):
         return f'{self.reviewer}\'s review for {self.book}'
+
+
+class Recommendation(models.Model):
+    """
+    Recommendation model for the book of the month.
+    """
+    now = datetime.datetime.now()
+    YEAR_CHOICES = [(y, y) for y in range(now.year, now.year + 2)]
+    MONTH_CHOICES = [(m, m) for m in range(1, 13)]
+
+    book = models.ForeignKey(
+        Book,
+        on_delete=models.CASCADE,
+        related_name='recommendations')
+    title = models.CharField(max_length=254)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    featured_year = models.IntegerField(choices=YEAR_CHOICES, default=now.year)
+    featured_month = models.IntegerField(
+        choices=MONTH_CHOICES, default=now.month)
+    archived = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['-featured_month', '-featured_year']
+
+    def __str__(self):
+        return f'{self.book}: Book of the month {self.featured_month}'
