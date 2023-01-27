@@ -23,14 +23,11 @@
         </fieldset>
         <fieldset class="col-12 col-lg-6 mt-3">
             <legend><h2 class="fs-5">{% trans "Default Delivery Information" %}</h2></legend>
-            {{ profile_form.default_full_name | as_crispy_field }}
-            {{ profile_form.default_phone_number | as_crispy_field }}
-            {{ profile_form.default_address_line_1 | as_crispy_field }}
-            {{ profile_form.default_address_line_2 | as_crispy_field }}
-            {{ profile_form.default_town_or_city | as_crispy_field }}
-            {{ profile_form.default_county | as_crispy_field }}
-            {{ profile_form.default_postcode | as_crispy_field }}
-            {{ profile_form.default_country | as_crispy_field }}
+            {% for field in profile_form %}
+                {% if field.name != 'dob' %}
+                    {{ field | as_crispy_field }}
+                {% endif %}
+            {% endfor %}
         </fieldset>
         <div class="mt-4 text-center">
             <button class="btn btn-primary">{% trans "Update" %}</button>
