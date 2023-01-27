@@ -534,11 +534,17 @@ class RecommendationCreateView(UserPassesTestMixin,
     def form_valid(self, form):
         """
         Save the form if it's valid.
+        If the published checkbox is checked and there is already another
+        book of the month present, change the previous one's published status to
+        false.
         """
         books = Recommendation.objects.all()
-        if form.instance.published and books.count() > 0:
-            if books.exclude(book=self.object).get(published=True):
-                books.exclude(book=self.object).get(published=True).archive()
+        try:
+            current_book_of_the_month = books.exclude(book=self.object).get(published=True)
+            if form.instance.published and current_book_of_the_month:
+                current_book_of_the_month.archive()
+        except Recommendation.DoesNotExist:
+            pass
         form.save()
         return super().form_valid(form)
 
@@ -566,3 +572,53 @@ class RecommendationDetailView(DetailView):
         context['book_of_the_month'] = all_items.get(pk=self.kwargs['pk'])
 
         return context
+
+
+class RecommendationUpdateView(UserPassesTestMixin, SuccessMessageMixin, UpdateView):
+    """
+    A view to allow the superuser to update a book of the month data.
+    """
+    model = Recommendation
+    template_name = 'books/add_book_of_the_month.html'
+    form_class = RecommendationForm
+    success_message = 'This book of the month has been successfully updated!'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        """
+        Get a context and add extra information to use in the template.
+        """
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Edit a Book of the month'
+        context['button_content'] = 'Update'
+        return context
+
+    def form_valid(self, form):
+        """
+        Save the form if it's valid.
+        If the published checkbox is checked and there is already another
+        book of the month present, change the previous one's published status to
+        false.
+        """
+        books = Recommendation.objects.all()
+        try:
+            current_book_of_the_month = books.exclude(book=self.object.pk).get(published=True)
+            if form.instance.published and current_book_of_the_month:
+                current_book_of_the_month.archive()
+            if not form.instance.published:
+                self.object.archive()
+        except Recommendation.DoesNotExist:
+            pass
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        """
+        Redirect to the book detail page after updating a book.
+        """
+        return reverse_lazy('book_of_the_month', kwargs={'pk': self.object.pk})

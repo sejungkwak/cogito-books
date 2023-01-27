@@ -13,6 +13,12 @@
 
     <section class="book-month-main col-12 col-lg-10">
         <h2 class="mb-lg-5 fw-600">{{ book_of_the_month.title }}</h2>
+        {% if request.user.is_superuser %}
+            <div class="btn-group mb-3">
+                <a class="btn btn-sm btn-outline-primary" href="{% url 'edit_book_of_the_month' pk=book_of_the_month.pk %}">Edit</a>
+                <a class="btn btn-sm btn-outline-primary" href="#">Delete</a>
+            </div>
+        {% endif %}
         <div>{{ book_of_the_month.content | safe }}</div>
     </section>
 

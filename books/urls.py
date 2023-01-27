@@ -33,7 +33,10 @@ urlpatterns = [
     path('add_book_of_the_month/',
          views.RecommendationCreateView.as_view(),
          name='add_book_of_the_month'),
-    path('book_of_the_month/<int:pk>',
+    path('book_of_the_month/<int:pk>/',
          views.RecommendationDetailView.as_view(),
-         name='book_of_the_month')
+         name='book_of_the_month'),
+    path('book_of_the_month/<int:pk>/edit/',
+         views.RecommendationUpdateView.as_view(),
+         name='edit_book_of_the_month'),
 ]
