@@ -2,6 +2,7 @@
     "pk": 1,
     "model": "books.genre",
     "fields": {
+        "category": 1,
         "name": "contemporary",
         "friendly_name": "Contemporary"
     }
@@ -9,6 +10,7 @@
     "pk": 2,
     "model": "books.genre",
     "fields": {
+        "category": 1,
         "name": "romance",
         "friendly_name": "Romance"
     }
@@ -16,6 +18,7 @@
     "pk": 3,
     "model": "books.genre",
     "fields": {
+        "category": 1,
         "name": "thrillers",
         "friendly_name": "Thrillers"
     }
@@ -23,6 +26,7 @@
     "pk": 4,
     "model": "books.genre",
     "fields": {
+        "category": 1,
         "name": "science_fiction",
         "friendly_name": "Science Fiction"
     }
@@ -30,6 +34,7 @@
     "pk": 5,
     "model": "books.genre",
     "fields": {
+        "category": 2,
         "name": "biography",
         "friendly_name": "Biography"
     }
@@ -37,6 +42,7 @@
     "pk": 6,
     "model": "books.genre",
     "fields": {
+        "category": 2,
         "name": "history",
         "friendly_name": "History"
     }
@@ -44,6 +50,7 @@
     "pk": 7,
     "model": "books.genre",
     "fields": {
+        "category": 2,
         "name": "psychology",
         "friendly_name": "Psychology"
     }
@@ -51,6 +58,7 @@
     "pk": 8,
     "model": "books.genre",
     "fields": {
+        "category": 2,
         "name": "science",
         "friendly_name": "Science"
     }
@@ -58,6 +66,7 @@
     "pk": 9,
     "model": "books.genre",
     "fields": {
+        "category": 1,
         "name": "graphic_books_and_manga",
         "friendly_name": "Graphic Books and Manga"
     }
@@ -65,6 +74,7 @@
     "pk": 10,
     "model": "books.genre",
     "fields": {
+        "category": 3,
         "name": "childrens_cooking",
         "friendly_name": "Children's Cooking"
     }
@@ -72,6 +82,7 @@
     "pk": 11,
     "model": "books.genre",
     "fields": {
+        "category": 3,
         "name": "childrens_fiction",
         "friendly_name": "Children's Fiction"
     }
@@ -79,6 +90,7 @@
     "pk": 12,
     "model": "books.genre",
     "fields": {
+        "category": 3,
         "name": "childrens_graphic_books",
         "friendly_name": "Children's Graphic Books"
     }

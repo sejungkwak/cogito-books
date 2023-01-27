@@ -9,6 +9,7 @@ class GenreAdmin(admin.ModelAdmin):
     Genre panel for the admin site
     """
     list_display = (
+        'category',
         'friendly_name',
     )
 

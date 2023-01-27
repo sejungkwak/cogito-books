@@ -27,6 +27,11 @@ class Genre(models.Model):
     """
     Genre database model
     """
+    category = models.ForeignKey(Category,
+                                 null=True,
+                                 blank=True,
+                                 on_delete=models.SET_NULL,
+                                 related_name='genres')
     name = models.CharField(max_length=254, unique=True)
     friendly_name = models.CharField(max_length=254, null=True, blank=True)
 
