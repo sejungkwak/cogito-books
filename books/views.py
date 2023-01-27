@@ -177,6 +177,16 @@ class BookCreateView(UserPassesTestMixin,
         form.save()
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        """
+        Give the user feedback if the form is invalid.
+        """
+        messages.error(
+            self.request,
+            'There was a problem processing the form. Please check \
+                the errors below.')
+        return super().form_invalid(form)
+
     def get_success_url(self):
         """
         Redirect to the book detail page after adding a book.
@@ -514,7 +524,8 @@ class RecommendationCreateView(UserPassesTestMixin,
     model = Recommendation
     form_class = RecommendationForm
     template_name = 'books/add_book_of_the_month.html'
-    success_message = 'This book has been successfully added to the book of month list!'
+    success_message = 'This book has been successfully added to \
+        the book of month list!'
 
     def test_func(self):
         """
@@ -535,8 +546,8 @@ class RecommendationCreateView(UserPassesTestMixin,
         """
         Save the form if it's valid.
         If the published checkbox is checked and there is already another
-        book of the month present, change the previous one's published status to
-        false.
+        book of the month present, change the previous one's published
+        status to false.
         """
         books = Recommendation.objects.all()
         try:
@@ -606,8 +617,9 @@ class RecommendationUpdateView(
         """
         Save the form if it's valid.
         If the published checkbox is checked and there is already another
-        book of the month present, change the previous one's published status to
-        false.
+        book of the month present, change the previous one's published
+        status to false.
+        If the published checkbox is unchecked set the published to false.
         """
         books = Recommendation.objects.all()
         try:
