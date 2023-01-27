@@ -84,6 +84,7 @@ class BookForm(forms.ModelForm):
 
     def clean(self):
         # Validate the genre/new_genre input and save it.
+        category = self.cleaned_data.get('category')
         genre = self.cleaned_data.get('genre')
         new_genre = self.cleaned_data.get('new_genre')
         if not genre and not new_genre:
@@ -92,6 +93,8 @@ class BookForm(forms.ModelForm):
         elif not genre:
             genre, created = Genre.objects.get_or_create(name=new_genre)
             self.cleaned_data['genre'] = genre
+            genre.category = category
+            genre.save()
         return super().clean()
 
 
