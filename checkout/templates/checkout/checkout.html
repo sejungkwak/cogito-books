@@ -105,13 +105,15 @@
             <fieldset class="mt-4">
                 <legend><h2 class="fs-4 fw-600">{% trans "Delivery Address" %}</h2></legend>
                 {{ order_form.full_name | as_crispy_field }}
-                {{ order_form.phone_number | as_crispy_field }}
-                {{ order_form.address_line_1 | as_crispy_field }}
-                {{ order_form.address_line_2 | as_crispy_field }}
-                {{ order_form.town_or_city | as_crispy_field }}
-                {{ order_form.county | as_crispy_field }}
-                {{ order_form.postcode | as_crispy_field }}
-                {{ order_form.country | as_crispy_field }}
+                <div class="form-group input-group">
+                    {{ order_form.phone_number.subwidgets.0 }}
+                    {{ order_form.phone_number.subwidgets.1 }}
+                </div>
+                {% for field in order_form %}
+                    {% if field.name != 'email' and field.name != 'full_name' and field.name != 'phone_number' %}
+                        {{ field | as_crispy_field }}
+                    {% endif %}
+                {% endfor %}
                 {% if user.is_authenticated %}
                     <div class="form-check">
                         <label class="form-check-label" for="saveInfo">{% trans "Save this delivery information to my profile" %}</label>

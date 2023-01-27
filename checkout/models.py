@@ -97,7 +97,8 @@ class Order(models.Model):
         self.grand_total = self.subtotal + self.delivery_cost
         if self.paid_points:
             paid_points_in_eur = round(Decimal(self.paid_points / 100), 2)
-            self.grand_total = self.subtotal + self.delivery_cost - paid_points_in_eur
+            self.grand_total = self.subtotal + \
+                self.delivery_cost - paid_points_in_eur
 
         self.save()
 
