@@ -30,7 +30,7 @@
             {% if item.book.cover %}
                 <img class="book-img-xs w-100" src="{{ item.book.cover.url }}" alt="{{ item.book.title }}">
             {% else %}
-                <img class="book-img-xs" src="{{ MEDIA_URL }}noimage.png" alt="{{ item.book.title }}">
+                <img class="book-img-xs" src="{{ MEDIA_URL }}/bookcovers/noimage.png" alt="{{ item.book.title }}">
             {% endif %}
         </div>
         <div class="col-6">

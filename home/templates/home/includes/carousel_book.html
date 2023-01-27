@@ -7,7 +7,7 @@
                 {% if book.cover %}
                     <img class="card-img-top" src="{{ book.cover.url }}" alt="{{ book.title }}">
                 {% else %}
-                    <img class="card-img-top" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.title }}">
+                    <img class="card-img-top" src="{{ MEDIA_URL }}/bookcovers/noimage.png" alt="{{ book.title }}">
                 {% endif %}
             </a>
             <div class="card-body d-flex flex-column px-0">

@@ -21,7 +21,7 @@
                                     {% if lineitem.book.cover %}
                                         <img class="book-img" src="{{ lineitem.book.cover.url }}" alt="{{ lineitem.book.title }}">
                                     {% else %}
-                                        <img class="book-img" src="{{ MEDIA_URL }}noimage.png" alt="{{ lineitem.book.title }}">
+                                        <img class="book-img" src="{{ MEDIA_URL }}/bookcovers/noimage.png" alt="{{ lineitem.book.title }}">
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}

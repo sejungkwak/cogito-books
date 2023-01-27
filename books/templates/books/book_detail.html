@@ -21,7 +21,7 @@
         {% if book.cover %}
             <a href="{{ book.cover.url }}" target="_blank"><img class="book-img-lg w-100" src="{{ book.cover.url }}" alt="{{ book.title }}"></a>
         {% else %}
-            <img class="book-img-lg" src="{{ MEDIA_URL }}noimage.png" alt="{{ book.title }}">
+            <img class="book-img-lg" src="{{ MEDIA_URL }}/bookcovers/noimage.png" alt="{{ book.title }}">
         {% endif %}
     </div>
     <div class="col-12 col-md-6 col-lg-8">
