@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{% trans "Book of the Month" %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'books/css/book.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-3 mb-lg-5 fs-2 fw-bold">{% trans "Book of the Month" %}</h1>
+<div class="row">
+
+    <section class="book-month-main col-12 col-lg-10">
+        <h2 class="mb-lg-5 fw-600">{{ book_of_the_month.title }}</h2>
+        <div>{{ book_of_the_month.content | safe }}</div>
+    </section>
+
+    <section class="archive dropdown col-12 col-lg-2 order-lg-1">
+        <h2 class="fs-4">{% trans "Archive" %}</h2>
+        {% regroup book_of_the_month_list by featured_year as years %}
+        <ul class="nav">
+            {% for year in years %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link ps-0 dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">{{ year.grouper }}</a>
+                    <ul class="dropdown-menu">
+                        {% for book_month in year.list %}
+                            <li><a class="dropdown-item" href="{% url 'book_of_the_month' pk=book_month.pk %}">{{ book_month.title }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+</div>
+{% endblock %}

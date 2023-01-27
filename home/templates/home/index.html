@@ -13,11 +13,21 @@
             <p class="mb-0 fs-5 fw-light">{% trans "Our" %}</p>
             <p class="mb-0 fs-5 fw-light">{% trans "Recommended" %}</p>
             <h1 class="fs-2 fw-600">{% trans "Book of the Month" %}</h1>
-            <p class="mb-0 fs-1 fw-bold">
-                <a class="text-decoration-none text-white" href="#"></a>
-            </p>
+            {% if book_of_the_month %}
+                <p class="mb-0 fs-1 fw-bold">
+                    <a class="text-decoration-none text-white" href="{% url 'book_of_the_month' pk=book_of_the_month.pk %}">{{ book_of_the_month.book.title }}</a>
+                </p>
+            {% else %}
+                <p class="mb-0 fs-2">{% trans "Comming Soon!" %}</p>
+            {% endif %}
         </div>
-        <a href="#"><img class="main-banner_img" src="" alt=""></a>
+        {% if book_of_the_month %}
+            {% if book_of_the_month.book.cover %}
+                <a href="{% url 'book_of_the_month' pk=book_of_the_month.pk %}"><img class="main-banner_img" src="{{ book_of_the_month.book.cover.url }}" alt="{{ book_of_the_month.book.title }}"></a>
+            {% else %}
+                <a href="{% url 'book_of_the_month' pk=book_of_the_month.pk %}"><img class="main-banner_img" src="{{ MEDIA_URL }}/bookcovers/noimage.png" alt="{{ book_of_the_month.book.title }}"></a>
+            {% endif %}
+        {% endif %}
     </section>
     <section class="my-4 text-center">
         {% include "home/includes/bestseller.html" %}

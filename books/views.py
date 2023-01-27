@@ -536,8 +536,9 @@ class RecommendationCreateView(UserPassesTestMixin,
         Save the form if it's valid.
         """
         books = Recommendation.objects.all()
-        if form.instance.published:
-            books.exclude(book=self.object).get(published=True).archive()
+        if form.instance.published and books.count() > 0:
+            if books.exclude(book=self.object).get(published=True):
+                books.exclude(book=self.object).get(published=True).archive()
         form.save()
         return super().form_valid(form)
 
@@ -546,3 +547,22 @@ class RecommendationCreateView(UserPassesTestMixin,
         Redirect to the homepage after adding a book of the month.
         """
         return reverse_lazy('home')
+
+
+class RecommendationDetailView(DetailView):
+    """
+    A view to display a book of the month.
+    """
+    model = Recommendation
+    template_name = 'books/book_of_the_month_detail.html'
+
+    def get_context_data(self, **kwargs):
+        """
+        Retrieve the current content and archived ones.
+        """
+        context = super().get_context_data(**kwargs)
+        all_items = Recommendation.objects.all()
+        context['book_of_the_month_list'] = all_items
+        context['book_of_the_month'] = all_items.get(pk=self.kwargs['pk'])
+
+        return context

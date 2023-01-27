@@ -6,7 +6,7 @@ from django.views.generic.list import ListView
 from mailchimp_marketing import Client
 from mailchimp_marketing.api_client import ApiClientError
 
-from books.models import Book
+from books.models import Book, Recommendation
 import json
 
 
@@ -22,6 +22,9 @@ class BookListView(ListView):
         Filter books by the number of sales and publication date.
         """
         context = super().get_context_data(**kwargs)
+        context['book_of_the_month'] = None
+        if Recommendation.objects.all() and Recommendation.objects.get(published=True):
+            context['book_of_the_month'] = Recommendation.objects.get(published=True)
         context['bestsellers'] = Book.objects.order_by('-amount_sold')[:10]
         context['new_releases'] = Book.objects.order_by('-pub_date')[:10]
 
