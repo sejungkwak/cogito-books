@@ -2,6 +2,15 @@ from django import forms
 from .models import Category, Genre, Author, Book, Review
 
 
+class AuthorForm(forms.ModelForm):
+    """
+    A form for adding an author.
+    """
+    class Meta:
+        model = Author
+        fields = '__all__'
+
+
 class BookForm(forms.ModelForm):
     """
     A form for adding a book to database from the front-end.
@@ -10,20 +19,28 @@ class BookForm(forms.ModelForm):
     class Meta:
         model = Book
         exclude = ('amount_sold',)
-
         widgets = {
             'category': forms.Select(
                 attrs={
                     'class': 'form-select'}),
             'genre': forms.Select(
                 attrs={
-                    'class': 'form-select'}),
+                    'class': 'form-select', 'required': False}),
             'pub_date': forms.DateInput(attrs={'type': 'date'})
         }
+        labels = {
+            'desc': 'Description',
+            'lang': 'Language',
+            'pub_date': 'Publication Date'
+        }
         help_texts = {
-            'genre': 'Please fill in the Add a New Genre field below if the genre has not been listed.'}
+            'genre': 'Please fill in the Add a New Genre field below if the genre has not been listed.',
+            'author': 'To choose multiple authors, hold down Control(Windows) or Command(Mac) and select authors. Please fill click + to add new authors if the author has not been listed.'}
 
-    new_genre = forms.CharField(max_length=254, label='Add a New Genre')
+    new_genre = forms.CharField(
+        max_length=254,
+        required=False,
+        label='Add a New Genre')
     field_order = [
         'category',
         'genre',
@@ -43,8 +60,7 @@ class BookForm(forms.ModelForm):
         'pub_date',
         'isbn10',
         'isbn13',
-        'discount_rate',
-        'amount_sold']
+        'discount_rate']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -59,16 +75,14 @@ class BookForm(forms.ModelForm):
         genre_friendly_names.insert(0, ('', 'Choose a genre'))
         self.fields['category'].choices = category_friendly_names
         self.fields['genre'].choices = genre_friendly_names
-        self.fields['desc'].label = 'Description'
-        self.fields['lang'].label = 'Language'
-        self.fields['pub_date'].label = 'Publication Date'
 
     def clean(self):
+        # Validate the genre/new_genre input and save it.
         genre = self.cleaned_data.get('genre')
         new_genre = self.cleaned_data.get('new_genre')
         if not genre and not new_genre:
             raise forms.ValidationError(
-                'Please specify the genre in either Genre or New Genre field.')
+                'Please specify the genre in either Genre or Add a New Genre field.')
         elif not genre:
             genre, created = Genre.objects.get_or_create(name=new_genre)
             self.cleaned_data['genre'] = genre

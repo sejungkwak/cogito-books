@@ -51,3 +51,9 @@
 .book-img-sm {
     max-width: 5rem;
 }
+
+/*------------------------------ Add a book page -------------------------------------*/
+
+.icon-path__white {
+    fill: #fff;
+}

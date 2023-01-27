@@ -9,11 +9,29 @@
 
 {% block content %}
 
-<h2 class="mb-3 fs-2 fw-bold">{{ title }}</h2>
+<h1 class="mb-3 fs-2 fw-bold">{{ title }}</h1>
 <div class="add_book_container">
     <form class="form mb-2" enctype="multipart/form-data" method="POST">
         {% csrf_token %}
-        {{ form | crispy }}
+        {% for field in form %}
+            {% if field.name == 'author' %}
+            <div class="d-flex">
+                <div>
+                    {{ field | as_crispy_field }}
+                </div>
+                <div class="align-self-center ms-auto">
+                    {% comment %} + sign icon button {% endcomment %}
+                    <a class="btn btn-sm btn-primary" href="{% url 'add_author' %}">
+                        <svg class="icon-container" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__white" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
+                    </a>
+                </div>
+            </div>
+            {% elif field.name == 'cover' %}
+                {{ field }}
+            {% else %}
+                {{ field | as_crispy_field }}
+            {% endif %}
+        {% endfor %}
         <button class="btn btn-primary" type="submit">{{ button_content }}</button>
         <a class="btn btn-outline-primary" href="{% url 'book_list' %}">{% trans "Cancel" %}</a>
     </form>

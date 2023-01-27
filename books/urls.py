@@ -26,5 +26,8 @@ urlpatterns = [
          name='edit_review'),
     path('<int:book_id>/delete_review/<int:pk>/',
          views.ReviewDeleteView.as_view(),
-         name='delete_review')
+         name='delete_review'),
+    path('add_author/',
+         views.AuthorCreateView.as_view(),
+         name='add_author'),
 ]

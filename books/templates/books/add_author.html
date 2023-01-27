@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block head_title %}{% trans "Add Authors" %}{% endblock %}
+
+{% block content %}
+
+<section class="d-flex flex-column justify-content-center align-items-center my-3 my-lg-5">
+<h1 class="mb-3 fs-2 fw-bold">{% trans "Add an Author" %}</h1>
+<div class="add_author_container">
+    <form action="{% url 'add_author' %}" method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <div class="d-flex gap-2">
+            <a class="btn btn-outline-primary" href="{% url 'add_book' %}">{% trans "Go back" %}</a>
+            <button class="btn btn-primary" type="submit">{% trans "Save and add another" %}</button>
+        </div>
+    </form>
+</div>
+</section>
+
+{% endblock %}

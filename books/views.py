@@ -12,7 +12,7 @@ from django.db.models import Q
 import datetime
 
 from .models import Category, Genre, Author, Book, Review
-from .forms import BookForm, ReviewForm
+from .forms import BookForm, ReviewForm, AuthorForm
 
 
 class BookListView(ListView):
@@ -181,7 +181,7 @@ class BookCreateView(UserPassesTestMixin,
         """
         Redirect to the homepage after adding a book.
         """
-        return reverse_lazy('home')
+        return reverse_lazy('book_detail', kwargs={'pk': self.object.pk})
 
 
 class BookUpdateView(UserPassesTestMixin,
@@ -210,11 +210,20 @@ class BookUpdateView(UserPassesTestMixin,
         context['button_content'] = 'Update'
         return context
 
+    def form_invalid(self, form):
+        """
+        Display the form again with the error message.
+        """
+        messages.error(
+            self.request,
+            'There was a problem processing the form.')
+        return super().form_invalid(form)
+
     def get_success_url(self):
         """
-        Redirect to the homepage after updating a book.
+        Redirect to the book detail page after updating a book.
         """
-        return reverse_lazy('home')
+        return reverse_lazy('book_detail', kwargs={'pk': self.object.pk})
 
 
 class BookDeleteView(UserPassesTestMixin,
@@ -241,7 +250,7 @@ class BookDeleteView(UserPassesTestMixin,
 
     def get_success_url(self):
         """
-        Redirect to the homepage after updating a book.
+        Redirect to the homepage after deleting a book.
         """
         return reverse_lazy('home')
 
@@ -249,7 +258,7 @@ class BookDeleteView(UserPassesTestMixin,
 class BookDetailView(DetailView):
     """
     A view to display the details of a requested book
-    and it's reviews. Handle the review's post request.
+    and its reviews. Handle the post request for a review.
     """
     model = Book
     template_name = 'books/book_detail.html'
@@ -332,7 +341,7 @@ class BookDetailView(DetailView):
                 messages.success(
                     request, 'Your review/rating has been successfully added.')
         else:
-            messages.error(request, 'Your form is invalid.')
+            messages.error(request, 'There was a problem processing the form.')
             review_form = ReviewForm()
 
         return HttpResponseRedirect(
@@ -449,3 +458,42 @@ class ReviewDeleteView(UserPassesTestMixin, DeleteView):
         return reverse_lazy(
             'book_detail', kwargs={
                 'pk': self.kwargs['book_id']})
+
+
+class AuthorCreateView(UserPassesTestMixin, SuccessMessageMixin, CreateView):
+    """
+    Display a new author registration form and handle the user input.
+    Redirect the same page to allow to add more authors.
+    """
+    model = Author
+    form_class = AuthorForm
+    template_name = 'books/add_author.html'
+    success_message = 'The author has been successfully updated!'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        """
+        Get a context and add extra information to use in the template.
+        """
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add a Book'
+        context['button_content'] = 'Add'
+        return context
+
+    def form_valid(self, form):
+        """
+        Save the form if it's valid.
+        """
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        """
+        Redirect to the Add a book page after adding authors.
+        """
+        return reverse_lazy('add_author')
