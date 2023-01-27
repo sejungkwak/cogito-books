@@ -99,7 +99,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.media',
-                'basket.contexts.basket_contents'
+                'basket.contexts.basket_contents',
+                'books.contexts.sort_genres'
             ],
             'builtins': [
                 'crispy_forms.templatetags.crispy_forms_tags',
