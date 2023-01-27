@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load static %}
+{% load i18n %}
+{% block head_title %}{{ title }}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'books/css/book.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 class="mb-3 fs-2 fw-bold">{{ title }}</h1>
+<div>
+    <form class="form mb-2" action="{% url 'add_book_of_the_month' %}" method="POST">
+        {% csrf_token %}
+        {{ form | crispy }}
+        <button class="btn btn-primary" type="submit">{% trans "Post" %}</button>
+        <a class="btn btn-outline-primary" href="{% url 'management_menu' %}">{% trans "Cancel" %}</a>
+    </form>
+</div>
+{% endblock %}

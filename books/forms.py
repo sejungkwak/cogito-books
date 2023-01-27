@@ -1,5 +1,8 @@
 from django import forms
-from .models import Category, Genre, Author, Book, Review
+
+from django_summernote.widgets import SummernoteWidget
+
+from .models import Category, Genre, Author, Book, Review, Recommendation
 
 
 class AuthorForm(forms.ModelForm):
@@ -34,8 +37,11 @@ class BookForm(forms.ModelForm):
             'pub_date': 'Publication Date'
         }
         help_texts = {
-            'genre': 'Please fill in the Add a New Genre field below if the genre has not been listed.',
-            'author': 'To choose multiple authors, hold down Control(Windows) or Command(Mac) and select authors. Please fill click + to add new authors if the author has not been listed.'}
+            'genre': 'Please fill in the Add a New Genre field below if \
+                the genre has not been listed.',
+            'author': 'To choose multiple authors, hold down Control(Windows) \
+                or Command(Mac) and select authors. Please fill click + to \
+                    add new authors if the author has not been listed.'}
 
     new_genre = forms.CharField(
         max_length=254,
@@ -81,8 +87,8 @@ class BookForm(forms.ModelForm):
         genre = self.cleaned_data.get('genre')
         new_genre = self.cleaned_data.get('new_genre')
         if not genre and not new_genre:
-            raise forms.ValidationError(
-                'Please specify the genre in either Genre or Add a New Genre field.')
+            raise forms.ValidationError('Please specify the genre in either \
+                Genre or Add a New Genre field.')
         elif not genre:
             genre, created = Genre.objects.get_or_create(name=new_genre)
             self.cleaned_data['genre'] = genre
@@ -111,3 +117,23 @@ class ReviewForm(forms.ModelForm):
             'rows': 5,
             'placeholder': 'Add a written review'
         })
+
+
+class RecommendationForm(forms.ModelForm):
+    """
+    A form to allow the admin to post the book of the month session.
+    """
+    class Meta:
+        model = Recommendation
+        exclude = ('created_at',)
+        widgets = {'content': SummernoteWidget()}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        books = Book.objects.all()
+        book_list = [(book.id, book.title) for book in books]
+        book_list.insert(0, ('', 'Choose a book'))
+        self.fields['book'].choices = book_list
+        self.fields['published'].label = 'Publish now.'
+        for field in ['book', 'featured_year', 'featured_month']:
+            self.fields[field].widget.attrs.update({'class': 'form-select'})

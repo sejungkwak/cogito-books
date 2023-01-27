@@ -30,4 +30,7 @@ urlpatterns = [
     path('add_author/',
          views.AuthorCreateView.as_view(),
          name='add_author'),
+    path('add_book_of_the_month/',
+         views.RecommendationCreateView.as_view(),
+         name='add_book_of_the_month'),
 ]

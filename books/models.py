@@ -162,10 +162,15 @@ class Recommendation(models.Model):
     featured_year = models.IntegerField(choices=YEAR_CHOICES, default=now.year)
     featured_month = models.IntegerField(
         choices=MONTH_CHOICES, default=now.month)
-    archived = models.BooleanField(default=False)
+    published = models.BooleanField(default=False)
 
     class Meta:
         ordering = ['-featured_month', '-featured_year']
 
     def __str__(self):
-        return f'{self.book}: Book of the month {self.featured_month}'
+        return f'{self.book}: Book of the month \
+                 {self.featured_month}/{self.featured_year}'
+
+    def archive(self):
+        self.published = False
+        self.save()

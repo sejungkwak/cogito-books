@@ -65,7 +65,7 @@ class RecommendationAdmin(SummernoteModelAdmin):
         'created_at',
         'featured_year',
         'featured_month',
-        'archived'
+        'published'
     )
     search_fields = ['title']
     summernote_fields = ('content',)

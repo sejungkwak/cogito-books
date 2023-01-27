@@ -11,8 +11,8 @@ from django.db.models import Q
 
 import datetime
 
-from .models import Category, Genre, Author, Book, Review
-from .forms import BookForm, ReviewForm, AuthorForm
+from .models import Category, Genre, Author, Book, Review, Recommendation
+from .forms import BookForm, ReviewForm, AuthorForm, RecommendationForm
 
 
 class BookListView(ListView):
@@ -179,7 +179,7 @@ class BookCreateView(UserPassesTestMixin,
 
     def get_success_url(self):
         """
-        Redirect to the homepage after adding a book.
+        Redirect to the book detail page after adding a book.
         """
         return reverse_lazy('book_detail', kwargs={'pk': self.object.pk})
 
@@ -503,3 +503,46 @@ class AuthorCreateView(UserPassesTestMixin, SuccessMessageMixin, CreateView):
         Redirect to the Add a book page after adding authors.
         """
         return reverse_lazy('add_author')
+
+
+class RecommendationCreateView(UserPassesTestMixin,
+                               SuccessMessageMixin,
+                               CreateView):
+    """
+    A view to handle the form to add a book of the month.
+    """
+    model = Recommendation
+    form_class = RecommendationForm
+    template_name = 'books/add_book_of_the_month.html'
+    success_message = 'This book has been successfully added to the book of month list!'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the superuser.
+        """
+        return self.request.user.is_superuser
+
+    def get_context_data(self, **kwargs):
+        """
+        Get a context and add extra information to use in the template.
+        """
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'Add a Book of the Month'
+        context['button_content'] = 'Add'
+        return context
+
+    def form_valid(self, form):
+        """
+        Save the form if it's valid.
+        """
+        books = Recommendation.objects.all()
+        if form.instance.published:
+            books.exclude(book=self.object).get(published=True).archive()
+        form.save()
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        """
+        Redirect to the homepage after adding a book of the month.
+        """
+        return reverse_lazy('home')
