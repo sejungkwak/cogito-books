@@ -41,8 +41,8 @@ class BookForm(forms.ModelForm):
             'genre': 'Please fill in the Add a New Genre field below if \
                 the genre has not been listed.',
             'author': 'To choose multiple authors, hold down Control(Windows) \
-                or Command(Mac) and select authors. Please fill click + to \
-                    add new authors if the author has not been listed.'}
+                or Command(Mac) and select authors. Please click + to \
+                    add an author that has not been listed.'}
 
     new_genre = forms.CharField(
         max_length=254,
