@@ -45,8 +45,8 @@
                 </a>
                 <form class="mt-auto" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
                     {% csrf_token %}
-                    <input class="d-none" type="number" name="quantity" value="1">
-                    <label><button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button></label>
+                    <input class="d-none" type="number" name="quantity" value="1" aria-label="Quantity to add to the basket">
+                    <button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button>
                 </form>
             </div>
         </div>
