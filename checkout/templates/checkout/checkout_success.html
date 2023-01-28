@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load i18n %}
-{% block head_title %}{% trans "Order Complete" %}{% endblock %}
+{% block head_title %}{% if past_order %}{% trans "Order History" %}{% else %}{% trans "Order Complete" %}{% endif %}{% endblock %}
 
 {% block extra_css %}
     <link rel="stylesheet" href="{% static 'basket/css/basket.css' %}">
@@ -9,12 +9,13 @@
 {% endblock %}
 
 {% block content %}
+
 {% if not past_order %}
-<h1 class="fw-600 mb-3 mb-lg-5">{% trans "Thank you!" %}</h1>
-<p>{% trans "Your order information is below. A confirmation email will be sent to " %}<strong>{{ order.email }}</strong>{% trans "." %}</p>
+    <h1 class="fw-600 mb-3 mb-lg-5">{% trans "Thank you!" %}</h1>
+    <p>{% trans "Your order information is below. A confirmation email will be sent to " %}<strong>{{ order.email }}</strong>{% trans "." %}</p>
 {% else %}
-<h1 class="fw-600 mb-3 mb-lg-5">{% trans "Order History" %}</h1>
-<p>{% trans "A confirmation email has been sent to " %}<strong>{{ order.email }}</strong>{% trans "." %}</p>
+    <h1 class="fw-600 mb-3 mb-lg-5">{% trans "Order History" %}</h1>
+    <p>{% trans "A confirmation email has been sent to " %}<strong>{{ order.email }}</strong>{% trans "." %}</p>
 {% endif %}
 <section>
     <h2 class="fs-6 mb-3"><strong>{% trans "Order Number " %}{{ order.order_number }}</strong></h2>
