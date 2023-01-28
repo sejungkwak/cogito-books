@@ -69,13 +69,13 @@
                                             {% csrf_token %}
                                             <div class="input-group qty-input-group mb-3 mx-auto ms-md-0 text-center text-md-start">
                                                 <div class="input-group-text p-0">
-                                                    <button class="decrement-qty btn btn-sm" id="decrement-qty_{{ item.item_id }}" data-item_id="{{ item.item_id }}">
+                                                    <button class="decrement-qty btn btn-sm" id="decrement-qty_{{ item.item_id }}" data-item_id="{{ item.item_id }}" aria-label="Decrement quantity">
                                                         <svg class="icon-container__sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"/></svg>
                                                     </button>
                                                 </div>
-                                                <input class="form-control qty_input" id="id_qty_{{ item.item_id }}" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.item_id }}">
+                                                <label><input class="form-control qty_input" id="id_qty_{{ item.item_id }}" type="number" name="quantity" value="{{ item.quantity }}" min="1" max="99" data-item_id="{{ item.item_id }}" aria-label="Quantity"></label>
                                                 <div class="input-group-text p-0">
-                                                    <button class="increment-qty btn btn-sm" id="increment-qty_{{ item.item_id }}" data-item_id="{{ item.item_id }}">
+                                                    <button class="increment-qty btn btn-sm" id="increment-qty_{{ item.item_id }}" data-item_id="{{ item.item_id }}" aria-label="Increment quantity">
                                                         <svg class="icon-container__sm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path class="icon-path__black" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/></svg>
                                                     </button>
                                                 </div>
