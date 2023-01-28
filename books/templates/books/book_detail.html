@@ -44,7 +44,7 @@
                     {% endwith %}
                 </p>
                 <p class="col-12 col-md-auto text-center text-md-start">
-                    <a href="#reviews">{{ average_ratings|floatformat:1 }}{% trans " out of 5 (" %}{{ num_of_reviewers }}{% if num_of_reviewers == 1 %}{% trans " rating)" %}{% else %}{% trans " ratings)" %}{% endif %}<a>
+                    <a href="#reviews">{{ average_ratings|floatformat:1 }}{% trans " out of 5 (" %}{{ num_of_reviewers }}{% if num_of_reviewers == 1 %}{% trans " rating)" %}{% else %}{% trans " ratings)" %}{% endif %}</a>
                 </p>
             </div>
         {% else %}
