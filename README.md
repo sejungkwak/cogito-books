@@ -39,6 +39,11 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Facebook business page](#facebook-business-page)
 - [Newsletter Signup Form](#newsletter-signup-form)
 
+[Technologies Used](#technologies-used)
+- [Languages](#languages)
+- [Framework](#framework)
+- [Programs](#programs)
+
 <br>
 
 # User Experience (UX)
@@ -134,7 +139,11 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 - Logo
 
+    ![Logo](static/img/logo.png)
+
 - Favicon
+
+    ![Favicon](static/img/favicon.ico)
 
 ## Wireframes
 
@@ -315,6 +324,49 @@ For the email marketing, a subscription section was added in the footer using th
 </details>
 
 <br>
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Technologies Used
+
+## Languages
+
+- [Python](https://www.python.org/) was used as the main scripting language.
+    - The list of third-party packages can be found [here: requirements.txt](requirements.txt).
+- [HTML](https://en.wikipedia.org/wiki/HTML) was used to present and structure content.
+- [CSS](https://en.wikipedia.org/wiki/CSS) was used to style content.
+- [JavaScript](https://en.wikipedia.org/wiki/JavaScript) ( [jQuery](https://jquery.com/) ) was used to manipulate DOM.
+
+## Framework
+
+- [Django](https://www.djangoproject.com/) was used as the main Python framework.
+- [Bootstrap](https://getbootstrap.com/) was heavily used for styling.
+
+## Programs
+
+- [AWS](https://aws.amazon.com/) was used to store static and media files.
+- [Balsamiq](https://balsamiq.com/) was used to create the wireframes.
+- [Canva](https://www.canva.com/en_gb/) was used to design the logo and favicon.
+- [Chrome DevTools](https://developer.chrome.com/docs/devtools/) was used to view the site's styling, debug during development and check runtime performance.
+- [Diagrams.net](https://app.diagrams.net/) was used to create the ERD.
+- [_ElephantSQL_](https://www.elephantsql.com/) was used to store data.
+- [Favicon.io](https://favicon.io/) was used to create the favicon.
+- [Font Awesome](https://fontawesome.com/) was used for the icons' SVG code.
+- [Git](https://git-scm.com/) was used for version control.
+- [GitHub](https://github.com/) was used to store and deploy the project's code.
+- [Gitpod](https://www.gitpod.io/) was used to develop and test my code.
+- [Google Fonts](https://fonts.google.com/) was used to embed Montserrat.
+- [Grammarly](https://www.grammarly.com/) was used to check for errors in the README.
+- [Heroku](https://heroku.com/) was used to deploy the project.
+- [NY Times Books API](https://developer.nytimes.com/docs/books-product/1/overview) was used to get a list of books.
+- [Privacy Policy Generator](https://www.privacypolicygenerator.info/) was used to create the site's privacy policy.
+- [Stripe](https://stripe.com/) was used to accept payments.
+- [Techsini](https://techsini.com/multi-mockup/index.php) was used to create the image showing a responsive design for the README.
+- [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/) was used to create the site's terms and conditions.
+- [Visual Studio Code](https://code.visualstudio.com/) was used to edit my code and create SVG paths from SVG image files.
+- [XML-Sitemaps.com](https://www.xml-sitemaps.com/) was used to generate the `sitemap.xml` file.
 
 [Back To **Table of Contents**](#table-of-contents)
 
