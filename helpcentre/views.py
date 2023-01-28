@@ -21,18 +21,21 @@ def contact_us(request):
             message = form.cleaned_data['message']
             to_email = settings.DEFAULT_FROM_EMAIL
             form.save()
+            body = f'{str(message)}\n\nReply to {str(email)}'
             try:
-                send_mail(subject, message, f'{name} <{email}>', [to_email])
+                send_mail(subject, body, f'{name} <{email}>', [to_email])
                 messages.success(
                     request, 'Your message has been sent successfully!')
             except Exception as e:
                 messages.error(
                     request,
-                    'There was an error trying to send your message. Please try again later.')
+                    'There was an error trying to send your message. \
+                        Please try again later.')
         else:
             messages.error(
                 request,
-                'There were errors on the form. Please double check and try again.')
+                'There were errors on the form. Please double check \
+                    and try again.')
 
     form = UserContactForm()
 
