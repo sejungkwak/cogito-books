@@ -4,6 +4,8 @@ _Cogito Books_ is a fictional B2C online bookstore. The site will be targeted to
 
 The main goal of this project is to demonstrate my full-stack knowledge(HTML, CSS, JavaScript, Python/Django, relational database and Stripe payments) in a real-world context.
 
+![Multi device website mockup](documentation/responsive.png)
+
 ### View the live project [here](https://cogitobooks.herokuapp.com/)
 
 __Note__: The site is for educational purposes only. To simulate a payment, please use a _Stripe_ test card number 4242 4242 4242 4242 with any three-digit CVC and a valid future date.
@@ -43,6 +45,9 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | [#1](https://github.com/sejungkwak/cogito-books/issues/1) | As a first-time visitor, I want to know what the shop sells immediately so that I can decide whether I will browse further. |
     | [#2](https://github.com/sejungkwak/cogito-books/issues/2) | As a first-time visitor, I want to navigate pages easily so that I can find information I’m looking for. |
     | [#3](https://github.com/sejungkwak/cogito-books/issues/3) | As a shopper, I want to know if the shop is trustworthy so that I can make a purchase without any worry. |
+    | [#46](https://github.com/sejungkwak/cogito-books/issues/46) | As a shopper, I want to view a list of all books so that I can easily select some to purchase. |
+    | [#47](https://github.com/sejungkwak/cogito-books/issues/47) | As a shopper, I want to quickly identify deals, bestsellers and new releases so that I can easily find interesting books. |
+    | [#48](https://github.com/sejungkwak/cogito-books/issues/48) | As a shopper, I want to view a list of all books so that I can easily select some to purchase. |
 
 - Epic: Registration and User Accounts
 
@@ -95,7 +100,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | --- | --- |
     | [#29](https://github.com/sejungkwak/cogito-books/issues/29) | As a shopper, I want to see FAQs so that I don’t have to contact the store and wait for them to respond. |
     | [#30](https://github.com/sejungkwak/cogito-books/issues/30) | As a shopper, I want to contact the store so that I can receive answers to my queries before purchase. |
-    | [#31](https://github.com/sejungkwak/cogito-books/issues/31) | As a shopper, I want to receive notification via email so that I can the store answers my queries so that I can conveniently check it. |
+    | [#31](https://github.com/sejungkwak/cogito-books/issues/31) | As a shopper, I want to receive notification via email the store answers my queries so that I can conveniently check it. |
     | [#32](https://github.com/sejungkwak/cogito-books/issues/32) | As a store owner, I want to receive notifications upon a shopper’s contact so that I can reply in a timely manner. |
 
 - Epic: Admin and Store Management
@@ -189,7 +194,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 ## Keywords
 
-As part of SEO, keywords were chosen using the following steps: Firstly, write down the site’s general topics. Next, brainstorm possible keywords for each topic. Then, enter each keyword in Google search to find a list of short-tail keywords and long-tail phrases. After that, select the best ones based on their relevance, authority and volume using [Wordtracker](https://www.wordtracker.com/).
+As a part of SEO, keywords were chosen using the following steps: Firstly, write down the site’s general topics. Next, brainstorm possible keywords for each topic. Then, enter each keyword in Google search to find a list of short-tail keywords and long-tail phrases. After that, select the best ones based on their relevance, authority and volume using [Wordtracker](https://www.wordtracker.com/).
 The Final list of keywords/phrases used for the site is shown in the table below in bold.
 
 ![Keywords](documentation/keywords.png)
