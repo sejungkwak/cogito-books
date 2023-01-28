@@ -48,6 +48,22 @@
                 <a href="{% url 'contact_us' %}">{% trans "here" %}</a>{% trans "." %}</div>
         </div>
     </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq6">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqLoyaltyCollection" aria-expanded="false" aria-controls="faqLoyaltyCollection">{% trans "How can I collect loyalty points?" %}</button>
+        </h2>
+        <div id="faqLoyaltyCollection" class="accordion-collapse collapse" aria-labelledby="faq6" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "Sign up for an account and you'll earn 5 points for every €1 you spend." %}</div>
+        </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="faq7">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqLoyaltyRedemption" aria-expanded="false" aria-controls="faqLoyaltyRedemption">{% trans "How can I use my loyalty points?" %}</button>
+        </h2>
+        <div id="faqLoyaltyRedemption" class="accordion-collapse collapse" aria-labelledby="faq7" data-bs-parent="#faqs">
+            <div class="accordion-body">{% trans "At checkout redeem your loyalty points for great savings! A loyalty point is equivalent to €0.01." %}</div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
