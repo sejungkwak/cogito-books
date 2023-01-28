@@ -19,10 +19,6 @@ urlpatterns = [
          TemplateView.as_view(
              template_name='home/about.html'),
          name='about_us'),
-    path('faq/',
-         TemplateView.as_view(
-            template_name='home/faq.html'),
-         name='faq'),
     path('subscribe_to_newsletter/',
          views.subscribe_to_newsletter,
          name='subscribe_to_newsletter'),
