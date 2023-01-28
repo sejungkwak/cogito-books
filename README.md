@@ -25,8 +25,15 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Entity Relationship Diagram](#entity-relationship-diagram)
 - [Models](#models)
 
+[Agile methodology](#agile-methodology)
+- [MoSCoW method and story points](#moscow-method-and-story-points)
+- [Iterations](#iterations)
+
 [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
 - [Keywords](#keywords)
+- [Sitemap](#sitemap)
+- [Robots.txt](#robotstxt)
+- [Http error pages](#http-error-pages)
 
 <br>
 
@@ -238,6 +245,42 @@ As a part of SEO, keywords were chosen using the following steps: Firstly, write
 The Final list of keywords/phrases used for the site is shown in the table below in bold.
 
 ![Keywords](documentation/keywords.png)
+
+## Sitemap
+`sitemap.xml` was added to the project's root folder to allow search engines to crawl and navigate.
+
+## Robots.txt
+`robots.txt` was added to the project's root folder to let search engines know which pages are accessible to web spiders.
+
+## Http error pages
+
+Custom error pages have been created with 4 internal links(Homepage, Books page, Account page, Contact Us page) to be more helpful to a user and provide guidance.
+
+- 404 Page not found (
+[View 404 Page](https://cogitobooks.herokuapp.com/boo))
+
+    ![Screenshot of 404 page](documentation/http_errors/404.png)
+
+- 403 Permission denied
+
+    <details>
+        <summary>Screenshot of 403 page</summary>
+        <img src="documentation/http_errors/403.png">
+    </details>
+
+- 400 Bad request
+
+    <details>
+        <summary>Screenshot of 400 page</summary>
+        <img src="documentation/http_errors/400.png">
+    </details>
+
+- 500 Sever Error
+
+    <details>
+        <summary>Screenshot of 500 page</summary>
+        <img src="documentation/http_errors/500.png">
+    </details>
 
 [Back To **Table of Contents**](#table-of-contents)
 
