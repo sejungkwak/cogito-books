@@ -57,3 +57,9 @@
 .icon-path__white {
     fill: #fff;
 }
+
+/*------------------------------ Book of the month -------------------------------------*/
+
+.book-summernote img {
+    max-width: 100%;
+}

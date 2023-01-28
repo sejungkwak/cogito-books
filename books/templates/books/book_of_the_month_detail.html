@@ -19,7 +19,25 @@
                 <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_book_of_the_month' pk=book_of_the_month.pk %}">Delete</a>
             </div>
         {% endif %}
-        <div>{{ book_of_the_month.content | safe }}</div>
+        <div class="d-flex gap-3">
+            <a href="{% url 'book_detail' pk=book_of_the_month.book.id %}">
+                {% if book_of_the_month.book.cover %}
+                    <img class="card-img-top" src="{{ book_of_the_month.book.cover.url }}" alt="{{ book_of_the_month.book.title }}">
+                {% else %}
+                    <img class="card-img-top" src="{{ MEDIA_URL }}/bookcovers/noimage.png" alt="{{ book_of_the_month.book.title }}">
+                {% endif %}
+            </a>
+            <div>
+                <h3 class="fw-600 text-start">{{ book_of_the_month.book.title }}</h3>
+                <form class="d-flex flex-column mt-auto" action="{% url 'add_to_basket' pk=book_of_the_month.book.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="quantity" value="1">
+                    <button class="btn btn-sm btn-primary w-75" type="submit">{% trans "Add to Basket" %}</button>
+                    <a class="btn btn-sm btn-outline-primary w-75 mt-2" href="{% url 'add_to_wishlist' pk=book_of_the_month.book.id %}">{% trans "Add to Wishlist" %}</a>
+                </form>
+            </div>
+        </div>
+        <div class="book-summernote mt-3" >{{ book_of_the_month.content | safe }}</div>
     </section>
 
     <section class="archive dropdown col-12 col-lg-2 order-lg-1">
