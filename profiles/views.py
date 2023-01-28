@@ -117,11 +117,18 @@ class ProfileUpdateView(UserPassesTestMixin, UpdateView):
                 'pk': self.request.user.pk})
 
 
-class OrderHistoryView(View):
+class OrderHistoryView(UserPassesTestMixin, View):
     """
     A view to display the specified user's order history.
     """
     template_name = 'profiles/order_history.html'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the owner of the account.
+        """
+        if self.kwargs['pk'] == self.request.user.pk:
+            return True
 
     def get(self, request, *args, **kwargs):
         """
@@ -135,12 +142,19 @@ class OrderHistoryView(View):
         return render(request, self.template_name, context)
 
 
-class SingleOrderView(DetailView):
+class SingleOrderView(UserPassesTestMixin, DetailView):
     """
     A view to display a single order summary.
     """
     model = Order
     template_name = 'checkout/checkout_success.html'
+
+    def test_func(self):
+        """
+        Check if the logged-in user is the owner of the account.
+        """
+        if self.kwargs['pk'] == self.request.user.pk:
+            return True
 
     def get_context_data(self, **kwargs):
         """
@@ -256,7 +270,7 @@ class RemoveFromWishList(View):
 
 class ManagementView(UserPassesTestMixin, TemplateView):
     """
-    A view displays account menu options.
+    A view displays admin account menu options.
     """
     template_name = 'profiles/management_menu.html'
 
