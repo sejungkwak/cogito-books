@@ -1,6 +1,6 @@
 # Cogito Books
 
-_Cogito Books_ is a fictional B2C online bookstore. The site will be targeted towards people who are interested in reading and buying books. It provides an easy-to-use interface where a user can easily find a book by filtering or searching, and make a purchase with or without registration.
+_Cogito Books_ is a fictional B2C online bookstore. The site will be targeted towards people who are interested in reading and buying books. It provides an easy-to-use interface where a user can easily find a book by searching, and make a purchase with or without registration.
 
 The main goal of this project is to demonstrate my full-stack knowledge(HTML, CSS, JavaScript, Python/Django, relational database and Stripe payments) in a real-world context.
 
@@ -34,6 +34,10 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Sitemap](#sitemap)
 - [Robots.txt](#robotstxt)
 - [Http error pages](#http-error-pages)
+
+[Web Marketing](#web-marketing)
+- [Facebook business page](#facebook-business-page)
+- [Newsletter Signup Form](#newsletter-signup-form)
 
 <br>
 
@@ -281,6 +285,36 @@ Custom error pages have been created with 4 internal links(Homepage, Books page,
         <summary>Screenshot of 500 page</summary>
         <img src="documentation/http_errors/500.png">
     </details>
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Web Marketing
+
+Social media and email marketing have been utilised for the project.
+
+## Facebook business page
+
+For the social media marketing, A _Facebook_ page was created and added business information. The page can be found [here](https://www.facebook.com/people/Cogito-Books/100089165571037/).
+
+<details>
+    <summary>Screenshot of the Facebook business page</summary>
+    <img src="documentation/marketing_socialmedia.png">
+</details>
+
+<br>
+
+## Newsletter Signup Form
+
+For the email marketing, a subscription section was added in the footer using the `mailchimp-marketing` package.
+
+<details>
+    <summary>Screenshot of the subscription section</summary>
+    <img src="documentation/marketing_email.png">
+</details>
+
+<br>
 
 [Back To **Table of Contents**](#table-of-contents)
 
