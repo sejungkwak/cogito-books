@@ -1,3 +1,6 @@
+/**
+ * Handle the user's interaction with the loyalty points redemption input box.
+ */
 $(document).ready(function() {
     let currentBalance = parseInt($('#loyaltyBalance').text());
     let redeemInput = $('#redeemInput');
@@ -6,7 +9,7 @@ $(document).ready(function() {
 
     redeemBtn.attr('disabled', true);
 
-    // Check the point redemption input value.
+    // Check for the point redemption input value.
     // Change the font colour, button disable status and message depending
     // on the input value.
     redeemInput.change(function() {
