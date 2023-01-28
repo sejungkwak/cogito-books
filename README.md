@@ -44,6 +44,11 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Framework](#framework)
 - [Programs](#programs)
 
+[Deployment](#deployment)
+- [Heroku](#heroku)
+- [Making a Local Clone](#making-a-local-clone)
+- [Forking this Repository](#forking-this-repository)
+
 <br>
 
 # User Experience (UX)
@@ -367,6 +372,237 @@ For the email marketing, a subscription section was added in the footer using th
 - [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/) was used to create the site's terms and conditions.
 - [Visual Studio Code](https://code.visualstudio.com/) was used to edit my code and create SVG paths from SVG image files.
 - [XML-Sitemaps.com](https://www.xml-sitemaps.com/) was used to generate the `sitemap.xml` file.
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Deployment
+
+## _Heroku_
+
+This project was deployed from _GitHub_ to _Heroku_ using _ElephantSQL_ and _AWS_. These steps demonstrate how I set up for deployment.
+
+1. Create a new database instance on _ElephantSQL_.
+2. On the _ElephantSQL_ dashboard, select the instance I just created.
+3. Copy the value of the URL field.
+4. Go to _Heroku_ and create a new app.
+5. Paste the database URL into the Config Var field. 
+6. In the terminal, run the following command: `pip3 install dj_database_url==0.5.0 psycopg2`
+7. In the terminal, run the following command: `pip freeze > requirements.txt`
+8. In `settings.py`, comment out the original DATABASES section and add the new code to connect to the _ElephantSQL_ database:
+
+    ```
+    # DATABASES = {
+    #     'default': {
+    #         'ENGINE': 'django.db.backends.sqlite3',
+    #         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    #     }
+    # }
+        
+    DATABASES = {
+        'default': dj_database_url.parse('my-database-url')
+    }
+    ```
+
+9. In the terminal, run the following command: `python3 manage.py showmigrations`
+10. Make sure that none of the migrations is checked off.
+11. Migrate my database models to the new database by running the following command: `python3 manage.py migrate`
+12. Load the fixtures in the following order: 
+
+    1. `python3 manage.py loaddata categories`
+    2. `python3 manage.py loaddata genres`
+    3. `python3 manage.py loaddata authors`
+    4. `python3 manage.py loaddata books`
+
+13. Create a superuser for the new database: `python3 manage.py createsuperuser`
+14. Revert to the original database after the migrations.
+15. To confirm the migrations are successful, go to _ElephantSQL_ and select __BROWSER__ on the left hand side menu.
+16. Click the `Table queries` button and then `auth_user`.
+17. Click `Execute` and 1 superuser that I just created returns.
+18. In `settings.py`, change the database settings as follows:
+
+    ```
+    if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+            }
+        }
+    ```
+
+19. In the terminal, install `gunicorn`: `pip3 install gunicorn`.
+20. Add it to the dependency list: `pip3 freeze > requirements.txt`.
+21. Create `Procfile`.
+22. Add the line below to the file. (I input `cogito-books` at first and got an error `H10-App Crashed`. The hyphen should be an underscore.)
+
+    ```
+    web: gunicorn cogito_books.wsgi:application
+    ```
+
+23. Add `DISABLE_COLLECTSTATIC` and set it to `1` in the __Config Var__ field on _Heroku_.
+24. In `settings.py`, add the _Heroku_ URL to __ALLOWED_HOSTS__.
+25. Add, commit and push all the changes to _Git_.
+26. Under the __Deploy__ tab on _Heroku_, connect to _GitHub_ repository.
+27. Enable automatic deploys for the next time.
+28. For this time, deploy manually by clicking the __Deploy Branch__ button.
+29. In `settings.py`, change the __DEBUG__ variable to `'DEVELOPMENT' in os.environ`.
+30. Add, commit and push it to _Git_.
+31. Sign in _AWS_ and go to __AWS Management Console__.
+32. Search for S3.
+33. Select __Create bucket__.
+34. Enter name, select region, __ACLs enabled__ > __Bucket owner preferred__ for the object ownership section and uncheck __Block all public access__.
+35. Click the Create bucket button.
+36. Select the bucket I just created.
+37. Go to the __Static website hosting__ and select __Use this bucket to host a website__ and enter `index.html` and `error.html` in the document fields.
+38. Go to __Permissions__ and add the configuration to the editor.
+
+    ```
+    [
+        {
+            "AllowedHeaders": [
+                "Authorization"
+            ],
+            "AllowedMethods": [
+                "GET"
+            ],
+            "AllowedOrigins": [
+                "*"
+            ],
+            "ExposeHeaders": []
+        }
+    ]
+
+    ```
+
+39. Go to __Policy Generator__.
+40. Select __S3 Bucket Policy__ for the type of policy.
+41. Enter `*` in __Principal__, select __GetObject__ for __Actions__ and input __ARN__(Amazon Resource Name).
+42. Click __Add Statement__ and then __Generate Policy__.
+43. Copy the policy that popped up and paste it into the editor.
+44. Add `/*` onto the end of the resource key to allow access to all resources.
+45. Click __Save__.
+46. For the __Access control list (ACL)__ section, click __Edit__ and enable __List__ for __Everyone (public access)__.
+47. Go to __IAM__.
+48. Select __User Groups__ from the left hand side menu.
+49. Click the __Create group__ button.
+50. Enter the group name and click the __Create group__ button.
+51. Select __Policies__ from the left hand side menu.
+52. Click the __Create policy__ button.
+53. Select the __JSON__ tab and click __Import managed policy__.
+54. In the popup window, search for S3 and select __AmazonS3FullAccess__.
+55. Change the value of the __Resource__ to the following:
+
+    ```
+    [
+        "my_ARN",
+        "my_ARN/*",
+    ]
+    ```
+
+56. Click __Review Policy__.
+57. Give it a name and description and create it.
+58. Go back to __User Groups__.
+59. Select a group for this project. 
+60. Go to the __Permissions__ tab.
+61. open __Add permissions__ and click __Attach policies__.
+62. Select the policy and click __Add permissions__.
+63. Select __User__ from the left hand side menu.
+64. Click __Add user__.
+65. Enter a user name and select __Next__.
+66. Check off the user and click the buttons until the last step.
+67. Click __Download .csv__.
+68. Add the credentials from the above steps to _Heroku_ __Config Vars__.
+69. In the terminal, install the following packages. `boto3` and `django-storages`.
+70. Add `django-storages` to __INSTALLED_APP__.
+71. On _Heroku_, add `USE_AWS` to __Config Vars__, set it to `True` and remove `DISABLE_COLLECTSTATIC`.
+72. Add a file called `custom_storages.py` to the project's root folder.
+73. Add the code below:
+
+    ```
+    from django.conf import settings
+    from storages.backends.s3boto3 import S3Boto3Storage
+
+
+    class StaticStorage(S3Boto3Storage):
+        location = settings.STATICFILES_LOCATION
+
+
+    class MediaStorage(S3Boto3Storage):
+        location = settings.MEDIAFILES_LOCATION
+    ```
+
+74. Add AWS configurations to `settings.py`.
+
+    ```
+    if 'USE_AWS' in os.environ:
+        AWS_S3_OBJECT_PARAMETERS = {
+            'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+            'CacheControl': 'max-age=94608000',
+        }
+
+        AWS_STORAGE_BUCKET_NAME = 'cogitobooks'
+        AWS_S3_REGION_NAME = 'us-east-1'
+        AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+        AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+        AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+        STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+        STATICFILES_LOCATION = 'static'
+        DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+        MEDIAFILES_LOCATION = 'media'
+
+        STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{STATICFILES_LOCATION}/'
+        MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/{MEDIAFILES_LOCATION}/'
+    ```
+
+75. Add, commit and push all the changes to `Git`.
+76. Go to _AWS_ S3.
+77. Click __Create folder__ and name it `media`.
+78. Add all the images used in this project to the folder.
+79. Select __Grant public read access to this object(s)__ and click __Next__ and __Upload__.
+80. Go to the admin site and check off __PRIMARY__ and __VERIFIED__ for the admin address.
+81. Go to _Stripe_ and create a new webhook endpoint for the deployed version.
+82. Add __Signing secret__ to __Config Vars__ on _Heroku_.
+
+## Making a Local Clone
+
+These steps demonstrate how I cloned my repository to create a local copy on my computer to run the code locally.
+
+1. Navigate to [my _GitHub_ Repository](https://github.com/sejungkwak/cogito-books).
+2. Click the __Code__ button above the list of files.
+3. Select __HTTPS__ under __Clone__. I have chosen this option as it is simpler than SSH.
+4. Click the copy icon on the right side of the URL.
+5. Open the Terminal.
+6. Change the current working directory to the location where I want the cloned directory.
+7. Type `git clone ` and then paste the URL I copied in step 4.
+  
+  ```
+  $ git clone https://github.com/sejungkwak/cogito-books.git
+  ```
+
+8. Press enter. Messages are displayed in the Terminal to indicate the local clone has been successfully created.
+
+## Forking this Repository
+
+These steps demonstrate how to make a copy of this repository on your _GitHub_ account to make changes without affecting this repository or to deploy the site yourself.
+
+1. Log in to your _GitHub_ account.
+2. Navigate to [this repository](https://github.com/sejungkwak/cogito-books).
+3. Click the __fork__ button on the top right side of the repository.
+4. You should now have a copy of the original repository in your _GitHub_ account.
+5. You can make a local clone from the copied repository on your computer using the steps demonstrated in [Making a Local Clone](#making-a-local-clone) and/or deploy to _Heroku_ using the steps demonstrated in [Heroku](#heroku).
+
+Note: It is crucial to create a virtual environment to run the project on your local machine to protect other Python projects.
+I have set up a virtual environment by the steps below:
+1. Head over to the directory and create a virtual environment by typing `virtualenv .venv` in the terminal.
+2. Type `. .venv/bin/activate` to activate the virtual environment.
+3. Run `pip3 install -r requirements.txt` in the terminal to install dependencies that are listed in the `requirements.txt` file.
 
 [Back To **Table of Contents**](#table-of-contents)
 
