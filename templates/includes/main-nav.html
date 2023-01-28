@@ -14,6 +14,7 @@
         <a class="nav-link fw-600 text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Fiction" %}</a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'book_list' %}?list=fiction">{% trans "All Fiction" %}</a></li>
+            <li><hr class="dropdown-divider"></li>
             {% for fiction in fiction_list %}
                 <li><a class="dropdown-item" href="{% url 'book_list' %}?list={{ fiction }}">{{ fiction.friendly_name }}</a></li>
             {% endfor %}
@@ -23,6 +24,7 @@
         <a class="nav-link fw-600 text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Nonfiction" %}</a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'book_list' %}?list=nonfiction">All Nonfiction</a></li>
+            <li><hr class="dropdown-divider"></li>
             {% for nonfiction in nonfiction_list %}
                 <li><a class="dropdown-item" href="{% url 'book_list' %}?list={{ nonfiction }}">{{ nonfiction.friendly_name }}</a></li>
             {% endfor %}
@@ -32,6 +34,7 @@
         <a class="nav-link fw-600 text-black dropdown-toggle" href="#" data-bs-toggle="dropdown" role="button" aria-expanded="false">{% trans "Children's" %}</a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="{% url 'book_list' %}?list=childrens">All Children's Books</a></li>
+            <li><hr class="dropdown-divider"></li>
             {% for childrens in childrens_list %}
                 <li><a class="dropdown-item" href="{% url 'book_list' %}?list={{ childrens }}">{{ childrens.friendly_name }}</a></li>
             {% endfor %}
