@@ -211,6 +211,23 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 [Back To **Table of Contents**](#table-of-contents)
 
+# Agile methodology
+
+## MoSCoW method and story points
+
+_GitHub_ Projects kanban board, Issues and Milestones were used to practise agile methodology. After creating the user stories, I prioritised each story using MoSCoW method and set the points using modified Fibonacci sequence(1, 2, 3, 5, 13) based on complexity, amount of work and repetition.
+
+## Iterations
+
+The project was carried out over 5 iterations between the 12th of January and the 28th of January and each iteration lasted 3 days due to the tight schedule. The velocity is 31.6.
+
+The details can be found below:
+
+- [Kanban board and Iteration view](https://github.com/users/sejungkwak/projects/4/views/1)
+- [Milestones](https://github.com/sejungkwak/cogito-books/milestones?state=closed)
+
+[Back To **Table of Contents**](#table-of-contents)
+
 <br>
 
 # Search Engine Optimisation (SEO)
