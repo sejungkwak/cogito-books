@@ -184,6 +184,29 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 ## Models
 
+- Books app
+
+    - Category
+    - Genre
+    - Author
+    - Book
+    - Review
+    - Recommendation
+
+- Checkout app
+
+    - Order
+    - OrderLineItem
+
+- Helpcentre app
+
+    - UserContact
+
+- Profile app
+
+    - Profile: inherits the Django-allauth's user model
+    - Wishlist
+
 <br>
 
 [Back To **Table of Contents**](#table-of-contents)
