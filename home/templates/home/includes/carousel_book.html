@@ -13,7 +13,7 @@
             <div class="card-body d-flex flex-column px-0">
                 <a class="text-decoration-none text-body" href="{% url 'book_detail' pk=book.id %}">
                     <h3 class="card-title fs-6 fw-600">{{ book.title }}</h3>
-                    <p class="card-text">
+                    <div class="card-text">
                         <ul class="list-group">
                             <li class="list-group-item p-0 border-0">
                                 <p class="small mb-1">{% trans "by " %}
@@ -33,7 +33,7 @@
                             </li>
                             {% if book.discount_rate > 0 %}
                                 <li class="list-group-item p-0 border-0">
-                                    <p class="mb-0">{% trans "€" %}{{ book.get_discount_price }} <small><s class="text-muted">{% trans "Was €" %}{{ book.price }}</s></small></p>
+                                    <p class="mb-0">{% trans "€" %}{{ book.get_discount_price }}<small class="text-muted">{% trans " Was €" %}{{ book.price }}</small></p>
                                 </li>
                             {% else %}
                                 <li class="list-group-item p-0 border-0">
@@ -41,11 +41,11 @@
                                 </li>
                             {% endif %}
                         </ul>
-                    </p>
+                    </div>
                 </a>
                 <form class="mt-auto" action="{% url 'add_to_basket' pk=book.id %}" method="POST">
                     {% csrf_token %}
-                    <input type="hidden" type="number" name="quantity" value="1">
+                    <input class="d-none" type="number" name="quantity" value="1">
                     <button class="btn btn-sm btn-primary" type="submit">{% trans "Add to Basket" %}</button>
                 </form>
             </div>
