@@ -68,5 +68,5 @@ class OrderForm(forms.ModelForm):
                 self.fields[field].widget.attrs['placeholder'] = placeholder
 
             if field not in ['phone_number', 'country']:
-                self.fields[field].widget.attrs.update({'class': 'form-select'
+                self.fields[field].widget.attrs.update({'class': 'form-control'
                                                         })
