@@ -26,25 +26,25 @@
 
     {% comment %}Reviews{% endcomment %}
     <div class="reviews mt-3" id="reviews">
-        {% if reviews %}
-            {% if user_review %}
-                <div class="bg-light p-3">
-                    <div class="single-review">
-                        {% with stars=user_review.rating %}
-                            <p class="mb-1">{% include "books/includes/stars.html" %}</p>
-                        {% endwith %}
-                        <div>
-                            <p class="mb-1 small">{{ request.user }}{% trans " | " %}{{ user_review.updated_at | date:'d/m/Y H:i' }}</p>
-                        </div>
-                        <p>{{ user_review.content }}</p>
+        {% if user_review %}
+            <div class="bg-light p-3">
+                <div class="single-review">
+                    {% with stars=user_review.rating %}
+                        <p class="mb-1">{% include "books/includes/stars.html" %}</p>
+                    {% endwith %}
+                    <div>
+                        <p class="mb-1 small">{{ request.user }}{% trans " | " %}{{ user_review.updated_at | date:'d/m/Y H:i' }}</p>
                     </div>
-                    <div class="btn-group text-end">
-                        <a class="btn btn-sm btn-primary" href="{% url 'edit_review' book_id=book.id pk=user_review.id %}">{% trans "Edit" %}</a>
-                        <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_review' book_id=book.id pk=user_review.id %}">{% trans "Delete" %}</a>
-                    </div>
+                    <p>{{ user_review.content }}</p>
                 </div>
-                <hr>
-            {% endif %}
+                <div class="btn-group text-end">
+                    <a class="btn btn-sm btn-primary" href="{% url 'edit_review' book_id=book.id pk=user_review.id %}">{% trans "Edit" %}</a>
+                    <a class="btn btn-sm btn-outline-primary" href="{% url 'delete_review' book_id=book.id pk=user_review.id %}">{% trans "Delete" %}</a>
+                </div>
+            </div>
+            <hr>
+        {% endif %}
+        {% if reviews %}
             {% for review in reviews%}
                 <div class="single-review">
                     {% with stars=review.rating %}
