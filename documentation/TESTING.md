@@ -1,6 +1,6 @@
 # Testing 
 
-## Table of Content
+## Table of Contents
 - [Testing User Stories](#testing-user-stories-from-the-user-experience-ux-section)
 - [Code Validation](#code-validation)
 - [Functionality Testing](#functionality-testing)
