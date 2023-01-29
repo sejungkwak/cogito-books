@@ -29,6 +29,10 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [MoSCoW method and story points](#moscow-method-and-story-points)
 - [Iterations](#iterations)
 
+[Features](#features)
+- [Implemented Features](#implemented-features)
+- [Features Left to Implement](#features-left-to-implement)
+
 [Search Engine Optimisation (SEO)](#search-engine-optimisation-seo)
 - [Keywords](#keywords)
 - [Sitemap](#sitemap)
@@ -66,7 +70,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | ID | Story |
     | --- | --- |
     | [#1](https://github.com/sejungkwak/cogito-books/issues/1) | As a first-time visitor, I want to know what the shop sells immediately so that I can decide whether I will browse further. |
-    | [#2](https://github.com/sejungkwak/cogito-books/issues/2) | As a first-time visitor, I want to navigate pages easily so that I can find information I’m looking for. |
+    | [#2](https://github.com/sejungkwak/cogito-books/issues/2) | As a first-time visitor, I want to navigate pages easily so that I can find information I'm looking for. |
     | [#3](https://github.com/sejungkwak/cogito-books/issues/3) | As a shopper, I want to know if the shop is trustworthy so that I can make a purchase without any worry. |
     | [#46](https://github.com/sejungkwak/cogito-books/issues/46) | As a shopper, I want to view a list of all books so that I can easily select some to purchase. |
     | [#47](https://github.com/sejungkwak/cogito-books/issues/47) | As a shopper, I want to quickly identify deals, bestsellers and new releases so that I can easily find interesting books. |
@@ -80,7 +84,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | [#5](https://github.com/sejungkwak/cogito-books/issues/5) | As a site user, I want to sign in and sign out of my account with my credentials so that I can keep my account secure. |
     | [#6](https://github.com/sejungkwak/cogito-books/issues/6) | As a site user, I want to update my password so that I can keep my account secure. |
     | [#7](https://github.com/sejungkwak/cogito-books/issues/7) | As a site user, I want to reset my password so that I can access my account even if I forget my password. |
-    | [#8](https://github.com/sejungkwak/cogito-books/issues/8) | As a site user, I want to save my delivery information so that I don’t have to fill in the form every time I make a purchase. |
+    | [#8](https://github.com/sejungkwak/cogito-books/issues/8) | As a site user, I want to save my delivery information so that I don't have to fill in the form every time I make a purchase. |
     | [#9](https://github.com/sejungkwak/cogito-books/issues/9) | As a site user, I want to update my delivery information so that I can keep my details up to date. |
     | [#10](https://github.com/sejungkwak/cogito-books/issues/10) | As a site user, I want to have a personalised user profile so that I can view my loyalty points and order history. |
     | [#11](https://github.com/sejungkwak/cogito-books/issues/11) | As a site user, I want to add books to my wishlist so that I can purchase them at a later time. |
@@ -92,7 +96,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | --- | --- |
     | [#13](https://github.com/sejungkwak/cogito-books/issues/13) | As a shopper, I want to sort all the available books by publishing date so that I can easily identify newly released books. |
     | [#14](https://github.com/sejungkwak/cogito-books/issues/14) | As a shopper, I want to sort sci-fi books by user ratings so that I can easily identify the best rated books in sci-fi. |
-    | [#15](https://github.com/sejungkwak/cogito-books/issues/15) | As a shopper, I want to search for a book by title so that I can easily find a book I’d like to purchase. |
+    | [#15](https://github.com/sejungkwak/cogito-books/issues/15) | As a shopper, I want to search for a book by title so that I can easily find a book I'd like to purchase. |
 
 - Epic: Book Reviews
 
@@ -121,10 +125,10 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
     | ID | Story |
     | --- | --- |
-    | [#29](https://github.com/sejungkwak/cogito-books/issues/29) | As a shopper, I want to see FAQs so that I don’t have to contact the store and wait for them to respond. |
+    | [#29](https://github.com/sejungkwak/cogito-books/issues/29) | As a shopper, I want to see FAQs so that I don't have to contact the store and wait for them to respond. |
     | [#30](https://github.com/sejungkwak/cogito-books/issues/30) | As a shopper, I want to contact the store so that I can receive answers to my queries before purchase. |
     | [#31](https://github.com/sejungkwak/cogito-books/issues/31) | As a shopper, I want to receive notification via email the store answers my queries so that I can conveniently check it. |
-    | [#32](https://github.com/sejungkwak/cogito-books/issues/32) | As a store owner, I want to receive notifications upon a shopper’s contact so that I can reply in a timely manner. |
+    | [#32](https://github.com/sejungkwak/cogito-books/issues/32) | As a store owner, I want to receive notifications upon a shopper's contact so that I can reply in a timely manner. |
 
 - Epic: Admin and Store Management
 
@@ -138,7 +142,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 - Colour Scheme
 
-    The main colours are black and white to enhance readability. Blue is added to particular elements such as buttons and notifications where information needs to grab the user’s attention.
+    The main colours are black and white to enhance readability. Blue is added to particular elements such as buttons and notifications where information needs to grab the user's attention.
 
 - Typography
 
@@ -257,11 +261,180 @@ The details can be found below:
 
 <br>
 
+# Features
+
+## Implemented Features
+
+The site features a fully responsive design and contains several e-commerce pages(basket and checkout) as well as book displaying pages(fiction, nonfiction and children's, sale, bestsellers, new releases and book of the month), 3 profile pages(account details, order history and wishlist), 2 admin user pages(add a book and book of the month), `django-allauth` authentication pages and 5 supporting pages(About us, terms & conditions, privacy policy, contact us and FAQs). The header and footer are identical for all pages. Each user input is validated and feedback is given accordingly.
+
+- Header
+
+    ![Header](documentation/features/desktop-nav.png)
+
+    - All the header items except profile menus are available to both unregistered and registered users.
+    - The header is fixed to the top of the screen even when the user is scrolling down the page to allow easier navigation.
+    - The navbar allows the user to quickly navigate to the sections of the store that are of the most interest to them.
+    - The navigation menu collapses on small/medium devices less than 992px width to optimise the menu for smaller screen sizes.
+
+        <details>
+        <summary>Navigation menu on mobile devices</summary>
+
+        ![Navigation menu on mobile devices](documentation/features/mobile-nav.png)
+
+        </details>
+
+    - The search bar allows a user to search for a book based on a title, publisher, author, ISBN or even keyword from the book description.
+
+- Footer
+
+    ![Footer](documentation/features/desktop-footer.png)
+
+    - All the footer items are available to both unregistered and registered users.
+    - The footer includes links for the following three parts: About us, Help centre and social media page.
+    - A newsletter sign up form allows users to subscribe to the store's newsletter.
+    - The _Facebook_ link opens in a new tab to allow the user to return to _Cogito Books_ more easily.
+
+        <details>
+        <summary>Footer on mobile devices</summary>
+
+        ![Footer on mobile devices](documentation/features/mobile-footer.png)
+
+        </details>
+
+- Homepage
+
+    ![Homepage](documentation/features/home.png)
+
+    - The bestsellers and new releases carousels catch the user's attention.
+    - Add to basket buttons allow users to make a purchase conveniently without needing to click multiple times.
+
+- Book of the month
+
+    ![Book of the month page](documentation/features/book_of_the_month.png)
+
+    - Book of the month blog post allows the user to learn a little about a book recommended by the superuser.
+    - This can be used to connect with users and encourage return visitors to the store.
+    - This also allows for direct marketing of specific books to users.
+    - The superuser can upload media files to the content to make it more interesting.
+
+- Category page
+
+    ![Category view](documentation/features/category_view.png)
+
+    - Each category page displays 16 books on a single page and shows a paginator if exceeded.
+    - A user can sort books in a specific order, for example, title, price, rating and publication date.
+    - A user can add a book to their basket or wishlist from here.
+
+- Book details page
+
+    ![Book detail page](documentation/features/book_detail.png)
+
+    - The user can open a page for each book. This provides more information for the specific book.
+    - The user  can also read/write/update/delete a review for the book or just rating scores.
+    - The description is truncated to allow users to see all the book details at a glance.
+    - The user can also add a book to basket or to their wishlist for future purchase.
+
+- Wishlist page
+
+    ![Wishlist](documentation/features/wishlist.png)
+
+    - This page allows the user to save a list of books they wish to purchase at a later time.
+    - This page shows when books are on sale, allowing a user to quickly check when a book they are interested in is available at a discount price.
+
+- Basket page
+
+    ![Basket page](documentation/features/basket.png)
+
+    - The basket follows the familiar concept from online shopping. 
+    - The user can select items to add/remove from/to the basket while browsing the page.
+    - At any time the user can view the contents of the basket and increase/decrease the quantity or completely remove an item.
+    - The user can see the total of their transaction before delivery costs.
+
+- Checkout page
+
+    ![Checkout page](documentation/features/checkout.png)
+
+    - This page allows the user to complete the transaction and purchase all selected items from their basket.
+    - The user can specify an email address to receive the invoice for this transaction. The default behaviour uses the email address saved in the account details for this account.
+    - The user can specify a delivery address to receive the books from this transaction. The default behaviour uses the postal address saved in the account details for this account.
+    - The signed in user can collect loyalty points and redeem with no minimum requirements.
+
+- Checkout success page
+
+    ![Checkout success page](documentation/features/checkout_success.png)
+
+    - A unique ID is generated for each completed transaction to allow referencing this transaction at a later time by either the user or the superuser.
+    - When a user completes a transaction, a confirmation page displays and an invoice is sent to their email address.
+
+- Order history page
+
+    ![Order history page](documentation/features/order_history.png)
+
+    - The order history page allows the user to view all previous transactions arranged by most recent.
+    - The user can click on the unique ID for the transaction to view more details, including all items purchased in this transaction, the total cost as well as the delivery address used for these books.
+
+- Account detail page
+
+    ![Account detail page](documentation/features/account_detail.png)
+
+    - This page allows the user to add and edit their account details.
+    - Default delivery address is pre-populated when the user wants to make a purchase on the site. Their details are automatically added from here to speed up the process.
+    - A username can be edited by the user here and is visible to other users when adding book reviews.
+    - Users can view their loyalty points here to keep track of how much money they can save on their next transaction.
+
+- Product management menu page
+
+    ![Product management menu page](documentation/features/admin_menu.png)
+
+    - This page is only accessible to the superuser and allows the superuser to access the __Add a book__ page and the __Add a book of the month__ blog post feature.
+
+- Add a book page
+
+    ![Add a book page](documentation/features/add_book.png)
+
+    - The page allows the superuser to add a new book to sell to the shop.
+    - A superuser can add a genre if it has not yet been added. The new genre is automatically registered on the navigation menu.
+    - A superuser can add an author if it has not yet been added.
+    - A superuser can add multiple author's for the book, if required.
+
+- Add a book of the month page
+
+    ![Add a book of the month page](documentation/features/add_book_of_the_month.png)
+
+    - This page allows the superuser to create a blog post highlighting the __book of the month__ for each month.
+    - This blog post allows the superuser to interact with customers on the website.
+    - The superuser may choose not to publish the blog post right now and instead publish it later. This allows for the creation of these posts in advance.
+
+
+## Features Left to Implement
+
+- Bestsellers calculation system
+It will use the purchase history of the whole store to calculate which books are selling the most over the most recent period and allows the superuser to highlight and promote these books to the users.
+
+- Bestsellers calculation system
+It will use the purchase history of the whole store to calculate which books are selling the most over the most recent period and allow the superuser to highlight and promote these books to the users.
+
+- Better filtering system for the search query
+The search bar should be better optimised to allow the user to specify the field to search. I.e. searching for “King” but limiting the search for authors should only return results where “King” is part of the author’s name and not where it is a keyword in the description, or part of the publisher’s name.
+
+- Delivery fee
+At the moment, the site calculates delivery fee as a flat 10% of the transaction price but I think it would make more sense to calculate a delivery fee based on the destination country - with closer to Ireland resulting in a cheaper delivery fee compared to the flat 10%, while further abroad might be more expensive.
+
+- Stock
+By adding a stock value to the database for each individual book, the superuser can keep track of how many copies of each book is remaining and whether new copies should be ordered.
+
+- Order management system
+Currently, a superuser needs to sign in to the admin site to review the orders. It would be better if the admin site was accessible via the main site portal.
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
 # Search Engine Optimisation (SEO)
 
 ## Keywords
 
-As a part of SEO, keywords were chosen using the following steps: Firstly, write down the site’s general topics. Next, brainstorm possible keywords for each topic. Then, enter each keyword in Google search to find a list of short-tail keywords and long-tail phrases. After that, select the best ones based on their relevance, authority and volume using [Wordtracker](https://www.wordtracker.com/).
+As a part of SEO, keywords were chosen using the following steps: Firstly, write down the site's general topics. Next, brainstorm possible keywords for each topic. Then, enter each keyword in Google search to find a list of short-tail keywords and long-tail phrases. After that, select the best ones based on their relevance, authority and volume using [Wordtracker](https://www.wordtracker.com/).
 The Final list of keywords/phrases used for the site is shown in the table below in bold.
 
 ![Keywords](documentation/keywords.png)
@@ -367,6 +540,7 @@ For the email marketing, a subscription section was added in the footer using th
 - [Google Fonts](https://fonts.google.com/) was used to embed Montserrat.
 - [Grammarly](https://www.grammarly.com/) was used to check for errors in the README.
 - [Heroku](https://heroku.com/) was used to deploy the project.
+- [Mailchimp](https://mailchimp.com/) was used to utilise the newsletter sign up functionality.
 - [NY Times Books API](https://developer.nytimes.com/docs/books-product/1/overview) was used to get a list of books.
 - [Privacy Policy Generator](https://www.privacypolicygenerator.info/) was used to create the site's privacy policy.
 - [Stripe](https://stripe.com/) was used to accept payments.
