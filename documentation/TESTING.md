@@ -339,4 +339,57 @@ No errors or warnings were found when passing through [JSHint](https://jshint.co
 
     - As shown in the screenshot above, the report indicated high quality in all areas for desktop and mobile with a slight issue with performance on mobile devices. The analysis indicated that the unused JavaScript code from _Stripe_ and use of HTTP/1 (_AWS_) caused the lower result. However, as these services are not replaceable at this point and the score is not terrible, I have decided not to pursue any further changes.
 
-    
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Bugs
+
+## Fixed bugs
+
+### Always saving a user’s delivery information
+- Issue: User input (delivery address) on the checkout page was always saved to the profile default even when “Save this delivery information to my profile” was unchecked.
+- Reason: I used an incorrect JQuery method which always returned true if the attribute `checked` is set to true in HTML.
+- Fix: Instead of checking for the boolean value of the attribute, check for the status of the checkbox using JQuery method `.is()`.
+- Commit: 6f32560
+
+### `Userpassestestmixin` not working
+- Issue: test_func() did not take effect with the CreateView and UpdateView.
+- Reason: The order of arguments was incorrect.
+- Fix: Moved `Userpassestestmixin` before the views.
+- Commit: 2c4dea1
+
+### Review not showing
+- Issue: The signed-in user's own review was not visible.
+- Reason: The position of an if block was incorrect in the template.
+- Fix: Moved the if statement in the template.
+- Commit: 9c03946
+
+### Responsive menu container not closing correctly.
+- Issue: The collapsible menu container did not close when another element was clicked.
+- Reason: Mix of _Bootstrap_ nav and dropdown components caused the issue.
+- Fix: Added JS code to check what the click event target is and change the menu visibility status accordingly.
+- Commit: 2dc4223
+
+### Homepage carousel button not working
+- Issue: The buttons for the carousel did not work properly - Clicking __bestseller__ buttons made the __new releases__ section move.
+- Reason: The same buttons were used for the both bestsellers and new releases sections. Bootstrap `data-bs-target` was pointing at the __new releases__ id.
+- Fix: Added buttons to each section.
+- Commit: 611d7a4
+
+### Phone number field showing a string ‘IE’
+- Issue: The phone number field’s default value is displayed in both prefix and suffix.
+- Reason: I was not able to identify the exact cause of this issue. However, I assumed it was related to the third-party package `django-phonenumber-field` that I used for the phone number validation. I removed the default value from the model and ‘IE’ does not show in the field any more.
+- Fix: Removed the default value from the model.
+- Commit: 984a172
+
+## Known bugs
+
+### Email sender not correct
+- Issue: A user’s email input value from the contact us form does not reflect the user email when sending an email to me via the form. The both the sender and receiver are me.
+- Reason: Not changing FROM header is a _GMail_ restriction. The solution of the issue would be to use another SMTP service or _Google_’ email alias. Both options are not applicable to me at the moment as I need an actual business domain. (Refer: https://stackoverflow.com/questions/6803009 and https://stackoverflow.com/questions/24654947)
+- Change: I have added the user’s email address to the body with the original content. That way, the admin can have an email address to reply to. Alternatively, an admin user can view all the contacts on the admin site.
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
