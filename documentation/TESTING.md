@@ -1,0 +1,186 @@
+# Testing 
+
+[Testing](#testing)
+- [Testing User Stories](#testing-user-stories-from-the-user-experience-ux-section)
+- [Code Validation](#code-validation)
+- [Functionality Testing](#functionality-testing)
+- [Performance Testing](#performance-testing)
+- [Bugs](#bugs)
+
+## Testing User Stories from the User Experience (UX) Section
+
+- Epic: Viewing and Navigation
+
+    - [x] [#1](https://github.com/sejungkwak/cogito-books/issues/1) As a first-time visitor, I want to know what the shop sells immediately so that I can decide whether I will browse further.
+
+        ![Intuitive landing page](user_story_testing/user_story_1.png)
+
+    <br>
+
+    - [x] [#2](https://github.com/sejungkwak/cogito-books/issues/2) As a first-time visitor, I want to navigate pages easily so that I can find information I’m looking for.
+
+        ![Easy to navigate](user_story_testing/user_story_2.png)
+
+
+    - [x] [#3](https://github.com/sejungkwak/cogito-books/issues/3) As a shopper, I want to know if the shop is trustworthy so that I can make a purchase without any worry.
+
+        : A user can view the store policies and visit its social media account to make sure it is trustworthy.
+
+        ![Trustworthy site](user_story_testing/user_story_3.png)
+
+    - [x] [#46](https://github.com/sejungkwak/cogito-books/issues/46) As a shopper, I want to view a list of all books so that I can easily select some to purchase.
+
+        ![View a list of all books](user_story_testing/user_story_46.png)
+
+    - [x] [#47](https://github.com/sejungkwak/cogito-books/issues/47) As a shopper, I want to quickly identify deals, bestsellers and new releases so that I can easily find interesting books.
+
+        ![View categorised books](user_story_testing/user_story_47.png)
+
+    - [x] [#48](https://github.com/sejungkwak/cogito-books/issues/48) As a shopper, I want to view individual book details so that I can decide whether I want to buy the book.
+
+        ![View book details](user_story_testing/user_story_48.png)
+
+- Epic: Registration and User Accounts
+
+    - [x] [#4](https://github.com/sejungkwak/cogito-books/issues/4) As a site user, I want to sign up so that I can save and view my details.
+
+        ![Sign up page](user_story_testing/user_story_4.png)
+
+    - [x] [#5](https://github.com/sejungkwak/cogito-books/issues/5) As a site user, I want to sign in and sign out of my account with my credentials so that I can keep my account secure.
+
+        ![Sign in page](user_story_testing/user_story_5.png)
+
+    - [x] [#6](https://github.com/sejungkwak/cogito-books/issues/6) As a site user, I want to update my password so that I can keep my account secure.
+
+        ![Password update](user_story_testing/user_story_6.png)
+
+
+    - [x] [#7](https://github.com/sejungkwak/cogito-books/issues/7) As a site user, I want to reset my password so that I can access my account even if I forget my password.
+
+        ![Reset password](user_story_testing/user_story_7.png)
+
+    - [x] [#8](https://github.com/sejungkwak/cogito-books/issues/8) As a site user, I want to save my delivery information so that I don’t have to fill in the form every time I make a purchase.
+
+        ![Save delivery information](user_story_testing/user_story_8.png)
+
+    - [x] [#9](https://github.com/sejungkwak/cogito-books/issues/9) As a site user, I want to update my delivery information so that I can keep my details up to date.
+
+        ![Update delivery information](user_story_testing/user_story_9.png)
+
+    - [x] [#10](https://github.com/sejungkwak/cogito-books/issues/10) As a site user, I want to have a personalised user profile so that I can view my loyalty points and order history.
+
+        ![Personalised user profile](user_story_testing/user_story_10.png)
+
+    - [x] [#11](https://github.com/sejungkwak/cogito-books/issues/11) As a site user, I want to add books to my wishlist so that I can purchase them at a later time.
+
+        ![Wishlist](user_story_testing/user_story_11.png)
+
+    - [x] [#12](https://github.com/sejungkwak/cogito-books/issues/12) As a site user, I want to sign up for a newsletter so that I can receive regular updates about new books and offers.
+
+        ![Newsletter sign up](user_story_testing/user_story_12.png)
+
+- Epic: Sorting and Searching
+
+    - [x] [#13](https://github.com/sejungkwak/cogito-books/issues/13) As a shopper, I want to sort all the available books by publishing date so that I can easily identify newly released books.
+
+        ![Sorting all books](user_story_testing/user_story_13.png)
+
+    - [x] [#14](https://github.com/sejungkwak/cogito-books/issues/14) As a shopper, I want to sort sci-fi books by user ratings so that I can easily identify the best rated books in sci-fi.
+
+        ![Sorting specific category](user_story_testing/user_story_14.png)
+
+    - [x] [#15](https://github.com/sejungkwak/cogito-books/issues/15) As a shopper, I want to search for a book by title so that I can easily find a book I’d like to purchase.
+
+        ![Search](user_story_testing/user_story_15.png)
+
+- Epic: Book Reviews
+
+    - [x] [#16](https://github.com/sejungkwak/cogito-books/issues/16) As a shopper, I want to view reviews of a book so that I can check what other people think of it.
+
+        ![View reviews](user_story_testing/user_story_16.png)
+
+    - [x] [#17](https://github.com/sejungkwak/cogito-books/issues/17) As a shopper, I want to add a review so that I can share my thoughts.
+
+        ![Add review](user_story_testing/user_story_17.png)
+
+    - [x] [#18](https://github.com/sejungkwak/cogito-books/issues/18) As a shopper, I want to leave a rating without writing a review so that I can leave my opinion anonymously. 
+
+        : A user can leave a rating anonymously.
+
+    - [x] [#19](https://github.com/sejungkwak/cogito-books/issues/19) As a shopper, I want to update my review so that I can change any incorrect information.
+
+       ![Update review](user_story_testing/user_story_19.png)
+
+    - [x] [#20](https://github.com/sejungkwak/cogito-books/issues/20) As a shopper, I want to remove my review so that I can delete an invalid or irrelevant review.
+
+        ![Update review](user_story_testing/user_story_20.png)
+
+- Epic: Purchasing and Checkout
+
+    - [x] [#21](https://github.com/sejungkwak/cogito-books/issues/21) As a shopper, I want to add books to my basket while viewing multiple books at a time so that I can make my purchase as quickly and easily as possible.
+
+        ![Add to basket](user_story_testing/user_story_21.png)
+
+    - [x] [#22](https://github.com/sejungkwak/cogito-books/issues/22) As a shopper, I want to view items in my basket to be purchased so that I can identify the total cost of my purchase and all items I will receive.
+
+        ![View basket](user_story_testing/user_story_22.png)
+
+    - [x] [#23](https://github.com/sejungkwak/cogito-books/issues/23) As a shopper, I want to remove or adjust the quantity of individual items in my basket so that I can easily make changes to my purchase before checkout.
+
+        ![Adjust basket](user_story_testing/user_story_23.png)
+
+    - [x] [#24](https://github.com/sejungkwak/cogito-books/issues/24) As a shopper, I want to easily enter my payment information so that I can check out quickly and with little hassle.
+
+        ![Quick payment system](user_story_testing/user_story_24.png)
+
+    - [x] [#25](https://github.com/sejungkwak/cogito-books/issues/25) As a shopper, I want to collect loyalty points so that I can use it to purchase books.
+
+        ![Collect Loyalty points](user_story_testing/user_story_25.png)
+
+    - [x] [#26](https://github.com/sejungkwak/cogito-books/issues/26) As a shopper, I want to feel my personal and payment information are safe and secure so that I can confidently provide the needed information to make a purchase.
+
+        - I opted to use _Stripe_ for secure checkout.
+
+
+    - [x] [#27](https://github.com/sejungkwak/cogito-books/issues/27) As a shopper, I want to view an order confirmation after checkout so that I can verify that I haven't made any mistakes.
+
+        ![Order confirmation page](user_story_testing/user_story_27.png)
+
+    - [x] [#28](https://github.com/sejungkwak/cogito-books/issues/28) As a shopper, I want to receive an email confirmation after checking out so that I can keep it as an invoice of what I've purchased for my records.
+
+        ![Order confirmation email](user_story_testing/user_story_28.png)
+
+- Epic: Help Centre
+
+    - [x] [#29](https://github.com/sejungkwak/cogito-books/issues/29) As a shopper, I want to see FAQs so that I don’t have to contact the store and wait for them to respond.
+
+        ![FAQs](user_story_testing/user_story_29.png)
+
+    - [x] [#30](https://github.com/sejungkwak/cogito-books/issues/30) As a shopper, I want to contact the store so that I can receive answers to my queries before purchase.
+
+        ![Contact Store](user_story_testing/user_story_30.png)
+
+
+    [ ] [#31](https://github.com/sejungkwak/cogito-books/issues/31) As a shopper, I want to receive notification via email the store answers my queries so that I can conveniently check it.
+
+    : This feature has not been implemented as I prioritised each story using MoSCoW method, excluded `won't have` stories.
+
+    - [x] [#32](https://github.com/sejungkwak/cogito-books/issues/32) As a store owner, I want to receive notifications upon a shopper’s contact so that I can reply in a timely manner.
+
+        : It is partially fulfilled as _Google_ domain users cannot change the sender's email address. Added the user's email address to the body.
+
+        ![User Contact Notification](user_story_testing/user_story_32.png)
+
+- Epic: Admin and Store Management
+
+    - [x] [#33](https://github.com/sejungkwak/cogito-books/issues/33) As a store owner, I want to add new products to my store so that I can ensure there is always something of interest to new and existing shoppers.
+
+        ![Add a book](user_story_testing/user_story_33.png)
+
+    - [x] [#34](https://github.com/sejungkwak/cogito-books/issues/34) As a store owner, I want to update product details such as prices, description, images and so on so that I can keep the product details up to date.
+
+        ![Update a book](user_story_testing/user_story_34.png)
+
+    - [x] [#35](https://github.com/sejungkwak/cogito-books/issues/35) As a store owner, I want to delete a product so that I can remove items that are no longer for sale.
+
+        ![Delete a book](user_story_testing/user_story_35.png)

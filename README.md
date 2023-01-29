@@ -44,6 +44,8 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Framework](#framework)
 - [Programs](#programs)
 
+[Testing](#testing)
+
 [Deployment](#deployment)
 - [Heroku](#heroku)
 - [Making a Local Clone](#making-a-local-clone)
@@ -68,7 +70,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
     | [#3](https://github.com/sejungkwak/cogito-books/issues/3) | As a shopper, I want to know if the shop is trustworthy so that I can make a purchase without any worry. |
     | [#46](https://github.com/sejungkwak/cogito-books/issues/46) | As a shopper, I want to view a list of all books so that I can easily select some to purchase. |
     | [#47](https://github.com/sejungkwak/cogito-books/issues/47) | As a shopper, I want to quickly identify deals, bestsellers and new releases so that I can easily find interesting books. |
-    | [#48](https://github.com/sejungkwak/cogito-books/issues/48) | As a shopper, I want to view a list of all books so that I can easily select some to purchase. |
+    | [#48](https://github.com/sejungkwak/cogito-books/issues/48) | As a shopper, I want to view individual book details so that I can decide whether I want to buy the book. |
 
 - Epic: Registration and User Accounts
 
@@ -229,7 +231,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 
 - Profile app
 
-    - Profile: inherits the Django-allauth's user model
+    - Profile: inherits the Django user model
     - Wishlist
 
 <br>
@@ -372,6 +374,14 @@ For the email marketing, a subscription section was added in the footer using th
 - [Terms and Conditions Generator](https://www.termsandconditionsgenerator.com/) was used to create the site's terms and conditions.
 - [Visual Studio Code](https://code.visualstudio.com/) was used to edit my code and create SVG paths from SVG image files.
 - [XML-Sitemaps.com](https://www.xml-sitemaps.com/) was used to generate the `sitemap.xml` file.
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Testing
+
+Testing details can be found [here](documentation/TESTING.md)
 
 [Back To **Table of Contents**](#table-of-contents)
 
