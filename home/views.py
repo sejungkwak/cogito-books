@@ -23,7 +23,8 @@ class BookListView(ListView):
         """
         context = super().get_context_data(**kwargs)
         try:
-            published_book_of_month = Recommendation.objects.get(published=True)
+            published_book_of_month = \
+                Recommendation.objects.get(published=True)
             if published_book_of_month:
                 context['book_of_the_month'] = published_book_of_month
         except Recommendation.DoesNotExist:
@@ -61,5 +62,5 @@ def subscribe_to_newsletter(request):
         except ApiClientError as error:
             error_message = json.loads(error.text)['detail']
             messages.error(request, f'{error_message}')
- 
+
     return redirect(redirect_url)

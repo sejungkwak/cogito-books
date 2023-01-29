@@ -32,7 +32,8 @@ def basket_contents(request):
         })
 
     if 'points' in request.session:
-        redeem_points_in_eur = round(Decimal(request.session['points'] / 100), 2)
+        redeem_points_in_eur = round(
+            Decimal(request.session['points'] / 100), 2)
 
     if total < settings.FREE_DELIVERY_THRESHOLD:
         delivery = total * Decimal(settings.STANDARD_DELIVERY_PERCENTAGE / 100)
