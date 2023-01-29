@@ -313,3 +313,14 @@ No errors or warnings were found when passing through [JSHint](https://jshint.co
 [Back To **Table of Contents**](#table-of-contents)
 
 <br>
+
+## Functionality Testing
+
+- I have tested the site's functionality manually.
+- During the tests, I found a bug where the signed-in user's review did not display. I fixed the issue.
+- All the tests passed.
+- Please refer to [this link](https://docs.google.com/spreadsheets/d/1JQKwA0J5oYXYqyHDLh_UMl8mF6JbQoMZH-21wcIxDHc/edit#gid=1491505462) for more details.
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
