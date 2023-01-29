@@ -324,3 +324,19 @@ No errors or warnings were found when passing through [JSHint](https://jshint.co
 [Back To **Table of Contents**](#table-of-contents)
 
 <br>
+
+## Performance Testing
+
+- I have measured the performance, accessibility, best practices and SEO using [Lighthouse](https://developers.google.com/web/tools/lighthouse) in Chrome DevTools in incognito mode.
+
+    - Desktop report
+
+        ![Lighthouse testing report](lighthouse_desktop.png)
+
+    - Mobile report
+
+        ![Lighthouse testing report](lighthouse_mobile.png)
+
+    - As shown in the screenshot above, the report indicated high quality in all areas for desktop and mobile with a slight issue with performance on mobile devices. The analysis indicated that the unused JavaScript code from _Stripe_ and use of HTTP/1 (_AWS_) caused the lower result. However, as these services are not replaceable at this point and the score is not terrible, I have decided not to pursue any further changes.
+
+    
