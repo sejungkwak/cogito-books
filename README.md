@@ -37,7 +37,7 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Keywords](#keywords)
 - [Sitemap](#sitemap)
 - [Robots.txt](#robotstxt)
-- [Http error pages](#http-error-pages)
+- [HTTP error pages](#http-error-pages)
 
 [Web Marketing](#web-marketing)
 - [Facebook business page](#facebook-business-page)
@@ -54,6 +54,11 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Heroku](#heroku)
 - [Making a Local Clone](#making-a-local-clone)
 - [Forking this Repository](#forking-this-repository)
+
+[Credits](#credits)
+- [Code](#code)
+- [Content](#content)
+- [Acknowledgements](#acknowledgements)
 
 <br>
 
@@ -329,10 +334,10 @@ The site features a fully responsive design and contains several e-commerce page
 
     ![Book detail page](documentation/features/book_detail.png)
 
-    - The user can open a page for each book. This provides more information for the specific book.
+    - The user can open a page for each book. This provides more information about the specific book.
     - The user  can also read/write/update/delete a review for the book or just rating scores.
     - The description is truncated to allow users to see all the book details at a glance.
-    - The user can also add a book to basket or to their wishlist for future purchase.
+    - The user can also add a book to basket or to their wishlist for future purchases.
 
 - Wishlist page
 
@@ -357,7 +362,7 @@ The site features a fully responsive design and contains several e-commerce page
     - This page allows the user to complete the transaction and purchase all selected items from their basket.
     - The user can specify an email address to receive the invoice for this transaction. The default behaviour uses the email address saved in the account details for this account.
     - The user can specify a delivery address to receive the books from this transaction. The default behaviour uses the postal address saved in the account details for this account.
-    - The signed in user can collect loyalty points and redeem with no minimum requirements.
+    - The signed in user can collect loyalty points and redeem them with no minimum requirements.
 
 - Checkout success page
 
@@ -395,7 +400,7 @@ The site features a fully responsive design and contains several e-commerce page
     - The page allows the superuser to add a new book to sell to the shop.
     - A superuser can add a genre if it has not yet been added. The new genre is automatically registered on the navigation menu.
     - A superuser can add an author if it has not yet been added.
-    - A superuser can add multiple author's for the book, if required.
+    - A superuser can add multiple authors for the book, if required.
 
 - Add a book of the month page
 
@@ -421,7 +426,7 @@ The search bar should be better optimised to allow the user to specify the field
 At the moment, the site calculates delivery fee as a flat 10% of the transaction price but I think it would make more sense to calculate a delivery fee based on the destination country - with closer to Ireland resulting in a cheaper delivery fee compared to the flat 10%, while further abroad might be more expensive.
 
 - Stock
-By adding a stock value to the database for each individual book, the superuser can keep track of how many copies of each book is remaining and whether new copies should be ordered.
+By adding a stock value to the database for each book, the superuser can keep track of how many copies of each book are remaining and whether new copies should be ordered.
 
 - Order management system
 Currently, a superuser needs to sign in to the admin site to review the orders. It would be better if the admin site was accessible via the main site portal.
@@ -445,7 +450,7 @@ The Final list of keywords/phrases used for the site is shown in the table below
 ## Robots.txt
 `robots.txt` was added to the project's root folder to let search engines know which pages are accessible to web spiders.
 
-## Http error pages
+## HTTP error pages
 
 Custom error pages have been created with 4 internal links(Homepage, Books page, Account page, Contact Us page) to be more helpful to a user and provide guidance.
 
@@ -485,7 +490,7 @@ Social media and email marketing have been utilised for the project.
 
 ## Facebook business page
 
-For the social media marketing, A _Facebook_ page was created and added business information. The page can be found [here](https://www.facebook.com/people/Cogito-Books/100089165571037/).
+For social media marketing, A _Facebook_ page was created and added business information. The page can be found [here](https://www.facebook.com/people/Cogito-Books/100089165571037/).
 
 <details>
     <summary>Screenshot of the Facebook business page</summary>
@@ -496,7 +501,7 @@ For the social media marketing, A _Facebook_ page was created and added business
 
 ## Newsletter Signup Form
 
-For the email marketing, a subscription section was added in the footer using the `mailchimp-marketing` package.
+For email marketing, a subscription section was added in the footer using the `mailchimp-marketing` package.
 
 <details>
     <summary>Screenshot of the subscription section</summary>
@@ -791,3 +796,22 @@ I have set up a virtual environment by the steps below:
 [Back To **Table of Contents**](#table-of-contents)
 
 <br>
+
+# Credits
+
+## Code
+
+- I highly relied upon the [Django 3.2 documentation](https://docs.djangoproject.com/en/3.2/) and [Stack Overflow](https://stackoverflow.com/) posts.
+
+- I have modified the [_Code Institute_](https://codeinstitute.net/) walkthrough project __Boutique Ado__'s `order` models and `webhook`.
+
+
+## Content
+
+- All the book details are from online bookstores: [Easons](https://www.easons.com/), [Bookdepository](https://www.bookdepository.com/), [Amazon](https://www.amazon.co.uk/), [Midlandbooks](https://midlandbooks.ie/about-us/)
+
+## Acknowledgements
+
+- My fiancé Ciarán Maher for his support, feedback and proofreading.
+
+[Back To **Table of Contents**](#table-of-contents)
