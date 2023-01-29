@@ -1,6 +1,6 @@
 # Testing 
 
-[Testing](#testing)
+## Table of Content
 - [Testing User Stories](#testing-user-stories-from-the-user-experience-ux-section)
 - [Code Validation](#code-validation)
 - [Functionality Testing](#functionality-testing)
@@ -184,3 +184,132 @@
     - [x] [#35](https://github.com/sejungkwak/cogito-books/issues/35) As a store owner, I want to delete a product so that I can remove items that are no longer for sale.
 
         ![Delete a book](user_story_testing/user_story_35.png)
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+## Code Validation
+
+- [HTML Validation](#html-validation)
+- [CSS Validation](#css-validation)
+- [JS Validation](#js-validation)
+- [Python Validation](#python-validation)
+
+### HTML Validation
+
+No errors or warnings were found when passing through the [W3C Markup Validator](https://validator.w3.org/).
+
+- Homepage
+
+    ![HTML Homepage Validation](code_validation/html_home.png)
+
+- Book list page
+
+    ![HTML Book list page validation](code_validation/html_book_list.png)
+
+- Book detail page
+
+    ![HTML Book detail page validation](code_validation/html_book_detail.png)
+
+- Add a book page
+
+    ![HTML Add a book page validation](code_validation/html_add_book.png)
+
+- Edit book page
+
+    ![HTML Edit book page Validation](code_validation/html_edit_book.png)
+
+- Delete book page
+
+    ![HTML Delete book page validation](code_validation/html_delete_book.png)
+
+- Add book of the month page
+
+    ![HTML Add book of the month page Validation](code_validation/html_add_book_of_the_month.png)
+
+- Basket page
+
+    ![HTML Basket page validation](code_validation/html_basket.png)
+
+- Checkout page
+
+    ![HTML Checkout page validation](code_validation/html_checkout.png)
+
+- Checkout success page
+
+    ![HTML Checkout success page validation](code_validation/html_checkout_success.png)
+
+- Account detail page
+
+    ![HTML Account detail page validation](code_validation/html_account_detail.png)
+
+- Order history page
+
+    ![HTML Order history page Validation](code_validation/html_order_history.png)
+
+- Wishlist page
+
+    ![HTML Wishlist page Validation](code_validation/html_wishlist.png)
+
+- Contact Us page
+
+    ![HTML Contact Us page validation](code_validation/html_contact_us.png)
+
+- FAQs page
+
+    ![HTML FAQs page Validation](code_validation/html_faq.png)
+
+- Privacy Policy page
+
+    ![HTML Privacy Policy page Validation](code_validation/html_privacy_policy.png)
+
+- Terms and Conditions page
+
+    ![HTML  Validation](code_validation/html_terms_conditions.png)
+
+### CSS Validation
+
+No errors were found when passing through the [W3C CSS Validator](https://jigsaw.w3.org/css-validator/). There are warnings related to the Bootstrap code.
+
+![CSS Validation](code_validation/css_validation.png)
+
+### JS Validation
+
+No errors or warnings were found when passing through [JSHint](https://jshint.com/).
+
+- script.js
+
+    ![JS script.js Validation](code_validation/js_base_script.png)
+
+- carousel.js in the home app
+
+    ![JS script.js Validation](code_validation/js_home-carousel.png)
+
+- sort_option.js in the books app
+
+    ![JS sort_option.js Validation](code_validation/js_book-sort_option.png)
+
+- truncate_toggler.js in the books app
+
+    ![JS truncate_toggler.js Validation](code_validation/js_book-truncate_toggler.png)
+
+- qty_input.js in the books app
+
+    ![JS qty_input.js Validation](code_validation/js_books-qty_input.png)
+
+- point_redemption.js in the checkout page
+
+    ![JS point_redemption.js Validation](code_validation/js_checkout-point_redemption.png)
+
+- stripe.js in the checkout app
+
+    ![JS stripe.js Validation](code_validation/js_checkout-stripe.png)
+
+### Python Validation
+
+- [pycodestyle](https://pypi.org/project/pycodestyle/) was utilised for PEP8 validation. No errors present. There are 5 line-length related issues remaining. As these are from the Django's configuration, I have left them as it is.
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
