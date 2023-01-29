@@ -39,6 +39,8 @@ __Note__: The site is for educational purposes only. To simulate a payment, plea
 - [Robots.txt](#robotstxt)
 - [HTTP error pages](#http-error-pages)
 
+[Business Model](#business-model)
+
 [Web Marketing](#web-marketing)
 - [Facebook business page](#facebook-business-page)
 - [Newsletter Signup Form](#newsletter-signup-form)
@@ -479,6 +481,18 @@ Custom error pages have been created with 4 internal links(Homepage, Books page,
         <summary>Screenshot of 500 page</summary>
         <img src="documentation/http_errors/500.png">
     </details>
+
+[Back To **Table of Contents**](#table-of-contents)
+
+<br>
+
+# Business Model
+
+_Cogito Books_ is a B2C(Business to Consumer) e-commerce application that sells products(books) to individuals. As the target audience is more likely to buy impulsively, the application is focused on a few points below:
+
+- Create an intuitive interface to make the payment flow as easy as possible: __Add to basket__ buttons are from the landing page and the basket icon is accessible from anywhere.
+- Create a place where the customers can engage: Currently, A book of month is published and users can share their reviews. This can ben expanded to a book club.
+- Create a points based loyalty program to make them return. It is implemented and customers can use loyalty points with no hassle.
 
 [Back To **Table of Contents**](#table-of-contents)
 
