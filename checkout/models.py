@@ -33,7 +33,7 @@ class Order(models.Model):
         related_name='orders')
     full_name = models.CharField(max_length=50, null=False, blank=False)
     email = models.EmailField(max_length=254, null=False, blank=False)
-    phone_number = PhoneNumberField(null=False, blank=False, default='IE')
+    phone_number = PhoneNumberField(null=False, blank=False)
     address_line_1 = models.CharField(max_length=80, null=False, blank=False)
     address_line_2 = models.CharField(max_length=80, null=True, blank=True)
     town_or_city = models.CharField(max_length=40, null=False, blank=False)
