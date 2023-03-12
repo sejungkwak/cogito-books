@@ -1,1 +1,0 @@
-web: gunicorn cogito_books.wsgi:application
