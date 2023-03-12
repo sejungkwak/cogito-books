@@ -6,7 +6,7 @@ The main goal of this project is to demonstrate my full-stack knowledge(HTML, CS
 
 ![Multi device website mockup](documentation/responsive.png)
 
-### View the live project [here](https://cogitobooks.herokuapp.com/)
+### View the live project [here](https://cogitobooks.onrender.com)
 
 __Note__: The site is for educational purposes only. To simulate a payment, please use a _Stripe_ test card number 4242 4242 4242 4242 with any three-digit CVC and a valid future date.
 
@@ -457,7 +457,7 @@ The Final list of keywords/phrases used for the site is shown in the table below
 Custom error pages have been created with 4 internal links(Homepage, Books page, Account page, Contact Us page) to be more helpful to a user and provide guidance.
 
 - 404 Page not found (
-[View 404 Page](https://cogitobooks.herokuapp.com/boo))
+[View 404 Page](https://cogitobooks.onrender.com/boo))
 
     ![Screenshot of 404 page](documentation/http_errors/404.png)
 
@@ -558,7 +558,8 @@ For email marketing, a subscription section was added in the footer using the `m
 - [Gitpod](https://www.gitpod.io/) was used to develop and test my code.
 - [Google Fonts](https://fonts.google.com/) was used to embed Montserrat.
 - [Grammarly](https://www.grammarly.com/) was used to check for errors in the README.
-- [Heroku](https://heroku.com/) was used to deploy the project.
+- [Heroku](https://heroku.com/) was initially used to deploy the project.
+- [Render](https://render.com/) was used to deploy the project.
 - [Mailchimp](https://mailchimp.com/) was used to utilise the newsletter sign up functionality.
 - [NY Times Books API](https://developer.nytimes.com/docs/books-product/1/overview) was used to get a list of books.
 - [Privacy Policy Generator](https://www.privacypolicygenerator.info/) was used to create the site's privacy policy.
